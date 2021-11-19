@@ -1,0 +1,11 @@
+p{
+    margin:0
+}
+
+.homepage{
+    width:90vw;
+    padding:5vw;
+}
+.popular-exercise-list{
+    display: flex;
+}
