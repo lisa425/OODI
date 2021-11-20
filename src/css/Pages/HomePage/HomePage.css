@@ -1,0 +1,31 @@
+@import '../../reset.css';
+
+.app-logo{
+    margin-bottom:20px;
+}
+.popular-exercise{
+    margin:30px 0;
+}
+.popular-exercise-list{
+    display: flex;
+}
+.pop-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin:17px 0;
+}
+.timetable-preview{
+    border-radius:5px;
+    width:90%;
+    height:267px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin:0;
+    padding:0 5%;
+    color:black;
+    font-size:24px;
+    border:1px solid #cacaca;
+    position:relative;
+}
