@@ -14,6 +14,8 @@ const LargeButton = styled.button`
     justify-content:center;
     align-items:center;
     margin:34px 0;
+    box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.25);
+
 `
 
 export default LargeButton

@@ -1,12 +1,12 @@
 import React from 'react';
 import Timetable from '../../Components/home/Timetable'
 import LargeButton from '../../Components/common/LargeButton'
-
+import {Link} from 'react-router-dom';
 const TimeTablePage = (props) => {
     return(
         <main className="timetablepage">
             <div>
-                <p>&lt;</p>
+                <Link to='/'>&lt;</Link>
                 <h1 className="page-title">공강 시간 입력</h1>
             </div>
             <p>128시간 중에 
