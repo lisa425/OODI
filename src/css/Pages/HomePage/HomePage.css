@@ -1,6 +1,8 @@
 @import '../../reset.css';
-
-.app-logo{
+.home-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom:20px;
 }
 .popular-exercise{

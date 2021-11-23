@@ -6,13 +6,17 @@ import PopExercise from '../../Components/home/PopExercise'
 import LargeButton from '../../Components/common/LargeButton'
 import SmallSetting from '../../Components/home/SmallSetting'
 import Navigator from '../../Components/common/Navigator'
+import {BellFilled} from '@ant-design/icons'
 
 const HomePage = (props) => {
 
     return(
         <>
         <main className="homepage">
-            <h1 className="app-logo">OODI</h1>
+            <header className="home-header">
+                <h1 className="app-logo">OODI</h1>
+                <BellFilled style={{fontSize:'23px',color:'rgba(0,0,0,0.5)'}}/>
+            </header>
             <div className="timetable-preview">
                 <p>채원님,</p>
                 <p><b>128시간</b>중에</p>

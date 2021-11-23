@@ -11,11 +11,19 @@
 .ExerciseListPage .category{
     position: relative;
     z-index: 1;
+    display: flex;
 }
-.ExerciseListPage .category h3{
+.ExerciseListPage .category .category-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:96%;
+    z-index: 2;
+}
+.ExerciseListPage .category .category-name h3{
     text-align: center;
+    margin-right:5px;
     font-size: 18px;
-    padding-bottom:5vw;
 }
 .ExerciseListPage .open-menu{
     width:100vw;
@@ -47,7 +55,7 @@
     margin:20px 0 5px 0;
 }
 
-.ExerciseListPage .filtering div{
+.ExerciseListPage .filtering button{
     width:32%;
     padding:7px 0;
     border-radius: 100px;
@@ -55,6 +63,7 @@
     color:#555555;
     font-size:12px;
     text-align: center;
+    background: transparent;
 }
 .ExerciseListPage .filtering #time{
     background:#223DFF;
@@ -71,9 +80,11 @@
     font-size: 12px;
     border-bottom:1px solid #dadada;
 }
-.ExerciseListPage .type div{
+.ExerciseListPage .type button{
     width:20%;
     text-align: center;
+    background: transparent;
+    border:none;
 }
 
 .ExerciseListPage .type #all{

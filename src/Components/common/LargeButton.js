@@ -8,12 +8,12 @@ const LargeButton = styled.button`
     background-color:#223DFF;
     border:none;
     border-radius:5px;
-    width:100%;
+    width:90vw;
     height:64px;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:34px 0;
+    margin:17px 0;
     box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.25);
 
 `
