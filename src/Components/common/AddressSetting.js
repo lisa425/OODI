@@ -1,65 +1,36 @@
 /* global kakao */
 
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import '../../css/Components/Common/AddressSetting.css';
 import Back from './Back';
 import LargeButton from './LargeButton';
 import Map from './Map'
-// const {kakao} = window
+import {SearchOutlined} from '@ant-design/icons';
 
 const AddressSetting = (props) => {
-    const [inputText,setInputText] = useState('')
-    const [searchKeyword,setSearchKeyword] = useState('');
+    //input state
+    const [inputText,setInputText] = useState('') 
+    //실제 map으로 보낼 keyword
+    const [searchKeyword,setSearchKeyword] = useState('제주특별자치도 제주시 첨단로 242'); 
     
+    //키워드를 지도에 반영한다.
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearchKeyword(inputText)
     }
-
-    // useEffect(()=>{
-    //     const container = document.getElementById('map');
-	// 	const options = {
-	// 		center: new kakao.maps.LatLng(33.450701, 126.570667),
-	// 		level: 3
-	// 	};
-    //     const map = new kakao.maps.Map(container, options);
-    //     const marker = new kakao.maps.Marker({
-    //         position:map.getCenter()
-    //     })
-    //     marker.setMap(map);
-
-    //     let geocoder = new kakao.maps.services.Geocoder();
-    //     const searchLocation = () => {
-                
-    //     }
-    //     geocoder.addressSearch(searchKeyword, function(result, status) {
-    //         // 정상적으로 검색이 완료됐으면 
-    //         if (status === kakao.maps.services.Status.OK) {
-
-    //             let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-    //             // 결과값으로 받은 위치를 마커로 표시합니다
-    //             let marker = new kakao.maps.Marker({
-    //                 map: map,
-    //                 position: coords
-    //             });
-
-    //             map.setCenter(coords);
-    //         } 
-    //     });    
-            
-    // },[]);
-
-
-   const setPropsAddress = () => {
+   /* 주소 설정 팝업창을 끈다.(뒤로가기)*/ 
+   const setOpenThisMap = () => {
        props.setOpenMap(false)
+   }
+   const setPropsAddress = () => {
+       setOpenThisMap();
        props.setAddress(searchKeyword);
    }
 
     return(
         <div className="setAddress">
             <header>
-                <Back link='/signup'/>
+                {/* <Back link='/signup' onClick={()=>setOpenThisMap()}/> */}
                 <h2>{props.title}</h2>
             </header>
             <section className="input-address">
@@ -69,7 +40,9 @@ const AddressSetting = (props) => {
                     onChange={(e)=>setInputText(e.target.value)} 
                     className="search-keyword"
                 />
-                <button className="submit-keyword" onClick={handleSubmit}>지도보기</button>
+                <button className="submit-keyword" onClick={handleSubmit}>
+                    <SearchOutlined style={{fontSize:'20px'}} />
+                </button>
             </section>
             <Map searchKeyword={searchKeyword}/>
 

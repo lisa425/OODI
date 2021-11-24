@@ -2,6 +2,7 @@ import React from 'react';
 import Timetable from '../../Components/home/Timetable'
 import LargeButton from '../../Components/common/LargeButton'
 import {Link} from 'react-router-dom';
+
 const TimeTablePage = (props) => {
     return(
         <main className="timetablepage">

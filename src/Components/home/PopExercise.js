@@ -14,7 +14,7 @@ const PopExercise = (props) => {
         border-radius:5px;
         margin:1%;
         box-shadow: 0px 0px 15px 0px rgba(196, 196, 196, 0.2);
-
+        background-color:white;
     `
 
     const exercise = {
