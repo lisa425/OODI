@@ -181,10 +181,10 @@ export const Image = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        url: {
+        type: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
+        }
     }
 )
 Lesson.hasMany(Image);

@@ -10,6 +10,12 @@ import classRouter from './router/classRouter.js';
 import imageRouter from './router/imageRouter.js';
 import classTimeRouter from './router/classTimeRouter.js';
 
+import path from 'path'
+console.log("------------------")
+const __dirname = path.resolve()
+console.log(__dirname)
+console.log("------------------")
+
 
 const app = express();
 const router = express.Router();

@@ -1,10 +1,12 @@
 import express from 'express'
+import zip from 'express-zip'
 import path from 'path'
+import fs from 'fs'
 
 import * as classRepository from '../data/classes.js';
 import * as userRepository from '../data/user.js';
 import * as tableRepository from '../data/timetable.js';
-import * as geolib from 'geolib';
+import * as middleware from '../middleware/class.js';
 
 //클래스 생성
 export async function createClass(req, res) {
@@ -34,43 +36,43 @@ export async function getClasses(req, res) {
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
     const table = await tableRepository.getTimetable(userId);
-
-    const timeList = table.time.split(", ")
+    const timeList = table.dataValues.continuousTime.split(", ")
 
     let timetable = []
     timeList.forEach(item => {
 
         var itemArray = item.split("~")
 
-        var set = { start: parseInt(itemArray[0]), end: parseInt(itemArray[1]), day: itemArray[2] }
+        var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
 
         timetable.push(set)
 
     })
 
-    const filtered = await firstFilter(classes, timetable)
+    const filtered = await middleware.firstFilter(classes, timetable)
+
 
     //최저가, 최고가, 할인률, 거리 반환
-    let { newClasses, lowest, highest } = await processing(filtered, here)
+    let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here)
 
     //거리순 정렬
-    newClasses = await orderByDst(order, newClasses)
+    newClasses = await middleware.orderByDst(order, newClasses)
 
     //금액순 정렬
-    newClasses = await orderByPrice(order, newClasses)
+    newClasses = await middleware.orderByPrice(order, newClasses)
 
-    res.status(200).json({ classes: newClasses, lowest, highest, message: "SUCCESS" })
+    res.status(200).json({ classes: newClasses, lowest, highest, imageInfo, message: "SUCCESS" })
 }
 
 //필터링된 클래스 카드 가져오기
 export async function getClassesWithFilter(req, res) {
     const { category, sub, order } = req.params;
-    const time = req.body.time;
+    let time = req.body.time;
     const certainDst = req.body.distance;
     const certainPrice = req.body.price;
     const userId = req.userId;
 
-    //각 필터가 비어있는 경우 처리
+    //각 필터가 비어있는 경우 디폴트 처리
     if (!time) {
         time = []
         defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -99,133 +101,45 @@ export async function getClassesWithFilter(req, res) {
 
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
-
-    const filtered = await firstFilter(classes, time)
+    time = await middleware.calculateTime(time);
+    const filtered = await middleware.firstFilter(classes, time)
 
 
     //최저가, 최고가, 할인률, 거리 반환
-    let { newClasses, lowest, highest } = await processing(filtered, here, certainDst)
+    let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here, certainDst)
 
     //거리순 정렬
-    newClasses = await orderByDst(order, newClasses)
+    newClasses = await middleware.orderByDst(order, newClasses)
 
     //금액순 정렬
-    newClasses = await orderByPrice(order, newClasses)
+    newClasses = await middleware.orderByPrice(order, newClasses)
 
-    res.status(200).json({ classes: newClasses, lowest, highest, message: "SUCCESS" });
+    res.status(200).json({ classes: newClasses, lowest, highest, imageInfo, message: "SUCCESS" });
 }
 
 //클래스 이미지 받기
 export async function getImages(req, res) {
-    const { url } = req.body
+    const { imageInfo } = req.body
 
-    const option = {
-        root: path.join('resource')
-    }
+    const __dirname = path.resolve()
 
-    res.sendFile(fileName, options)
-}
+    let zip = []
+    for (var one of imageInfo) {
+        var file = one.name + "." + one.type
+        var filePath = path.join(__dirname, "/resource", file)
 
-//필터링된 클래스 이미지 받기
-export async function getImagesWithFilter(req, res) {
-
-}
-
-
-async function firstFilter(classes, timetable) {
-
-    let filtered = [];
-    for (var item of classes) {
-        for (var timeItem of item.lessonTimes) {
-            var startTime = timeItem.startTime
-            var endTime = timeItem.endTime
-            var day = timeItem.day
-            var check = false;
-
-            for (var one of timetable) {
-                if (day == one.day && startTime >= one.start && endTime <= one.end) {
-                    filtered.push(item)
-                    check = true;
-                    break;
-                }
+        try {
+            if (!fs.existsSync(filePath)) {
+                return res.status(404).json({ message: "존재하지 않는 이미지 입니다." })
             }
-
-            if (check == true) break;
-        }
-    }
-    return filtered
-}
-
-async function processing(filtered, here, certainDst = 3000) {
-    let newClasses = [];
-    let lowest = 9999999;
-    let highest = 0;
-    let urls = [];
-    for (let oneClass of filtered) {
-        var origin = oneClass.lessonTimes[0].originPrice;
-        var price = oneClass.lessonTimes[0].price;
-
-        //거리계산
-
-        var loc = [oneClass.latitude, oneClass.longitude]
-
-        var distance = await geolib.getDistance(
-            { latitude: loc[0], longitude: loc[1] },
-            { latitude: here[0], longitude: here[1] }
-        );
-
-        //3km 밖이면 필터링
-        if (distance > certainDst) {
-            continue;
+        } catch (err) {
+            console.log(err)
         }
 
-        //할인률
-        var rate = (price / origin) * 100;
-
-        //최저가, 최고가
-        if (lowest > price) lowest = price;
-        if (highest < price) highest = price;
-
-        const list = {
-            "owner": oneClass.owner,
-            "subCategory": oneClass.subCategory,
-            "title": oneClass.title,
-            "description": oneClass.description,
-            "type": oneClass.type,
-            "address": oneClass.address,
-            "lessonTimes": oneClass.lessonTimes,
-        }
-
-        //url 따로 모으기
-        urls.push(oneClass.url)
-
-        newClasses.push({ ...list, discountRate: rate, distance })
+        zip.push({ path: filePath, name: file })
     }
 
-    return { newClasses, lowest, highest }
+    res.zip(zip)
 }
 
-async function orderByDst(order, newClasses) {
-    if (order == "dst") {
-        newClasses.sort(function (a, b) {
 
-            return parseFloat(a.distance) - parseFloat(b.distance);
-
-        });
-    }
-
-    return newClasses
-}
-
-async function orderByPrice(order, newClasses) {
-
-    if (order == "price") {
-        newClasses.sort(function (a, b) {
-
-            return parseFloat(a.lessonTimes[0].price) - parseFloat(b.lessonTimes[0].price);
-
-        });
-    }
-
-    return newClasses
-}

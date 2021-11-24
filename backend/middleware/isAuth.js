@@ -14,8 +14,6 @@ export async function isAuth(req, res, next) {
 
     const token = authHeader.split(' ')[1];
 
-    //console.log(token)
-
     jwt.verify(token, config.jwt.secretKey, async (error, decoded) => {
         if (error) {
             return res.status(401).json(AUTH_ERROR)
@@ -23,11 +21,7 @@ export async function isAuth(req, res, next) {
 
         const user = await userRepository.findById(decoded.id);
 
-        console.log("user: " + user);
-
         if (!user) {
-            console.log("no user");
-
             return res.status(401).json(AUTH_ERROR);
         }
 

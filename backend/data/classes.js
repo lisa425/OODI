@@ -9,7 +9,6 @@ import { Lesson, LessonTime, Image } from '../db/scema.js'
 const Sequelize = SQ.Sequelize;
 
 
-//TODO: 이미지 빼고 따로 url 짜기
 const LESSON = {
     attributes: [
         'owner',
@@ -28,7 +27,7 @@ const INCLUDE = {
     include: [
         {
             model: Image,
-            attributes: ['url'],
+            attributes: ['name', 'type'],
             limit: 1
         },
         {
@@ -70,8 +69,6 @@ export async function createClass(info) {
         ...info,
         latitude: loc[0],
         longitude: loc[1],
-    }).then(data => {
-        console.log(data)
     })
 }
 
@@ -114,8 +111,6 @@ export async function findClassCards(category, sub, order = false) {
             where: { category, subCategory: sub }
         })
     }
-
-
 }
 
 export async function findClassCardsWithFilter(category, sub, price, order = false) {
@@ -126,7 +121,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             ...FLITER,
             include: [{
                 model: Image,
-                attributes: [url],
+                attributes: ['name', 'type'],
                 limit: 1
             },
             {
@@ -153,7 +148,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             ...FLITER,
             include: [{
                 model: Image,
-                attributes: [url],
+                attributes: ['name', 'type'],
                 limit: 1
             },
             {
@@ -180,7 +175,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             ...FLITER,
             include: [{
                 model: Image,
-                attributes: [url],
+                attributes: ['name', 'type'],
                 limit: 1
             },
             {
@@ -206,7 +201,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             ...FLITER,
             include: [{
                 model: Image,
-                attributes: [url],
+                attributes: ['name', 'type'],
                 limit: 1
             },
             {
