@@ -18,19 +18,3 @@ export const checkPhonenum = (value) => {
     if (number.length == 3) return true
     else return false;
 }
-
-export const checkTimetable = (value) => {
-
-    const timePattern = /^[0-2][0-9][0-5][0-9]$/
-    const dayPattern = ["월", "화", "수", "목", "금", "토", "일"]
-
-    let check = true;
-
-    value.forEach(time => {
-        if (!(timePattern.test(time.start) && timePattern.test(time.end) && dayPattern.includes(time.day))) {
-            check = false;
-        }
-    });
-
-    return check;
-}

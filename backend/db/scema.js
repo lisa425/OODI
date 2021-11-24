@@ -109,6 +109,10 @@ export const Timetable = sequelize.define(
         time: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        continuousTime: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     })
 User.hasMany(Timetable)

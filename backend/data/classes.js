@@ -5,14 +5,12 @@ const Op = SQ.Op;
 
 
 import { Lesson, LessonTime, Image } from '../db/scema.js'
-import * as imageRepository from './image.js';
-import * as classTimeRepository from './classTime.js';
 
 const Sequelize = SQ.Sequelize;
 
 
 //TODO: 이미지 빼고 따로 url 짜기
-const INCLUDE_CLASS = {
+const LESSON = {
     attributes: [
         'owner',
         'subCategory',
@@ -23,18 +21,24 @@ const INCLUDE_CLASS = {
         'latitude',
         'longitude'
     ],
-    include: [{
-        model: Image,
-        attributes: ['url'],
-        limit: 1,
-    }, {
-        model: LessonTime,
-        attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
-        order: [['price', 'ASC']],
-    }]
+
 }
 
-const INCLUDE_FLITER = {
+const INCLUDE = {
+    include: [
+        {
+            model: Image,
+            attributes: ['url'],
+            limit: 1
+        },
+        {
+            model: LessonTime,
+            attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+            order: [['price', 'ASC']],
+        }]
+}
+
+const FLITER = {
     attributes: [
         'owner',
         'subCategory',
@@ -76,7 +80,8 @@ export async function findClassCards(category, sub, order = false) {
     //1 신규순 정렬, 전체 카테고리
     if (order && sub == "전체") {
         return Lesson.findAll({
-            ...INCLUDE_CLASS,
+            ...LESSON,
+            ...INCLUDE,
             where: { category },
             ...ORDER_BY_TIME
         })
@@ -85,7 +90,8 @@ export async function findClassCards(category, sub, order = false) {
     else if (order && sub != "전체") {
 
         return Lesson.findAll({
-            ...INCLUDE_CLASS,
+            ...LESSON,
+            ...INCLUDE,
             where: { category, subCategory: sub },
             ...ORDER_BY_TIME
         })
@@ -94,7 +100,8 @@ export async function findClassCards(category, sub, order = false) {
     else if (!order && sub == "전체") {
 
         return Lesson.findAll({
-            ...INCLUDE_CLASS,
+            ...LESSON,
+            ...INCLUDE,
             where: { category },
         })
     }
@@ -102,7 +109,8 @@ export async function findClassCards(category, sub, order = false) {
     else {
 
         return Lesson.findAll({
-            ...INCLUDE_CLASS,
+            ...LESSON,
+            ...INCLUDE,
             where: { category, subCategory: sub }
         })
     }
@@ -112,13 +120,16 @@ export async function findClassCards(category, sub, order = false) {
 
 export async function findClassCardsWithFilter(category, sub, price, order = false) {
 
-    console.log(price);
-
     //1 신규순 정렬, 전체 카테고리
     if (order && sub == "전체") {
         return Lesson.findAll({
-            ...INCLUDE_FLITER,
+            ...FLITER,
             include: [{
+                model: Image,
+                attributes: [url],
+                limit: 1
+            },
+            {
                 model: LessonTime,
                 attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
@@ -139,8 +150,13 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
     else if (order && sub != "전체") {
 
         return Lesson.findAll({
-            ...INCLUDE_FLITER,
+            ...FLITER,
             include: [{
+                model: Image,
+                attributes: [url],
+                limit: 1
+            },
+            {
                 model: LessonTime,
                 attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
@@ -161,8 +177,13 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
     else if (!order && sub == "전체") {
 
         return Lesson.findAll({
-            ...INCLUDE_FLITER,
+            ...FLITER,
             include: [{
+                model: Image,
+                attributes: [url],
+                limit: 1
+            },
+            {
                 model: LessonTime,
                 attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
@@ -182,8 +203,13 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
     else {
 
         return Lesson.findAll({
-            ...INCLUDE_FLITER,
+            ...FLITER,
             include: [{
+                model: Image,
+                attributes: [url],
+                limit: 1
+            },
+            {
                 model: LessonTime,
                 attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
@@ -200,3 +226,6 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
         })
     }
 }
+
+
+

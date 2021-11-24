@@ -18,22 +18,27 @@ export async function getTime(req, res) {
 
     const time = await tableRepository.getTimetable(userId)
 
-    const timeList = time.time.split(", ")
+    const timeList = time.continuousTime.split(", ")
 
     let total = 0;
     timeList.forEach(item => {
 
         var itemArray = item.split("~")
+        console.log(itemArray)
 
         //minite 단위
-        var s = [parseInt(itemArray[0].slice(0, 2)), parseInt(itemArray[0].slice(2))]
+        var s = [parseInt(itemArray[1].slice(0, 2)), parseInt(itemArray[1].slice(2))]
         var start = (s[0] * 60) + s[1]
+        console.log(start)
 
 
-        var e = [parseInt(itemArray[1].slice(0, 2)), parseInt(itemArray[1].slice(2))]
+        var e = [parseInt(itemArray[2].slice(0, 2)), parseInt(itemArray[2].slice(2))]
         var end = (e[0] * 60) + e[1]
+        console.log(end)
 
         total += (end - start)
+
+        console.log(total)
 
     })
 
@@ -54,9 +59,14 @@ export async function getTable(req, res) {
     let timetable = []
     timeList.forEach(item => {
 
-        var itemArray = item.split("~")
+        var itemArray = item.split("-")
 
-        var set = { start: itemArray[0], end: itemArray[1], day: itemArray[2] }
+        let timeList = []
+        for (var i = 1; i < itemArray.length; i++) {
+            timeList.push(parseInt(itemArray[i]))
+        }
+
+        var set = { day: itemArray[0], timeList }
 
         timetable.push(set)
     })

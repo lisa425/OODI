@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 
 import * as tableController from '../controller/tableController.js';
 import { isAuth } from '../middleware/isAuth.js';
-import { validator, checkTimetable } from '../middleware/validator.js';
+import { validator } from '../middleware/validator.js';
 
 const router = express.Router();
 
@@ -12,9 +12,7 @@ const validateTime = [
         .notEmpty()
         .withMessage("시작 시간을 입력해주세요")
         .isArray()
-        .withMessage("시간표는 배열형식이어야 합니다")
-        .custom(checkTimetable)
-        .withMessage("올바른 시간표를 입력해 주세요(시간은 0000 형태, 요일은 월~일 중 하나)"),
+        .withMessage("시간표는 배열형식이어야 합니다"),
 
     validator
 ]

@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 
 import * as classRepository from '../data/classes.js';
 import * as userRepository from '../data/user.js';
@@ -55,7 +56,6 @@ export async function getClasses(req, res) {
     //거리순 정렬
     newClasses = await orderByDst(order, newClasses)
 
-
     //금액순 정렬
     newClasses = await orderByPrice(order, newClasses)
 
@@ -73,7 +73,7 @@ export async function getClassesWithFilter(req, res) {
     //각 필터가 비어있는 경우 처리
     if (!time) {
         time = []
-        defaultTime = ["월", "화", "수", "목", "금", "토", "일"]
+        defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         for (var df of defaultTime) {
             time.push({ start: 0, end: 2400, day: df })
         }
@@ -117,7 +117,13 @@ export async function getClassesWithFilter(req, res) {
 
 //클래스 이미지 받기
 export async function getImages(req, res) {
+    const { url } = req.body
 
+    const option = {
+        root: path.join('resource')
+    }
+
+    res.sendFile(fileName, options)
 }
 
 //필터링된 클래스 이미지 받기
@@ -154,6 +160,7 @@ async function processing(filtered, here, certainDst = 3000) {
     let newClasses = [];
     let lowest = 9999999;
     let highest = 0;
+    let urls = [];
     for (let oneClass of filtered) {
         var origin = oneClass.lessonTimes[0].originPrice;
         var price = oneClass.lessonTimes[0].price;
@@ -188,6 +195,9 @@ async function processing(filtered, here, certainDst = 3000) {
             "address": oneClass.address,
             "lessonTimes": oneClass.lessonTimes,
         }
+
+        //url 따로 모으기
+        urls.push(oneClass.url)
 
         newClasses.push({ ...list, discountRate: rate, distance })
     }
