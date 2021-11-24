@@ -1,0 +1,54 @@
+.setAddress{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:90vh;
+    padding:5vh 0;
+    z-index: 5;
+    background:white;
+    overflow:hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.setAddress>header{
+    width:90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.setAddress>header>h2{
+    width:90%;
+    position: relative;
+    top:-3px;
+    font-size: 24px;
+}
+.setAddress .map{
+    width:100%;
+    height:326px;
+}
+.setAddress .confirm-address{
+    width:90%;
+    margin-top:25px;
+}
+.setAddress .confirm-address>div{
+    width:90%;
+    padding:0 5%;
+    border:1px solid #cacaca;
+    border-radius: 5px;
+    height:56px;
+    background:#fafafa;
+    margin-top:20px;
+    display: flex;
+    align-items: center;
+}
+.setAddress .search-keyword{
+    width:80%;
+    padding: 0 5%;
+    border:1px solid #cacaca;
+    border-radius: 5px;
+    height:56px;
+    background:#fafafa;
+    margin:20px 0
+}

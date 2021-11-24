@@ -1,0 +1,27 @@
+.LoginPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.LoginPage input{
+    width:91%;
+    border:1px solid #c4c4c4;
+    background: white;
+    border-radius: 5px;
+    height:56px;
+    font-size: 15px;
+    padding:0 4%;
+}
+.LoginPage .logo{
+    width:130px;
+    margin-bottom:30px;
+}
+.LoginPage p{
+    font-size: 12px;
+    line-height: 1.6em;
+}
+.LoginPage .to-signup{
+    font-weight: 700;
+    text-decoration: underline;
+}

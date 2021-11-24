@@ -1,0 +1,112 @@
+.ExerciseListPage .exercise-list{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom:80px;
+}
+.ExerciseListPage .exercise-list a{
+    width:48%;
+}
+.ExerciseListPage .category{
+    position: relative;
+    z-index: 1;
+    display: flex;
+}
+.ExerciseListPage .category .category-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:96%;
+    z-index: 2;
+}
+.ExerciseListPage .category .category-name h3{
+    text-align: center;
+    margin-right:5px;
+    font-size: 18px;
+}
+.ExerciseListPage .open-menu{
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.7);
+    position: fixed;
+    left:0;
+    touch-action: none;
+    overflow: hidden;
+}
+.ExerciseListPage .open-menu .first-category{
+    width: 100vw;
+    height: 348px;
+    background:#f4f4f4;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.ExerciseListPage .hide-menu{
+    display: none;
+}
+
+.ExerciseListPage .filtering{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    margin:20px 0 5px 0;
+}
+
+.ExerciseListPage .filtering button{
+    width:32%;
+    padding:7px 0;
+    border-radius: 100px;
+    border:1px solid #c4c4c4;
+    color:#555555;
+    font-size:12px;
+    text-align: center;
+    background: transparent;
+}
+.ExerciseListPage .filtering #time{
+    background:#223DFF;
+    color:white;
+    font-weight: 500;
+    border:none;
+}
+
+.ExerciseListPage .type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    font-size: 12px;
+    border-bottom:1px solid #dadada;
+}
+.ExerciseListPage .type button{
+    width:20%;
+    text-align: center;
+    background: transparent;
+    border:none;
+}
+
+.ExerciseListPage .type #all{
+    padding:4% 0;
+    color:#223DFF;
+    font-weight: 700; 
+    border-bottom:2px solid #223DFF;
+}
+
+.ExerciseListPage .sort{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    margin:3% 0 1% 0;
+}
+
+.ExerciseListPage .sort select{
+    width:71px;
+    height:25px;
+    border-radius: 100px;
+    border:1px solid #dadada;
+    font-size: 10px;
+    padding:5px 10px;
+    text-align:center;
+}

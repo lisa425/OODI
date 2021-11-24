@@ -1,0 +1,103 @@
+
+.ExerciseDetailPage .exercise-image{
+    width:100vw;
+    height:35vh;
+    object-fit: cover;
+    position: relative;
+    left:-5vw;
+}
+
+.ExerciseDetailPage .detail-header{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.ExerciseDetailPage .detail-header .header-icons{
+    width:30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.ExerciseDetailPage .detail-header .header-icons *{
+    margin:0 7px
+}
+
+.ExerciseDetailPage .introduce .keyword{
+    font-size: 10px;
+    display: flex;
+    width:100%;
+    flex-wrap: wrap;
+    margin:13px 0 9px 0;
+    align-items: center;
+}
+
+.ExerciseDetailPage .introduce .keyword div{
+    padding:5px;
+    border:1px solid #dadada;
+    margin-right:3px;
+}
+
+.ExerciseDetailPage .introduce h3{
+    font-size: 18px;
+    font-weight: 700;
+    margin:12px 0;
+}
+.ExerciseDetailPage .introduce p{
+    font-size: 13px;
+    line-height: 1.4em;
+}
+
+.ExerciseDetailPage .information{
+    margin:20px 0;
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.ExerciseDetailPage .information h5{
+    width:100%;
+    color:#223DFF;
+    font-size:14px;
+    margin-bottom: 5px;
+}
+.ExerciseDetailPage .information div{
+    width:48%;
+    border:1px solid #223DFF;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    margin:5px 0;
+    font-weight: 500;
+}
+.ExerciseDetailPage .detail-information .detail-information-header{
+    border:1px solid #dadada;
+    width:90vw;
+    position: relative;
+    left:-6vw;
+    padding:0 6vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ExerciseDetailPage .detail-information .detail-information-header div{
+    
+    text-align: center;
+    font-size:14px;
+    font-weight: 700;
+    width:70px;
+    border-bottom:3px solid #223DFF;
+    margin:0 15%;
+    padding:9px 0;
+}
+
+.ExerciseDetailPage .detail-information article p{
+    margin:30px 0;
+    font-size: 12px;
+    line-height: 1.7em;
+    margin-bottom:170px;
+}
