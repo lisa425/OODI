@@ -14,15 +14,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<LoginPage />}/>
-        <Route path='/signup' element={<SignupPage />}/>
-        <Route path='/' element={<HomePage />}/>
-        <Route path='/setting/timetable' element={<TimeTablePage />}/>
-        <Route path='/setting/address' element={<AddressSetting />}/>
-        <Route path='/search' element={<ExerciseList />}/>
-        <Route path='/search/detail' element={<ExerciseDetail />}/>
-        <Route path='/question' element={<QuestionList />}/>
-        <Route path='/mypage' element={<MyPage />}/>
+        <Route exact path='/login' element={<LoginPage />}/>
+        <Route exact path='/signup' element={<SignupPage />}/>
+        <Route exact path='/' element={<HomePage />}/>
+        <Route exact path='/setting/timetable' element={<TimeTablePage />}/>
+        <Route exact path='/setting/address' element={<AddressSetting />}/>
+        <Route exact  path='/search' element={<ExerciseList />}/>
+        <Route exact path='/search/detail' element={<ExerciseDetail />}/>
+        <Route exact path='/question' element={<QuestionList />}/>
+        <Route exact path='/mypage' element={<MyPage />}/>
      </Routes>
     </Router>
   );

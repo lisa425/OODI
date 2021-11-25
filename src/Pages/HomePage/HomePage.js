@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 import Timetable from '../../Components/home/Timetable'
 import '../../css/Pages/HomePage/HomePage.css'
@@ -7,9 +7,30 @@ import LargeButton from '../../Components/common/LargeButton'
 import SmallSetting from '../../Components/home/SmallSetting'
 import Navigator from '../../Components/common/Navigator'
 import {BellFilled} from '@ant-design/icons'
+import axios from 'axios';
 
 const HomePage = (props) => {
 
+    useEffect(()=>{
+        const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
+        const config = {
+            headers:{"Authorization": `Bearer ${token}`},
+            withCredentials: true,
+        };
+
+        console.log('hi Bearer')
+        axios.get('http://localhost:8080/user/',config)
+        .then(response => {
+            if(response.data.message === 'SUCCESS'){
+                console.log(response.data.name)
+                console.log(response.data.address)
+            }
+        }).catch((error)=>{
+            console.log('error:',error)
+        })
+
+    },[])
     return(
         <>
         <main className="homepage">

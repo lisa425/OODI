@@ -5,36 +5,67 @@ import LargeButton from '../../Components/common/LargeButton';
 import AddressSetting from '../../Components/common/AddressSetting';
 import axios from 'axios';
 
-const SignupPage = ({history}) => {
+const SignupPage = (props) => {
     const [name,setName] = useState('')
     const [phoneNumber,setPhoneNumber] = useState('')
+
+    const [randomNumber,setRandomNumber] = useState('')
     const [certification,setCertification] = useState()
+    const [isCertify,setIsCertify] = useState(false)
+    const [isCertMessage,setIsCertMessage] = useState('')
+
     const [openMap,setOpenMap] = useState(false)
     const [address,setAddress] = useState('');
     const [detailAddress,setDetailAddress] = useState('');
 
+    //지도 오픈
     const showMap = () => {
         setOpenMap(true)
     }
 
-    const submitSignup = () => {
-        let signupInfo = {
-            phonenum:phoneNumber,
-            name:name,
-            address:address
-        }
-
-        axios.post('http://localhost:8080/user/signup',signupInfo)
-        .then(response => {
-            if(response.data.message === 'SUCCESS'){
-                history.replace('/login')
-            }else{
-                console.log('request is success,but fail?')
-            }
-        }).catch((error)=>{
-            console.log(error)
-        })
+    //랜덤 인증번호 생성
+    const createCertNum = () => {
+        let randomNum = String(Math.floor(Math.random()*1000000)).padStart(6,"0")
+        setRandomNumber(randomNum);
+        console.log(randomNum);
     }
+
+    const certify = (input,number) => {
+        console.log(input,number)
+        console.log(typeof(input),typeof(number))
+        if(input === number){
+            setIsCertify(true)
+        }
+    }
+
+    //회원가입 폼 제출
+    const submitSignup = () => {
+        console.log(certification)
+        certify(certification,randomNumber)
+
+        if (isCertify) {
+            let signupInfo = {
+                phonenum:phoneNumber,
+                name:name,
+                address:address + detailAddress
+            }
+            axios.post('http://localhost:8080/user/signup',signupInfo)
+            .then(response => {
+                if(response.data.message === 'SUCCESS'){
+                    alert('success signup')
+                    props.history.push('/login')
+                }else{
+                    console.log('request is success,but fail')
+                }
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }else{
+            setIsCertMessage('인증번호가 올바르지 않습니다.')
+        }
+    }
+
+
     return(
         <main className="SignupPage">
             <header>
@@ -58,7 +89,7 @@ const SignupPage = ({history}) => {
                     onChange={(e)=>setPhoneNumber(e.target.value)}
                     placeholder="전화번호를 입력해주세요(형식:010-1234-5678)"
                 />
-                <button className="cert-btn">인증하기</button>
+                <button className={phoneNumber ? "cert-btn-active" : "cert-btn"} onClick={createCertNum}>인증하기</button>
             </section>
             <section className="signup-section">
                 <h3>인증번호</h3>
@@ -68,6 +99,7 @@ const SignupPage = ({history}) => {
                     onChange={(e)=>setCertification(e.target.value)}
                     placeholder="인증번호를 입력해주세요."
                 />
+                <p className="cert-message">{isCertMessage}</p>
             </section>
             <section className="signup-section">
                 <h3>주소/상세주소</h3>
