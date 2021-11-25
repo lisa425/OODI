@@ -18,6 +18,8 @@ export async function getTime(req, res) {
 
     const time = await tableRepository.getTimetable(userId)
 
+    if (!time) { res.status(404).json({ message: "시간표가 없습니다." }) }
+
     const timeList = time.continuousTime.split(", ")
 
     let total = 0;
