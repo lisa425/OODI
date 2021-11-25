@@ -1,0 +1,29 @@
+{
+  "name": "oodi",
+  "version": "1.0.0",
+  "description": "Sport class platform based on timetable for 20s",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "author": "jisu Lee",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-validator": "^6.13.0",
+    "express-zip": "^3.0.0",
+    "geolib": "^3.3.3",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.5.5",
+    "mysql2": "^2.3.3",
+    "node-geocoder": "^3.28.0",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.9.0"
+  }
+}
