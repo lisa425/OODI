@@ -33,7 +33,7 @@ const INCLUDE = {
         },
         {
             model: LessonTime,
-            attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+            attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
             order: [['price', 'ASC']],
             where: {
                 appliable: "yes"
@@ -131,7 +131,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -158,7 +158,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -185,7 +185,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -211,7 +211,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
                 where: {
                     price: {
                         [Op.and]: {

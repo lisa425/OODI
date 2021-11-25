@@ -140,8 +140,8 @@ export const LessonTime = sequelize.define(
             allowNull: false,
         },
         startDate: {
-            type: DataTypes.DATE,
-            allowNull: true,
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         originPrice: {
             type: DataTypes.INTEGER,
@@ -189,6 +189,28 @@ export const Image = sequelize.define(
 )
 Lesson.hasMany(Image);
 Image.belongsTo(Lesson);
+
+export const Reservation = sequelize.define(
+    'reservation',
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true,
+        },
+        lessonTimeId: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    }
+)
+User.hasMany(Reservation)
+Lesson.hasMany(Reservation)
+Reservation.belongsTo(User)
+Reservation.belongsTo(Lesson)
+
+
 
 export const Review = sequelize.define(
     'review',
