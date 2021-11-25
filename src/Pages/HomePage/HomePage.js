@@ -10,7 +10,12 @@ import {BellFilled} from '@ant-design/icons'
 import axios from 'axios';
 
 const HomePage = (props) => {
-    
+    //user name
+    const [username,setUsername] = useState('')
+    const [userLocation,setUserLocation] = useState('')
+    //total useable time
+    const [totalTime,setTotalTime] = useState()
+
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
         console.log(token)
@@ -22,18 +27,18 @@ const HomePage = (props) => {
         axios.get('http://localhost:8080/user',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
-                console.log(response.data.name)
-                console.log(response.data.address)
+                setUsername(response.data.name)
+                setUserLocation(response.data.address)
             }
         }).catch((error)=>{
             console.log('error:',error)
         })
 
-        //get useable time
+        //get total useable time
         axios.get('http://localhost:8080/timetable/getTime',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
-                console.log(response.data.totalTime)
+                setTotalTime(response.data.totalTime)
             }
         }).catch((error)=>{
             console.log('error:',error)
@@ -49,9 +54,9 @@ const HomePage = (props) => {
             </header>
             <div className="timetable-preview">
                 <div className="preview-text">
-                    <p>채원님,</p>
+                    <p>{username}님,</p>
                     <p><b>128시간</b>중에</p>
-                    <p><span style={{color:'#223DFF',fontWeight:'bold'}}>7시간</span>을 활용할 수 있어요!</p>
+                    <p><span style={{color:'#223DFF',fontWeight:'bold'}}>{totalTime}시간</span>을 활용할 수 있어요!</p>
                     <SmallSetting style={{position:'absolute',right:'8%',bottom:'10%'}}>
                         <Link to='/setting/timetable'>시간설정</Link>
                     </SmallSetting>
@@ -61,7 +66,7 @@ const HomePage = (props) => {
             
             <section className="popular-exercise">
                 <div className="pop-title">
-                    <h2>광진구에서<br/>인기있는 운동이에요</h2>
+                    <h2>{userLocation}<br/>인기있는 운동이에요</h2>
                     <SmallSetting style={{position:'relative',right:'9px'}}>
                         <Link to='/setting/location'>위치설정</Link>
                     </SmallSetting>
