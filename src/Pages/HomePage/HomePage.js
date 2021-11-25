@@ -10,9 +10,9 @@ import {BellFilled} from '@ant-design/icons'
 import axios from 'axios';
 
 const HomePage = (props) => {
-    //user name
+    //user name,address
     const [username,setUsername] = useState('')
-    const [userLocation,setUserLocation] = useState('')
+    const [userAddress,setUserAddress] = useState('')
     //total useable time
     const [totalTime,setTotalTime] = useState()
 
@@ -28,7 +28,7 @@ const HomePage = (props) => {
         .then(response => {
             if(response.data.message === 'SUCCESS'){
                 setUsername(response.data.name)
-                setUserLocation(response.data.address)
+                setUserAddress(response.data.address)
             }
         }).catch((error)=>{
             console.log('error:',error)
@@ -66,7 +66,7 @@ const HomePage = (props) => {
             
             <section className="popular-exercise">
                 <div className="pop-title">
-                    <h2>{userLocation}<br/>인기있는 운동이에요</h2>
+                    <h2>{userAddress}<br/>인기있는 운동이에요</h2>
                     <SmallSetting style={{position:'relative',right:'9px'}}>
                         <Link to='/setting/location'>위치설정</Link>
                     </SmallSetting>
