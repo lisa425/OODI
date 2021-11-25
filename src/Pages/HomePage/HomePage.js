@@ -38,10 +38,12 @@ const HomePage = (props) => {
         axios.get('http://localhost:8080/timetable/getTime',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
+                console.log('success')
+                console.log(response.status)
                 setTotalTime(response.data.totalTime)
             }
         }).catch((error)=>{
-            console.log(error.response.status)
+            console.log(error)
             setTotalTime(0)
         })
 
