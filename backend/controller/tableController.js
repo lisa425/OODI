@@ -6,8 +6,6 @@ export async function setTimetable(req, res) {
     const { time } = req.body
     const userId = req.userId;
 
-    console.log(time)
-
     await tableRepository.setTimetable(time, userId);
 
     res.status(201).json({ message: "SUCCESS" });
@@ -40,7 +38,6 @@ export async function getTime(req, res) {
 
         var e = [parseInt(itemArray[2].slice(0, 2)), parseInt(itemArray[2].slice(2))]
         var end = (e[0] * 60) + e[1]
-
 
         total += (end - start)
 
