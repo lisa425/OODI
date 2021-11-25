@@ -7,8 +7,6 @@ import '../../css/Pages/SettingPage/TimeTablePage.css'
 
 const TimeTablePage = (props) => {
     const [selectedTime,setSelectedTime] = useState([]);
-    
-    const [resultTime,setResultTime] = useState([]);
 
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
@@ -79,7 +77,8 @@ const TimeTablePage = (props) => {
         }  
     }  
 
-    const ableTimeList = [
+    const submitTime = () => {
+        const ableTimeList = [
             {
                 'day':'Mon',
                 'timeList':monTimeList
@@ -110,10 +109,7 @@ const TimeTablePage = (props) => {
             },
         ]
 
-        console.log('selected:',selectedTime.length)
-
-    const submitTime = () => {
-
+        console.log(ableTimeList)
     }
     return(
         <div className='timetablepage'>
