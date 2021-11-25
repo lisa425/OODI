@@ -4,6 +4,7 @@
   "description": "Sport class platform based on timetable for 20s",
   "main": "index.js",
   "type": "module",
+  "proxy": "http://localhost:3000/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app"
@@ -21,6 +22,7 @@
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.5",
+    "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "node-geocoder": "^3.28.0",
     "nodemon": "^2.0.15",

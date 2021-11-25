@@ -1,5 +1,7 @@
 import express from 'express';
+import 'express-async-errors';
 import cors from 'cors';
+import morgan from 'morgan';
 import helmet from 'helmet';
 
 import { config } from './config.js';
@@ -13,28 +15,23 @@ import classTimeRouter from './router/classTimeRouter.js';
 const app = express();
 const router = express.Router();
 
-const corsOption = {
-    origin: '*',
+// const corsOption = {
+//     origin: '*',
 
-    methods: [
-        'GET',
-        'POST',
-    ],
+//     methods: [
+//         'GET',
+//         'POST',
+//     ],
 
-    allowedHeaders: [
-        'Content-Type',
-    ]
-}
+//     allowedHeaders: [
+//         'Content-Type',
+//     ]
+// }
 
 app.use(express.json());
-app.use(cors(corsOption));
 app.use(helmet());
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors());
+app.use(morgan('tiny'))
 
 
 //test
