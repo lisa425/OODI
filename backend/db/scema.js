@@ -66,7 +66,7 @@ export const Lesson = sequelize.define(
             allowNull: false,
         },
         detail: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         address: {
@@ -107,11 +107,11 @@ export const Timetable = sequelize.define(
             primaryKey: true,
         },
         time: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         continuousTime: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         }
     })
@@ -140,7 +140,7 @@ export const LessonTime = sequelize.define(
             allowNull: false,
         },
         startDate: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         originPrice: {
