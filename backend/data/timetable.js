@@ -6,6 +6,12 @@ export async function setTimetable(time, userId) {
     let originTime = ""
     let continuous = ""
 
+    const exist = await getTimetable(userId);
+
+    if (exist) {
+        await Timetable.destroy({ where: { userId } })
+    }
+
     for (var timeSet of time) {
         var start = 0
         var end = 0

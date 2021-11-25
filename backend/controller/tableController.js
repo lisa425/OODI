@@ -47,7 +47,7 @@ export async function getTime(req, res) {
 
     }
 
-    total = (total / 60).toFixed(1)
+    total = (total / 60).toFixed()
 
     res.status(200).json({ totalTime: total, message: "SUCCESS" })
 
