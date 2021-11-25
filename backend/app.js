@@ -10,19 +10,18 @@ import classRouter from './router/classRouter.js';
 import imageRouter from './router/imageRouter.js';
 import classTimeRouter from './router/classTimeRouter.js';
 
-import path from 'path'
-console.log("------------------")
-const __dirname = path.resolve()
-console.log(__dirname)
-console.log("------------------")
-
-
 const app = express();
 const router = express.Router();
 
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 
 //test

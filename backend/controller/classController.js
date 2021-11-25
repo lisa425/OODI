@@ -75,9 +75,9 @@ export async function getClassesWithFilter(req, res) {
     //각 필터가 비어있는 경우 디폴트 처리
     if (!time) {
         time = []
-        defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        const defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         for (var df of defaultTime) {
-            time.push({ start: 0, end: 2400, day: df })
+            time.push({ timeList: [0, 2300], day: df })
         }
     }
     if (!certainDst) {
@@ -143,3 +143,43 @@ export async function getImages(req, res) {
 }
 
 
+//클래스 세부페이지 가져오기
+export async function getOneClass(req, res) {
+    let { time, price } = req.body;
+    const classId = req.params.classId;
+    const userId = req.userId
+
+    let timeList = []
+    if (!time) {
+        const table = await tableRepository.getTimetable(userId)
+        time = table.dataValues.continuousTime.split(", ")
+
+        time.forEach(item => {
+
+            var itemArray = item.split("~")
+
+            var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
+
+            timeList.push(set)
+
+        })
+    } else {
+        timeList = await middleware.calculateTime(time);
+    }
+
+    if (!price) {
+        price = [0, 10000000]
+    }
+
+    const lesson = await classRepository.findOneClass(classId, price);
+
+    if (!lesson) {
+        return res.status(404).json({ "message": "class not found" })
+    }
+
+    const filtered = await middleware.classTimeFilter(lesson, timeList);
+
+    //console.log(lesson)
+
+    res.sendStatus(200)
+}

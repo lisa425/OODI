@@ -7,8 +7,9 @@ export async function findById(id) {
 }
 
 export async function findByPhonenum(phonenum) {
-    return User.findOne({ where: { phonenum } }).then(data => {
-        return data.id;
+    return User.findOne({
+        attributes: ['id'],
+        where: { phonenum }
     });
 }
 

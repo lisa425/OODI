@@ -11,6 +11,7 @@ const Sequelize = SQ.Sequelize;
 
 const LESSON = {
     attributes: [
+        'id',
         'owner',
         'subCategory',
         'title',
@@ -34,11 +35,15 @@ const INCLUDE = {
             model: LessonTime,
             attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
             order: [['price', 'ASC']],
+            where: {
+                appliable: "yes"
+            }
         }]
 }
 
 const FLITER = {
     attributes: [
+        'id',
         'owner',
         'subCategory',
         'title',
@@ -223,4 +228,24 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
 }
 
 
-
+export async function findOneClass(classId, price) {
+    return await Lesson.findByPk(classId, {
+        include: [
+            {
+                model: Image,
+                attributes: ['name', 'type'],
+            },
+            {
+                model: LessonTime,
+                where: {
+                    price: {
+                        [Op.and]: {
+                            [Op.gte]: price[0],
+                            [Op.lte]: price[1],
+                        }
+                    }
+                }
+            }
+        ]
+    })
+}
