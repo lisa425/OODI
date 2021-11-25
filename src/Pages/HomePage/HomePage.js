@@ -41,7 +41,8 @@ const HomePage = (props) => {
                 setTotalTime(response.data.totalTime)
             }
         }).catch((error)=>{
-            console.log('error:',error)
+            console.log(error.response.status)
+            setTotalTime(0)
         })
 
     },[])
