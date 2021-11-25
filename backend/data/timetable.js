@@ -29,7 +29,7 @@ export async function setTimetable(time, userId) {
                 if (end == 0) { end = start }
                 end += 100
 
-                if (start < 1000) { start = "0" + start }
+                if (start < 1000) { start = "0" + start; }
                 if (end < 1000) { end = "0" + end }
 
                 var tmp = day + "~" + start + "~" + end
@@ -42,6 +42,10 @@ export async function setTimetable(time, userId) {
 
         if (end == 0) { end = start }
         end += 100
+
+        if (start < 1000) { start = "0" + start }
+        if (end < 1000) { end = "0" + end }
+
         var tmp = day + "~" + start + "~" + end
         if (oneCtn == "") { oneCtn = tmp }
         else { oneCtn = oneCtn + ", " + tmp }
