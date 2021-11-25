@@ -7,6 +7,9 @@ import '../../css/Pages/SettingPage/TimeTablePage.css'
 
 const TimeTablePage = (props) => {
     const [selectedTime,setSelectedTime] = useState([]);
+    
+    const [resultTime,setResultTime] = useState([]);
+
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
     const [wedTimeList,setWedTimeList] = useState([])
@@ -29,19 +32,23 @@ const TimeTablePage = (props) => {
     //     {day:'Tue', timeList: [1300, 1400, 1800, 1900]}
     // ]
 
+
     let day,time;
     if(selectedTime.length > 0){
-        
-        for(let i=0;i<=selectedTime.length;i++){
-            day = String(selectedTime[i]).substr(0,4)
-            time = String(selectedTime[i]).substr(16,5).replace(":","")
+        console.log(selectedTime)
+        for(let i=0;i<selectedTime.length;i++){
+            day = selectedTime[i].toString().substr(0,3);
+            time = String(selectedTime[i]).substr(16,5).replace(':','')
+
+            console.log(day,time)
 
             switch(day){
-                case "mon":
+                case 'Mon':
+                    console.log('hi mon')
                     //mon_time_list.push(time);
                     setMonTimeList(prevList => [...prevList,time])
                     break;
-                case "Tue":
+                case 'Tue':
                     //tue_time_list.push(time);
                     setTueTimeList(prevList => [...prevList,time])
                     break;
@@ -66,7 +73,7 @@ const TimeTablePage = (props) => {
                     setSunTimeList(prevList => [...prevList,time])
                     break;
                 default:
-                    console.log("It's not date");
+                    console.log('Its not date');
                     break;
             }
         }  
@@ -102,21 +109,25 @@ const TimeTablePage = (props) => {
                 'timeList':sunTimeList
             },
         ]
-        console.log(ableTimeList)
 
+        console.log('selected:',selectedTime.length)
+
+    const submitTime = () => {
+
+    }
     return(
-        <div className="timetablepage">
-            <div className="page-title">
-                <Back link="/"/>
-                <div className="page-title-text">
+        <div className='timetablepage'>
+            <div className='page-title'>
+                <Back link='/'/>
+                <div className='page-title-text'>
                     <h1>공강 시간 입력</h1>
-                    <p className="useable-time">128시간 중에 
+                    <p className='useable-time'>128시간 중에 
                     <span style={{color:'#223DFF',fontWeight:'bold'}}>7시간</span>
                 을 활용할 수 있어요!</p>
                 </div>
             </div>
-            <Timetable className="time-table" setSelectedTime={setSelectedTime}/>
-            <LargeButton>저장하기</LargeButton>
+            <Timetable className='time-table' setSelectedTime={setSelectedTime}/>
+            <LargeButton onClick={()=>submitTime()}>저장하기</LargeButton>
         </div>
     )
 }

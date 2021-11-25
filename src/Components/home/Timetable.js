@@ -6,15 +6,10 @@ const Timetable = (props) => {
 
     const handleChange = (newSchedule) => {
         setSchedule(newSchedule)
+        // console.log(schedule);
         // props.setSelectedTime(schedule)
-        // console.log(schedule)
     }
     
-    // const renderTimeLabel = (datetime, selected) => {
-    //     if (selected){
-    //         // console.log(datetime)
-    //     }
-    // }
     return(
         <ScheduleSelector
             selection={schedule}
