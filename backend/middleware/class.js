@@ -12,8 +12,10 @@ export async function firstFilter(classes, timetable) {
             var day = timeItem.day
             var check = false;
 
+            var dayList = day.split(",")
+
             for (var one of timetable) {
-                if (day == one.day && startTime >= one.start && endTime <= one.end) {
+                if (dayList.includes(one.day) && startTime >= one.start && endTime <= one.end) {
                     filtered.push(item)
                     check = true;
                     break;
@@ -136,10 +138,11 @@ export async function calculateTime(time) {
     return timetable;
 }
 
-export async function processForOne(lesson, timeList) {
+export async function processForOne(lesson, timetable) {
 
+    //lessonTimes 필터로 거르기
     let lessonTimes = [];
-    for (var timeItem of lesson.dataValues.lessonTimes) {
+    for (let timeItem of lesson.dataValues.lessonTimes) {
         var startTime = timeItem.startTime
         var endTime = timeItem.endTime
         var day = timeItem.day
@@ -151,6 +154,27 @@ export async function processForOne(lesson, timeList) {
         }
     }
 
+    //image url 따로 가져오기
+    let imageInfo = []
+    for (var image of lesson.dataValues.images) {
+        imageInfo.push({ name: image.dataValues.name, type: image.dataValues.type })
+    }
 
-    return filtered
+    const data = lesson.dataValues
+    const list = {
+        category: data.category,
+        subCategory: data.subCategory,
+        title: data.title,
+        description: data.description,
+        totalTime: data.totalTime,
+        capacity: data.capacity,
+        address: data.address,
+        type: data.type,
+        parking: data.parking,
+        detail: data.detail,
+    }
+
+    const newClass = { ...list, lessonTimes, imageInfo }
+
+    return newClass
 }
