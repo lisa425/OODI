@@ -13,16 +13,18 @@ function makeToken(id) {
 export async function login(req, res) {
     const { phonenum } = req.body;
 
-    const userId = await userRepository.findByPhonenum(phonenum);
+    const user = await userRepository.findByPhonenum(phonenum);
 
     //console.log("userId: " + userId)
 
-    if (!userId) {
+    if (!user) {
         return res.status(200).json({ message: "회원가입 대상자입니다." });
     }
 
-    const token = makeToken(userId);
+    const token = makeToken(user.id);
     //console.log(token);
+
+    console.log(token)
 
     return res.status(200).json({ token, message: "SUCCESS" });
 
@@ -45,6 +47,8 @@ export async function signup(req, res) {
 
 export async function getUser(req, res) {
     const userId = req.userId;
+
+    console.log(userId)
 
     const user = await userRepository.findById(userId)
 

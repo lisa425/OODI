@@ -58,6 +58,9 @@ export async function processing(filtered, here, certainDst = 3000) {
         if (lowest > price) lowest = price;
         if (highest < price) highest = price;
 
+        //startdate 따로 파싱
+
+
         const list = {
             "id": oneClass.id,
             "owner": oneClass.owner,
@@ -68,6 +71,7 @@ export async function processing(filtered, here, certainDst = 3000) {
             "address": oneClass.address,
             "lessonTimes": oneClass.lessonTimes,
         }
+
 
         //url 따로 모으기
         let image = oneClass.dataValues.images[0]

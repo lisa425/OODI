@@ -11,22 +11,11 @@ import timetableRouter from './router/timetableRouter.js';
 import classRouter from './router/classRouter.js';
 import imageRouter from './router/imageRouter.js';
 import classTimeRouter from './router/classTimeRouter.js';
+import rsvRouter from './router/rsvRouter.js';
+//import reviewRouter from './router/reviewRouter';
 
 const app = express();
 const router = express.Router();
-
-// const corsOption = {
-//     origin: '*',
-
-//     methods: [
-//         'GET',
-//         'POST',
-//     ],
-
-//     allowedHeaders: [
-//         'Content-Type',
-//     ]
-// }
 
 app.use(express.json());
 app.use(helmet());
@@ -53,6 +42,12 @@ app.use('/image', imageRouter);
 
 //클래스 타임 관련 전반
 app.use('/classTime', classTimeRouter);
+
+//예약 관련 전반
+app.use('/reservation', rsvRouter);
+
+//리뷰 전반
+//app.use('/review', reviewRouter);
 
 
 
