@@ -15,12 +15,11 @@ const HomePage = (props) => {
         const token = window.localStorage.getItem('TOKEN_KEY')
         console.log(token)
         const config = {
-            headers:{"Authorization": `Bearer ${token}`},
-            withCredentials: true,
+            headers:{"Authorization": `Bearer ${token}`}
         };
 
         console.log('hi Bearer')
-        axios.get('http://localhost:8080/user/',config)
+        axios.get('http://localhost:8080/user',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
                 console.log(response.data.name)
