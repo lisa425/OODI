@@ -6,7 +6,7 @@ const Timetable = (props) => {
 
     const handleChange = (newSchedule) => {
         setSchedule(newSchedule)
-        props.setSelectedTime(schedule)
+        // props.setSelectedTime(schedule)
         // console.log(schedule)
     }
     

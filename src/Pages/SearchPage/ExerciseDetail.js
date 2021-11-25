@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import LargeButton from '../../Components/common/LargeButton';
 import Navigator from '../../Components/common/Navigator';
 import '../../css/Pages/SearchPage/ExerciseDetail.css'
+import DoneRegister from './DoneRegister';
 import {Link} from 'react-router-dom';
 import boxing from '../../Assets/image/boxing.jpeg';
 import {ClockCircleOutlined,StopOutlined,UserOutlined} from '@ant-design/icons'
@@ -12,6 +13,11 @@ import {ReactComponent as Heart} from '../../Assets/image/icons/heart.svg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 
 const ExerciseDetail = (props) => {
+    const [doneRegister,setDoneRegister] = useState(false);
+    const handleDonePopup = () => {
+        setDoneRegister(true)
+    }
+
     return(
         <>
         <main className="ExerciseDetailPage">
@@ -45,7 +51,9 @@ const ExerciseDetail = (props) => {
                 </div>
                 <div><StopOutlined style={{marginRight:'3px'}}/>주차 불가</div>
             </section>
-            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}}>신청하기</LargeButton>
+            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleDonePopup()}>신청하기</LargeButton>
+            {doneRegister && <DoneRegister exercise={'원데이 맨몸필라테스'} daytime={['수요일 18:00~19:00','금요일 13:00~14:00']} setDoneRegister={setDoneRegister}/>}
+            
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
                 <div className="calender">
