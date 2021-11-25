@@ -3,7 +3,7 @@ import { geocoder } from '../map/map.js';
 
 
 export async function findById(id) {
-    console.log(id)
+    //console.log(id)
     return User.findByPk(id)
 }
 
