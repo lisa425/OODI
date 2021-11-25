@@ -1,17 +1,20 @@
 import React,{useState} from 'react';
-import SmallSetting from './SmallSetting'
 import ScheduleSelector from 'react-schedule-selector'
 
-/*  색상변경 옵션:
-    unselectedColor='#dadada'
-    selectedColor='#22fdea'
- */
 const Timetable = (props) => {
     const [schedule,setSchedule] = useState([])
 
     const handleChange = (newSchedule) => {
         setSchedule(newSchedule)
+        props.setSelectedTime(schedule)
+        // console.log(schedule)
     }
+    
+    // const renderTimeLabel = (datetime, selected) => {
+    //     if (selected){
+    //         // console.log(datetime)
+    //     }
+    // }
     return(
         <ScheduleSelector
             selection={schedule}
@@ -21,7 +24,6 @@ const Timetable = (props) => {
             timeFormat={"hh A"}
             dateFormat={"ddd"}
             startDate={"11-21-21"}
-            margin={1}
             onChange={handleChange}
             unselectedColor='#e4e4e4'
             selectedColor='#223DFF'
