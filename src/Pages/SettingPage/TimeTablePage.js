@@ -118,7 +118,7 @@ const TimeTablePage = (props) => {
     return(
         <div className='timetablepage'>
             <div className='page-title'>
-                <Back link='/'/>
+                <Back link='/home'/>
                 <div className='page-title-text'>
                     <h1>공강 시간 입력</h1>
                     <p className='useable-time'>128시간 중에 

@@ -7,7 +7,7 @@ const Navigator = () => {
     return(
         <nav className="navigator">
             <ul className="navigator-wrapper">
-                <li className="navigator-item"><Link to="/"><HomeOutlined /></Link></li>
+                <li className="navigator-item"><Link to="/home"><HomeOutlined /></Link></li>
                 <li className="navigator-item"><Link to="/search"><SearchOutlined /></Link></li>
                 <li className="navigator-item"><Link to="/question"><MessageOutlined /></Link></li>
                 <li className="navigator-item"><Link to="/mypage"><SettingOutlined /></Link></li>

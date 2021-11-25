@@ -52,7 +52,7 @@ const ExerciseList = (props) => {
         <main className="ExerciseListPage">
             <header>
                 <section className="category">
-                    <Back link="/"/>
+                    <Back link="/home"/>
                     <div className="category-name">
                         <h3 onClick={() => openMenu()}>격투</h3>
                         <DownOutlined style={{fontSize:'12px',position:'relative',top:'2px'}}/>

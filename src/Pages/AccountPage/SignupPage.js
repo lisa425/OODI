@@ -4,6 +4,7 @@ import Back from '../../Components/common/Back';
 import LargeButton from '../../Components/common/LargeButton';
 import AddressSetting from '../../Components/common/AddressSetting';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const SignupPage = (props) => {
     const [name,setName] = useState('')
@@ -17,6 +18,8 @@ const SignupPage = (props) => {
     const [openMap,setOpenMap] = useState(false)
     const [address,setAddress] = useState('');
     const [detailAddress,setDetailAddress] = useState('');
+
+    const navigate = useNavigate();
 
     //지도 오픈
     const showMap = () => {
@@ -53,7 +56,7 @@ const SignupPage = (props) => {
             .then(response => {
                 if(response.data.message === 'SUCCESS'){
                     alert('success signup')
-                    props.history.push('/login')
+                    navigate('/login')
                 }else{
                     console.log('request is success,but fail')
                 }

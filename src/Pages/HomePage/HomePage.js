@@ -13,7 +13,7 @@ const HomePage = (props) => {
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
-        console.log(typeof(token))
+        console.log(token)
         const config = {
             headers:{"Authorization": `Bearer ${token}`}
         };
