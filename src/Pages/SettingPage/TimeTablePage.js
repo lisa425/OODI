@@ -6,12 +6,6 @@ import ScheduleSelector from 'react-schedule-selector'
 import axios from 'axios'
 
 const TimeTablePage = (props) => {
-    //타임테이블 객체 handling
-    const [schedule,setSchedule] = useState([])
-    const handleChange = (newSchedule) => {
-        setSchedule(newSchedule)
-    }
-
     //요일별 가능 시간을 담는 배열
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
@@ -21,9 +15,12 @@ const TimeTablePage = (props) => {
     const [satTimeList,setSatTimeList] = useState([])
     const [sunTimeList,setSunTimeList] = useState([])
 
+     //타임테이블 객체 handling
+    const [schedule,setSchedule] = useState([])
 
-    let day,time;
+    //타임테이블 요일별 리스트로 분리
     const devideDayTimeList = () => {
+        let day,time;
         if(schedule.length > 0){
             //state 배열에 concat()으로 아이템 추가를 하기 위한 임시 배열
             let mon_time_list = [];
@@ -74,7 +71,11 @@ const TimeTablePage = (props) => {
             }  
         }
     }
-      
+
+    const handleChange = (newSchedule) => {
+        setSchedule(newSchedule)
+        devideDayTimeList();
+    }
 
     const setAbleTimeList = () => {
         devideDayTimeList();
