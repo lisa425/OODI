@@ -3,10 +3,11 @@ import '../../css/Pages/AccountPage/SignupPage.css';
 import Back from '../../Components/common/Back';
 import LargeButton from '../../Components/common/LargeButton';
 import AddressSetting from '../../Components/common/AddressSetting';
+import axios from 'axios';
 
-const SignupPage = () => {
+const SignupPage = ({history}) => {
     const [name,setName] = useState('')
-    const [phoneNumber,setPhoneNumber] = useState()
+    const [phoneNumber,setPhoneNumber] = useState('')
     const [certification,setCertification] = useState()
     const [openMap,setOpenMap] = useState(false)
     const [address,setAddress] = useState('');
@@ -14,6 +15,25 @@ const SignupPage = () => {
 
     const showMap = () => {
         setOpenMap(true)
+    }
+
+    const submitSignup = () => {
+        let signupInfo = {
+            phonenum:phoneNumber,
+            name:name,
+            address:address
+        }
+
+        axios.post('http://localhost:8080/user/signup',signupInfo)
+        .then(response => {
+            if(response.data.message === 'SUCCESS'){
+                history.replace('/login')
+            }else{
+                console.log('request is success,but fail?')
+            }
+        }).catch((error)=>{
+            console.log(error)
+        })
     }
     return(
         <main className="SignupPage">
@@ -33,10 +53,10 @@ const SignupPage = () => {
             <section className="signup-section">
                 <h3>전화번호</h3>
                 <input 
-                    type="number" 
+                    type="text" 
                     value={phoneNumber} 
                     onChange={(e)=>setPhoneNumber(e.target.value)}
-                    placeholder="전화번호를 입력해주세요."
+                    placeholder="전화번호를 입력해주세요(형식:010-1234-5678)"
                 />
                 <button className="cert-btn">인증하기</button>
             </section>
@@ -66,7 +86,7 @@ const SignupPage = () => {
                     placeholder="상세 주소를 입력해주세요."
                 />
             </section>
-            <LargeButton>회원가입</LargeButton>
+            <LargeButton onClick={submitSignup}>회원가입</LargeButton>
         </main>
     )
 }
