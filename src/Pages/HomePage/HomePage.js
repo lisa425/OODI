@@ -10,7 +10,7 @@ import {BellFilled} from '@ant-design/icons'
 import axios from 'axios';
 
 const HomePage = (props) => {
-
+    
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
         console.log(token)
@@ -18,12 +18,22 @@ const HomePage = (props) => {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
-        console.log('hi Bearer')
+        //get user name
         axios.get('http://localhost:8080/user',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
                 console.log(response.data.name)
                 console.log(response.data.address)
+            }
+        }).catch((error)=>{
+            console.log('error:',error)
+        })
+
+        //get useable time
+        axios.get('http://localhost:8080/timetable/getTime',config)
+        .then(response => {
+            if(response.data.message === 'SUCCESS'){
+                console.log(response.data.totalTime)
             }
         }).catch((error)=>{
             console.log('error:',error)

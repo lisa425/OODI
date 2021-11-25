@@ -50,7 +50,7 @@ const SignupPage = (props) => {
             let signupInfo = {
                 phonenum:phoneNumber,
                 name:name,
-                address:address + detailAddress
+                address:address
             }
             axios.post('http://localhost:8080/user/signup',signupInfo)
             .then(response => {
