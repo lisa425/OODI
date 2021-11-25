@@ -21,5 +21,7 @@ router.post('/:category/:sub/:order', isAuth, classController.getClassesWithFilt
 //GET /class/image/:category/:subCategory/:order
 router.post('/image/', isAuth, classController.getImages)
 
+//POST 클래스 상세 페이지 가져오기 /class/:classId
+router.post('/:classId', isAuth, classController.getOneClass);
 
 export default router;

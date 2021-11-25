@@ -57,6 +57,7 @@ export async function processing(filtered, here, certainDst = 3000) {
         if (highest < price) highest = price;
 
         const list = {
+            "id": oneClass.id,
             "owner": oneClass.owner,
             "subCategory": oneClass.subCategory,
             "title": oneClass.title,
@@ -133,4 +134,23 @@ export async function calculateTime(time) {
     }
 
     return timetable;
+}
+
+export async function processForOne(lesson, timeList) {
+
+    let lessonTimes = [];
+    for (var timeItem of lesson.dataValues.lessonTimes) {
+        var startTime = timeItem.startTime
+        var endTime = timeItem.endTime
+        var day = timeItem.day
+
+        for (var one of timetable) {
+            if (day == one.day && startTime >= one.start && endTime <= one.end) {
+                lessonTimes.push(timeItem)
+            }
+        }
+    }
+
+
+    return filtered
 }
