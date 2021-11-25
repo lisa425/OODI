@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import '../../css/Pages/AccountPage/SignupPage.css';
 import Back from '../../Components/common/Back';
 import LargeButton from '../../Components/common/LargeButton';
-import LocationPage from '../../Pages/SettingPage/LocationPage';
 import AddressSetting from '../../Components/common/AddressSetting';
 
 const SignupPage = () => {

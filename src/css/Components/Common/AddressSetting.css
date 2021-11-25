@@ -24,6 +24,32 @@
     top:-3px;
     font-size: 24px;
 }
+.setAddress .input-address{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:90%;
+}
+.setAddress .input-address .search-keyword{
+    width:73%;
+    padding: 0 5%;
+    border:1px solid #cacaca;
+    border-radius: 5px;
+    height:48px;
+    background:#fafafa;
+    margin:20px 0
+}
+.setAddress .input-address .submit-keyword{
+    width:15%;
+    height:48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    background:#223DFF;
+    border:none;
+    border-radius: 5px
+}
 .setAddress .map{
     width:100%;
     height:326px;
@@ -42,13 +68,4 @@
     margin-top:20px;
     display: flex;
     align-items: center;
-}
-.setAddress .search-keyword{
-    width:80%;
-    padding: 0 5%;
-    border:1px solid #cacaca;
-    border-radius: 5px;
-    height:56px;
-    background:#fafafa;
-    margin:20px 0
 }

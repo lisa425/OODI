@@ -18,13 +18,15 @@ const HomePage = (props) => {
                 <BellFilled style={{fontSize:'23px',color:'rgba(0,0,0,0.5)'}}/>
             </header>
             <div className="timetable-preview">
-                <p>채원님,</p>
-                <p><b>128시간</b>중에</p>
-                <p><span style={{color:'#223DFF',fontWeight:'bold'}}>7시간</span>을 활용할 수 있어요!</p>
-                <SmallSetting style={{position:'absolute',right:'10px',bottom:'15px'}}>
-                    <Link to='/setting/timetable'>시간설정</Link>
-                </SmallSetting>
-                <Timetable/>
+                <div className="preview-text">
+                    <p>채원님,</p>
+                    <p><b>128시간</b>중에</p>
+                    <p><span style={{color:'#223DFF',fontWeight:'bold'}}>7시간</span>을 활용할 수 있어요!</p>
+                    <SmallSetting style={{position:'absolute',right:'8%',bottom:'10%'}}>
+                        <Link to='/setting/timetable'>시간설정</Link>
+                    </SmallSetting>
+                </div>
+                <Timetable className="time-table"/>
             </div>
             
             <section className="popular-exercise">
