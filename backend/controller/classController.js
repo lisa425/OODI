@@ -149,6 +149,7 @@ export async function getOneClass(req, res) {
     const classId = req.params.classId;
     const userId = req.userId
 
+    //시간표 처리
     let timeList = []
     if (!time) {
         const table = await tableRepository.getTimetable(userId)
@@ -167,19 +168,20 @@ export async function getOneClass(req, res) {
         timeList = await middleware.calculateTime(time);
     }
 
+    //가격 필터 처리
     if (!price) {
         price = [0, 10000000]
     }
 
+    //수업 하나 가져오기
     const lesson = await classRepository.findOneClass(classId, price);
 
     if (!lesson) {
         return res.status(404).json({ "message": "class not found" })
     }
 
-    const filtered = await middleware.classTimeFilter(lesson, timeList);
+    //레슨타임 필터링, 적절한 값들만 가져오기
+    const newClass = await middleware.processForOne(lesson, timeList);
 
-    //console.log(lesson)
-
-    res.sendStatus(200)
+    res.status(200).json(newClass)
 }

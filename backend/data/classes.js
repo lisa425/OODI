@@ -4,7 +4,7 @@ import SQ from 'sequelize';
 const Op = SQ.Op;
 
 
-import { Lesson, LessonTime, Image } from '../db/scema.js'
+import { Lesson, LessonTime, Image, Review } from '../db/scema.js'
 
 const Sequelize = SQ.Sequelize;
 
@@ -237,15 +237,17 @@ export async function findOneClass(classId, price) {
             },
             {
                 model: LessonTime,
+                attributes: ['day', 'startTime', 'endTime', 'price'],
                 where: {
                     price: {
                         [Op.and]: {
                             [Op.gte]: price[0],
                             [Op.lte]: price[1],
                         }
-                    }
+                    },
+                    appliable: "yes"
                 }
-            }
+            },
         ]
     })
 }

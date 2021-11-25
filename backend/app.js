@@ -13,8 +13,21 @@ import classTimeRouter from './router/classTimeRouter.js';
 const app = express();
 const router = express.Router();
 
+const corsOption = {
+    origin: '*',
+
+    methods: [
+        'GET',
+        'POST',
+    ],
+
+    allowedHeaders: [
+        'Content-Type',
+    ]
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOption));
 app.use(helmet());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

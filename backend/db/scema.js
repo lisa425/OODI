@@ -189,3 +189,25 @@ export const Image = sequelize.define(
 )
 Lesson.hasMany(Image);
 Image.belongsTo(Lesson);
+
+export const Review = sequelize.define(
+    'review',
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true,
+        },
+        content: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    }
+)
+User.hasMany(Review)
+Lesson.hasMany(Review)
+LessonTime.hasMany(Review)
+Review.belongsTo(User)
+Review.belongsTo(Lesson)
+Review.belongsTo(LessonTime)
