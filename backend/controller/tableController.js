@@ -6,6 +6,8 @@ export async function setTimetable(req, res) {
     const { time } = req.body
     const userId = req.userId;
 
+    console.log(time)
+
     await tableRepository.setTimetable(time, userId);
 
     res.status(201).json({ message: "SUCCESS" });
@@ -18,31 +20,32 @@ export async function getTime(req, res) {
 
     const time = await tableRepository.getTimetable(userId)
 
-    if (!time) { res.status(200).json({ totalTime: 0, message: "시간표가 없습니다." }) }
+    if (!time) { return res.status(200).json({ totalTime: 0, message: "시간표가 없습니다." }) }
 
     const timeList = time.continuousTime.split(", ")
 
     let total = 0;
-    timeList.forEach(item => {
+    for (var item of timeList) {
 
         var itemArray = item.split("~")
-        console.log(itemArray)
+
+        if (itemArray[1] == 0) {
+            continue;
+        }
 
         //minite 단위
         var s = [parseInt(itemArray[1].slice(0, 2)), parseInt(itemArray[1].slice(2))]
         var start = (s[0] * 60) + s[1]
-        console.log(start)
 
 
         var e = [parseInt(itemArray[2].slice(0, 2)), parseInt(itemArray[2].slice(2))]
         var end = (e[0] * 60) + e[1]
-        console.log(end)
+
 
         total += (end - start)
 
-        console.log(total)
 
-    })
+    }
 
     total = (total / 60).toFixed(1)
 

@@ -12,10 +12,8 @@ export async function firstFilter(classes, timetable) {
             var day = timeItem.day
             var check = false;
 
-            var dayList = day.split(",")
-
             for (var one of timetable) {
-                if (dayList.includes(one.day) && startTime >= one.start && endTime <= one.end) {
+                if (day == one.day && startTime >= one.start && endTime <= one.end) {
                     filtered.push(item)
                     check = true;
                     break;
@@ -57,8 +55,6 @@ export async function processing(filtered, here, certainDst = 3000) {
         //최저가, 최고가
         if (lowest > price) lowest = price;
         if (highest < price) highest = price;
-
-        //startdate 따로 파싱
 
 
         const list = {
@@ -150,9 +146,31 @@ export async function processForOne(lesson, timetable) {
         var startTime = timeItem.startTime
         var endTime = timeItem.endTime
         var day = timeItem.day
+        var startDate = timeItem.startDate.split(", ")
+
+        let newDate = []
+        for (var date of startDate) {
+
+            var now = new Date();
+            var limit = 4 * 7 * 24 * 60 * 60 * 1000;
+            var parseDate = new Date(new Date(date).toISOString());
+
+            if (now.getTime() <= parseDate.getTime() && parseDate.getTime() <= (now.getTime() + limit)) {
+                newDate.push(date)
+            }
+        }
 
         for (var one of timetable) {
             if (day == one.day && startTime >= one.start && endTime <= one.end) {
+
+                timeItem = {
+                    day,
+                    startTime,
+                    endTime,
+                    startDate: newDate,
+                    price: timeItem.price,
+                }
+
                 lessonTimes.push(timeItem)
             }
         }

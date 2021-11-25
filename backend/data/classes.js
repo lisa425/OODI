@@ -33,7 +33,7 @@ const INCLUDE = {
         },
         {
             model: LessonTime,
-            attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
+            attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
             order: [['price', 'ASC']],
             where: {
                 appliable: "yes"
@@ -131,7 +131,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -158,7 +158,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -185,7 +185,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -211,7 +211,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
             },
             {
                 model: LessonTime,
-                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime', 'startDate'],
+                attributes: ['originPrice', 'price', 'day', 'startTime', 'endTime'],
                 where: {
                     price: {
                         [Op.and]: {
@@ -237,7 +237,7 @@ export async function findOneClass(classId, price) {
             },
             {
                 model: LessonTime,
-                attributes: ['day', 'startTime', 'endTime', 'price'],
+                attributes: ['day', 'startTime', 'endTime', 'startDate', 'price'],
                 where: {
                     price: {
                         [Op.and]: {

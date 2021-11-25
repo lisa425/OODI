@@ -24,7 +24,7 @@ export async function login(req, res) {
     const token = makeToken(user.id);
     //console.log(token);
 
-    console.log(token)
+    //console.log(token)
 
     return res.status(200).json({ token, message: "SUCCESS" });
 
@@ -48,7 +48,7 @@ export async function signup(req, res) {
 export async function getUser(req, res) {
     const userId = req.userId;
 
-    console.log(userId)
+    //console.log(userId)
 
     const user = await userRepository.findById(userId)
 
