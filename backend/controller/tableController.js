@@ -18,7 +18,7 @@ export async function getTime(req, res) {
 
     const time = await tableRepository.getTimetable(userId)
 
-    if (!time) { res.status(0).json({ totalTime: 0, message: "시간표가 없습니다." }) }
+    if (!time) { res.status(200).json({ totalTime: 0, message: "시간표가 없습니다." }) }
 
     const timeList = time.continuousTime.split(", ")
 
