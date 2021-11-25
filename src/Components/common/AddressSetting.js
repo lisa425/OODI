@@ -30,7 +30,6 @@ const AddressSetting = (props) => {
     return(
         <div className="setAddress">
             <header>
-                {/* <Back link='/signup' onClick={()=>setOpenThisMap()}/> */}
                 <h2>{props.title}</h2>
             </header>
             <section className="input-address">

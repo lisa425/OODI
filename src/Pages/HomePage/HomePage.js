@@ -73,7 +73,7 @@ const HomePage = (props) => {
                 <div className="pop-title">
                     <h2>{userAddress}<br/>인기있는 운동이에요</h2>
                     <SmallSetting style={{position:'relative',right:'9px'}}>
-                        <Link to='/setting/location'>위치설정</Link>
+                        <Link to='/setting/address'>위치설정</Link>
                     </SmallSetting>
                 </div>
                 <article className="popular-exercise-list">

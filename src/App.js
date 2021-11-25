@@ -18,7 +18,7 @@ function App() {
         <Route exact path='/signup' element={<SignupPage />}/>
         <Route exact path='/home' element={<HomePage />}/>
         <Route exact path='/setting/timetable' element={<TimeTablePage />}/>
-        <Route exact path='/setting/address' element={<AddressSetting />}/>
+        <Route exact path='/setting/address' element={<AddressSetting title="위치 설정"/>}/>
         <Route exact  path='/search' element={<ExerciseList />}/>
         <Route exact path='/search/detail' element={<ExerciseDetail />}/>
         <Route exact path='/question' element={<QuestionList />}/>
