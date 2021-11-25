@@ -25,7 +25,7 @@ const LoginPage = (props) => {
             console.log(response)
             if(response.data.message === 'SUCCESS'){
                 window.localStorage.clear();
-                window.localStorage.setItem('TOKEN_KEY',JSON.stringify(response.data.token));
+                window.localStorage.setItem('TOKEN_KEY',response.data.token);
                 navigate('/')
             }else if(response.data.message === "회원가입 대상자입니다."){
                 setMessage('회원가입 대상자 입니다.')
