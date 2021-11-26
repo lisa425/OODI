@@ -20,7 +20,13 @@ export async function getClasses(req, res) {
     const category = decodeURIComponent(req.params.category);
     const sub_ = decodeURIComponent(req.params.sub);
     const order = req.params.order;
+    const direction = req.params.direction;
     const userId = req.userId;
+
+    //가격순 점검
+    if (!(order == "price" && direction)) {
+        return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
+    }
 
     //서브 카테고리 분리
     let sub;
@@ -30,6 +36,8 @@ export async function getClasses(req, res) {
         sub = [sub_]
     }
 
+    //console.log(sub)
+
     //사용자 위치 반환
     const user = await userRepository.findById(userId);
     const here = [user.latitude, user.longitude]
@@ -38,7 +46,7 @@ export async function getClasses(req, res) {
     const classes = await classRepository.findClassCards(
         category,
         sub,
-        order == "time" ? true : false
+        order == "time" ? true : false,
     );
 
     //사용자 시간표에 맞춰 클래스 1차 필터링
@@ -74,10 +82,14 @@ export async function getClasses(req, res) {
     let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here)
 
     //거리순 정렬
-    newClasses = await middleware.orderByDst(order, newClasses)
+    if (order == "dst") {
+        newClasses = await middleware.orderByDst(order, newClasses)
+    }
 
     //금액순 정렬
-    newClasses = await middleware.orderByPrice(order, newClasses)
+    if (order == "price") {
+        newClasses = await middleware.orderByPrice(order, direction, newClasses)
+    }
 
     res.status(200).json({ classes: newClasses, lowest, highest, imageInfo, message: "SUCCESS" })
 }
@@ -87,14 +99,21 @@ export async function getClassesWithFilter(req, res) {
     const category = decodeURIComponent(req.params.category)
     const sub_ = decodeURIComponent(req.params.sub)
     const order = req.params.order;
+    const direction = req.params.direction;
     let time = req.body.time;
     const certainDst = req.body.distance;
     const certainPrice = req.body.price;
+    let type = req.body.type;
     const userId = req.userId;
+
+    //가격순 점검
+    if (!(order == "price" && direction)) {
+        return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
+    }
 
     //서브 카테고리 분리
     let sub
-    if (sub.includes('.')) {
+    if (sub_.includes('.')) {
         sub = sub_.split('.')
     } else {
         sub = [sub_]
@@ -114,6 +133,11 @@ export async function getClassesWithFilter(req, res) {
     if (!certainPrice) {
         certainPrice = [0, 10000000]
     }
+    if (!type) {
+        type = ["원데이", "1개월", "3개월", "6개월"]
+    } else {
+        type = [type]
+    }
 
     //사용자 위치 반환
     const user = await userRepository.findById(userId);
@@ -124,7 +148,8 @@ export async function getClassesWithFilter(req, res) {
         category,
         sub,
         certainPrice,
-        order == "time" ? true : false
+        type,
+        order == "time" ? true : false,
     )
 
     //사용자 시간표에 맞춰 클래스 1차 필터링
@@ -137,10 +162,14 @@ export async function getClassesWithFilter(req, res) {
     let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here, certainDst)
 
     //거리순 정렬
-    newClasses = await middleware.orderByDst(order, newClasses)
+    if (order == "dst") {
+        newClasses = await middleware.orderByDst(order, newClasses)
+    }
 
     //금액순 정렬
-    newClasses = await middleware.orderByPrice(order, newClasses)
+    if (order == "price") {
+        newClasses = await middleware.orderByPrice(order, direction, newClasses)
+    }
 
     res.status(200).json({ classes: newClasses, lowest, highest, imageInfo, message: "SUCCESS" });
 }
