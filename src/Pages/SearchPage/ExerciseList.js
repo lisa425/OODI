@@ -29,6 +29,7 @@ const ExerciseList = (props) => {
         '헬스':[]
     }
     const showSubCategory = (e) => {
+        console.log(e.current.id);
         sub_category_list[category].map((subcategory,index)=>{
             console.log(subcategory)
         })
@@ -147,10 +148,10 @@ const ExerciseList = (props) => {
                     <div className={isOpenMenu ? "open-menu" : "hide-menu"}>
                         <div className="dropdown-menu">
                             <ul className="first-category">
-                                <button id="구기종목" onClick={(e)=>showSubCategory(e)}>구기종목</button>
-                                <li id="격투">격투</li>
-                                <li id="골프">골프</li>
-                                <li id="수영">수영</li>
+                                <li id="ball" onClick={showSubCategory}>구기종목</li>
+                                <li id="" onClick={showSubCategory}>격투</li>
+                                <li id="골프" onClick={showSubCategory}>골프</li>
+                                <li id="수영" onClick={showSubCategory}>수영</li>
                                 <li id="심신수련">심신수련</li>
                                 <li id="헬스">헬스</li>
                             </ul>
