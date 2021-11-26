@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom:80px;
+    margin-bottom:15px;
 }
 .ExerciseListPage .exercise-list a{
     width:48%;

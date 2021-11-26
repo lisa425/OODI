@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import SplashPage from './Pages/HomePage/SplashPage';
 import HomePage from './Pages/HomePage/HomePage';
 import LoginPage from './Pages/AccountPage/LoginPage'
 import SignupPage from './Pages/AccountPage/SignupPage'
@@ -15,6 +16,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route exact path='/' element={<SplashPage />}/>
         <Route exact path='/login' element={<LoginPage />}/>
         <Route exact path='/signup' element={<SignupPage />}/>
         <Route exact path='/home' element={<HomePage />}/>
