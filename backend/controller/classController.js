@@ -101,8 +101,8 @@ export async function getClassesWithFilter(req, res) {
     const order = req.params.order;
     const direction = req.params.direction;
     let time = req.body.time;
-    const certainDst = req.body.distance;
-    const certainPrice = req.body.price;
+    let certainDst = req.body.distance;
+    let certainPrice = req.body.price;
     let type = req.body.type;
     const userId = req.userId;
 
