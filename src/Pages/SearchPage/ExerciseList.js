@@ -44,6 +44,27 @@ const ExerciseList = (props) => {
     }, [])
 
     const renderClass = classList.map((item,index) => {
+        let originPrice = item.lessonTimes[0].originPrice
+        let price = item.lessonTimes[0].price
+        let type;
+        switch(item.type){
+            case "oneday":
+                type = "원데이";
+                break;
+            case "month1":
+                type = "1개월";
+                break;
+            case "month3":
+                type = "3개월";
+                break;
+            case "month6":
+                type = "6개월";
+                break;
+            default:
+                type="상담 후 지정"
+                break;
+        }
+
         return(
             <Link to="/search/detail" key={index}>
                 <ExerciseItem 
@@ -52,10 +73,10 @@ const ExerciseList = (props) => {
                     address={item.address}
                     distance={item.distance} 
                     subCategory={item.subCategory} 
-                    type={item.type} 
+                    type={type} 
                     discountRate={item.discountRate} 
-                    originPrice={item.lessonTimes[0].originPrice} 
-                    price={item.lessonTimes[0].price} 
+                    originPrice={originPrice.toLocaleString()} 
+                    price={price.toLocaleString()} 
                 />
             </Link>
         )
