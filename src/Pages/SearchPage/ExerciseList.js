@@ -30,11 +30,11 @@ const ExerciseList = (props) => {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
-        axios.get(`http://localhost:8080/class/${category}/${subCategory}/${sort}`,config)
+        axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
         .then(response=>{
-            console.log(response)
+            console.log(response.status)
             if(response.data.message === 'SUCCESS'){
-                console.log('success:',response.data)
+                console.log('success:',response.data.classes)
                 setClassList(response.data.classes)
             }else{
                 console.log(response.data)
