@@ -20,6 +20,22 @@ const ExerciseList = (props) => {
     //초기 클래스 필터링 세팅
     const [category,setCategory] = useState('격투')
     const [subCategory,setSubCategory] = useState('전체')
+    const sub_category_list = {
+        '구기종목':[],
+        '격투':['복싱.킥복싱','펜싱','검도.합기도','태권도.택견','유도.가라테','무에타이.쿵푸','레슬링'],
+        '골프':[],
+        '수영':[],
+        '심신수련':['명상','요가','필라테스','기공수련','단전호흡'],
+        '헬스':[]
+    }
+    const showSubCategory = (e) => {
+        sub_category_list[category].map((subcategory,index)=>{
+            console.log(subcategory)
+        })
+    }
+    const setCategoryData = (e) => {
+        // let subCategory = e.target.id
+    }
     const [sort,setSort] = useState('dst')
     
     //클래스 리스트 세팅
@@ -131,13 +147,15 @@ const ExerciseList = (props) => {
                     <div className={isOpenMenu ? "open-menu" : "hide-menu"}>
                         <div className="dropdown-menu">
                             <ul className="first-category">
-                                <li id="ball">구기종목</li>
-                                <li id="fight">격투</li>
-                                <li id="swim">수영</li>
-                                <li id="yoga">요가.필라테스</li>
+                                <button id="구기종목" onClick={(e)=>showSubCategory(e)}>구기종목</button>
+                                <li id="격투">격투</li>
+                                <li id="골프">골프</li>
+                                <li id="수영">수영</li>
+                                <li id="심신수련">심신수련</li>
+                                <li id="헬스">헬스</li>
                             </ul>
                             <ul className="sub-category">
-
+                                
                             </ul>
                         </div>
                     </div>

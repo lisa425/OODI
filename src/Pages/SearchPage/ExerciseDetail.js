@@ -25,7 +25,8 @@ const ExerciseDetail = (props) => {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
-        axios.post(`http://localhost:8080/class/${classId}`,config)
+        const data = {time:[1200,1300]}
+        axios.post(`http://localhost:8080/class/${classId}`,null,{headers:{"Authorization":`Bearer ${token}`}})
         .then(response => {
             console.log('hi')
             if(response.status === 200){
