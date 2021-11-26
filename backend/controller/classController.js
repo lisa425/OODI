@@ -217,6 +217,8 @@ export async function getOneClass(req, res) {
         return res.status(404).json({ "message": "class not found" })
     }
 
+    //console.log(lesson.dataValues.lessonTimes)
+
     //레슨타임 필터링, 적절한 값들만 가져오기
     const newClass = await middleware.processForOne(lesson, timeList);
 

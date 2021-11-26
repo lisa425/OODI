@@ -237,7 +237,7 @@ export async function findOneClass(classId, price) {
             },
             {
                 model: LessonTime,
-                attributes: ['day', 'startTime', 'endTime', 'startDate', 'price'],
+                attributes: ['day', 'startTime', 'endTime', 'startDate', 'price', 'capacity'],
                 where: {
                     price: {
                         [Op.and]: {
