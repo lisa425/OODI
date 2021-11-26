@@ -50,7 +50,7 @@ export async function processing(filtered, here, certainDst = 3000) {
         }
 
         //할인률
-        var rate = (price / origin) * 100;
+        var rate = 100 - ((price / origin) * 100);
 
         //최저가, 최고가
         if (lowest > price) lowest = price;
