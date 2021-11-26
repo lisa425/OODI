@@ -34,7 +34,7 @@ const ExerciseList = (props) => {
         .then(response=>{
             console.log(response.status)
             if(response.data.message === 'SUCCESS'){
-                console.log('success:',response.data.classes)
+                console.log('success:',response)
                 setClassList(response.data.classes)
             }else{
                 console.log(response.data)
@@ -93,10 +93,10 @@ const ExerciseList = (props) => {
                     <div className={isOpenMenu ? "open-menu" : "hide-menu"}>
                         <div className="dropdown-menu">
                             <ul className="first-category">
-                                <li>구기종목</li>
-                                <li>구기종목</li>
-                                <li>구기종목</li>
-                                <li>구기종목</li>
+                                <li id="ball">구기종목</li>
+                                <li id="fight">격투</li>
+                                <li id="swim">수영</li>
+                                <li id="yoga">요가.필라테스</li>
                             </ul>
                         </div>
                     </div>
