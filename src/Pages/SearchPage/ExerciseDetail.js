@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import LargeButton from '../../Components/common/LargeButton';
 import Navigator from '../../Components/common/Navigator';
 import '../../css/Pages/SearchPage/ExerciseDetail.css'
 import DoneRegister from './DoneRegister';
-import {Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import boxing from '../../Assets/image/boxing.jpeg';
 import {ClockCircleOutlined,StopOutlined,UserOutlined} from '@ant-design/icons'
 import Back from '../../Components/common/Back';
@@ -11,8 +11,44 @@ import {ReactComponent as CreditCard} from '../../Assets/image/icons/creditcard.
 import {ReactComponent as Message} from '../../Assets/image/icons/message.svg'
 import {ReactComponent as Heart} from '../../Assets/image/icons/heart.svg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
+import axios from 'axios';
 
 const ExerciseDetail = (props) => {
+    const classId = useParams()["classId"];
+    console.log(classId)
+    const [classDetail,setClassDetail] = useState([])
+
+    useEffect(()=>{
+        const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
+        const config = {
+            headers:{"Authorization": `Bearer ${token}`}
+        };
+
+        axios.post(`http://localhost:8080/class/${classId}`,config)
+        .then(response => {
+            console.log('hi')
+            if(response.status === 200){
+                console.log(response)
+                setClassDetail(response.data)
+                console.log(classDetail)
+            }else{
+                console.log('request is success,but fail')
+            }
+        }).catch((error)=>{
+            console.log('errororor')
+            console.log(error)
+        })
+    },[])
+
+
+    
+    //결제내용 확인 팝업
+    const [showReservation,setShowReservation] = useState(false);
+    const handleReservationPopup = () => {
+        setShowReservation(true)
+    }
+    //예약 완료 팝업
     const [doneRegister,setDoneRegister] = useState(false);
     const handleDonePopup = () => {
         setDoneRegister(true)

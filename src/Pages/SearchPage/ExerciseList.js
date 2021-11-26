@@ -66,7 +66,7 @@ const ExerciseList = (props) => {
         }
 
         return(
-            <Link to="/search/detail" key={index}>
+            <Link to={`/search/${item.id}`} key={index}>
                 <ExerciseItem 
                     id={item.id} 
                     title={item.title}
