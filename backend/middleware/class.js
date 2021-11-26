@@ -71,7 +71,12 @@ export async function processing(filtered, here, certainDst = 3000) {
 
         //url 따로 모으기
         let image = oneClass.dataValues.images[0]
-        imageInfo.push({ name: image.dataValues.name, type: image.dataValues.type })
+        if (image) {
+            imageInfo.push({ name: image.dataValues.name, type: image.dataValues.type })
+        }
+        else {
+            imageInfo.push({})
+        }
 
         newClasses.push({ ...list, discountRate: rate, distance, })
     }
