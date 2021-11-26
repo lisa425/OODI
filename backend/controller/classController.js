@@ -17,8 +17,8 @@ export async function createClass(req, res) {
 
 //전체 클래스카드 받아오기
 export async function getClasses(req, res) {
-    const category = req.params.category;
-    const sub_ = req.params.sub;
+    const category = decodeURIComponent(req.params.category);
+    const sub_ = decodeURIComponent(req.params.sub);
     const order = req.params.order;
     const userId = req.userId;
 
@@ -69,7 +69,9 @@ export async function getClasses(req, res) {
 
 //필터링된 클래스 카드 가져오기
 export async function getClassesWithFilter(req, res) {
-    const { category, sub_, order } = req.params;
+    const category = decodeURIComponent(req.params.category)
+    const sub_ = decodeURIComponent(req.params.sub)
+    const order = req.params.order;
     let time = req.body.time;
     const certainDst = req.body.distance;
     const certainPrice = req.body.price;
