@@ -91,12 +91,14 @@ const ExerciseList = (props) => {
                         <DownOutlined style={{fontSize:'12px',position:'relative',top:'2px'}}/>
                     </div>
                     <div className={isOpenMenu ? "open-menu" : "hide-menu"}>
-                        <ul className="first-category">
-                            <li>구기종목</li>
-                            <li>격투</li>
-                            <li>수영</li>
-                            <li>골프</li>
-                        </ul>
+                        <div className="dropdown-menu">
+                            <ul className="first-category">
+                                <li>구기종목</li>
+                                <li>구기종목</li>
+                                <li>구기종목</li>
+                                <li>구기종목</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
                 <section className="filtering">
