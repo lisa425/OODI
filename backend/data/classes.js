@@ -118,7 +118,7 @@ export async function findClassCards(category, sub, order = false) {
     }
 }
 
-export async function findClassCardsWithFilter(category, sub, price, order = false) {
+export async function findClassCardsWithFilter(category, sub, price, type, order = false) {
 
     //1 신규순 정렬, 전체 카테고리
     if (order && sub == "전체") {
@@ -142,7 +142,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category },
+            where: { category, type: { [Op.in]: type } },
             ...ORDER_BY_TIME
         })
     }
@@ -169,7 +169,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category, subCategory: { [Op.in]: sub } },
+            where: { category, subCategory: { [Op.in]: sub }, type: { [Op.in]: type } },
             ...ORDER_BY_TIME
         })
     }
@@ -196,7 +196,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category },
+            where: { category, type: { [Op.in]: type } },
         })
     }
     //4 기타 정렬, 서브 카테고리
@@ -222,7 +222,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category, subCategory: { [Op.in]: sub } },
+            where: { category, subCategory: { [Op.in]: sub }, type: { [Op.in]: type } },
         })
     }
 }

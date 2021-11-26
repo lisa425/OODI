@@ -96,12 +96,18 @@ export async function orderByDst(order, newClasses) {
     return newClasses
 }
 
-export async function orderByPrice(order, newClasses) {
+export async function orderByPrice(order, direction, newClasses) {
 
-    if (order == "price") {
+    if (order == "price" && direction == "low") {
         newClasses.sort(function (a, b) {
 
             return parseFloat(a.lessonTimes[0].price) - parseFloat(b.lessonTimes[0].price);
+
+        });
+    } else if (order == "price" && direction == "high") {
+        newClasses.sort(function (a, b) {
+
+            return parseFloat(b.lessonTimes[0].price) - parseFloat(a.lessonTimes[0].price);
 
         });
     }
