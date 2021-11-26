@@ -23,7 +23,7 @@ function App() {
         <Route exact path='/setting/timetable' element={<TimeTablePage />}/>
         <Route exact path='/setting/address' element={<LocationSettingPage />}/>
         <Route exact  path='/search/:categoryId' element={<ExerciseList />}/>
-        <Route exact path='/search/:classId' element={<ExerciseDetail />}/>
+        <Route exact path='/search/detail/:classId' element={<ExerciseDetail />}/>
         <Route exact path='/question' element={<QuestionList />}/>
         <Route exact path='/mypage' element={<MyPage />}/>
      </Routes>

@@ -3,27 +3,32 @@ import Timetable from '../../Components/home/Timetable'
 import LargeButton from '../../Components/common/LargeButton'
 import Navigator from '../../Components/common/Navigator'
 import ExerciseItem from '../../Components/search/ExerciseItem'
+import PricePopup from '../../Components/search/PricePopup'
 import '../../css/Pages/SearchPage/ExerciseList.css'
 import {Link,useParams} from 'react-router-dom';
 import Back from '../../Components/common/Back';
-import MultiRange from '../../Components/search/MultiRange'
+// import MultiRange from '../../Components/search/MultiRangeSlider'
 import {DownOutlined,CloseOutlined} from '@ant-design/icons';
 import axios from 'axios';
 
 const ExerciseList = (props) => {
-    const categoryId = useParams()["categoryId"];
+    //axios header setting
+    const token = window.localStorage.getItem('TOKEN_KEY')
+    const config = {
+        headers:{"Authorization": `Bearer ${token}`}
+    };
+    
 
-    //카테고리 메뉴창을 오픈
-    const [isOpenMenu,setIsOpenMenu] = useState(false);
-    const openMenu = () => {
-        setIsOpenMenu(!isOpenMenu);
-    }
 
+    //========카테고리 필터링=========
     //초기 클래스 필터링 세팅
+    const categoryId = useParams()["categoryId"];
     const [category,setCategory] = useState(categoryId)
     const [subCategory,setSubCategory] = useState('전체')
+
+    //카테고리 리스트
     const sub_category_list = {
-        '구기종목':['전체','축구','농구','베드민턴','야구','테니스'],
+        '구기종목':['전체','축구','농구','배드민턴','야구','테니스'],
         '격투':['전체','복싱.킥복싱','펜싱','검도.합기도','태권도.택견','유도.가라테','무에타이.쿵푸','레슬링'],
         '골프':['전체','실내골프','야외골프'],
         '수영':['전체','실내수영','바다수영','서핑','수상스키'],
@@ -31,13 +36,21 @@ const ExerciseList = (props) => {
         '헬스':['전체','PT','PT샵','헬스장']
     }
 
-    
+    //카테고리 메뉴창을 오픈
+    const [isOpenMenu,setIsOpenMenu] = useState(false);
+    const openMenu = () => {
+        setIsOpenMenu(!isOpenMenu);
+    }
+
+    //카테고리 필터링 적용한 클래스 리스트 갱신
     const [renderCategory,setRenderCategory] = useState([])
+    //1차 카테고리
     const showSubCategory = (e) => {
         let categoryName = e.target.id
         setRenderCategory(sub_category_list[categoryName])
         setCategory(categoryName)
     }
+    //2차 카테고리
     const setSubCategoryData = (e) => {
         let subCategoryName = e.target.id
         setSubCategory(subCategoryName);
@@ -46,21 +59,53 @@ const ExerciseList = (props) => {
             subCategory:subCategory
         })
     }
-    const [sort,setSort] = useState('dst')
+
+
+    //======정렬 필터링 세팅=======
+    const [sort,setSort] = useState('time')
+    const handleSort = (e) => {
+        setSort(e.target.value);
+        console.log(sort)
+    }
+
+
+    //========가격 범위 설정========
+    const [isPrice,setIsPrice] = useState(false)
+    const [priceRange,setPriceRange] = useState([0,1000000])
+    //가격 범위 팝업 설정
+    const showPricePopup = () => {
+        setIsPrice(true)
+    }
+    useEffect(()=>{
+        console.log(priceRange)
+        if(priceRange.length > 0){
+            let data = {
+                price:priceRange
+            }
+            axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
+            .then(response => {
+                console.log('hi')
+                if(response.data.message === 'SUCCESS'){
+                    console.log('success:',response.data)
+                    setClassList(response.data.classes)
+                }
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
+    },[priceRange])
+
+
     const [categoryData,setCategoryData] = useState({})
     //클래스 리스트 세팅
     const [classList,setClassList] = useState([])
     useEffect(() => {
-        const token = window.localStorage.getItem('TOKEN_KEY')
-        const config = {
-            headers:{"Authorization": `Bearer ${token}`}
-        };
-
         axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
         .then(response=>{
             if(response.data.message === 'SUCCESS'){
                 console.log('success:',response.data)
                 setClassList(response.data.classes)
+                // setPriceRange([response.data.lowest,response.data.highest])
             }else{
                 console.log(response)
             }
@@ -92,14 +137,14 @@ const ExerciseList = (props) => {
         }
 
         return(
-            <Link to={`/search/${item.id}`} key={index}>
+            <Link to={`/search/detail/${item.id}`} key={index}>
                 <ExerciseItem 
                     id={item.id} 
                     title={item.title}
                     address={item.address}
                     distance={item.distance} 
                     subCategory={item.subCategory} 
-                    type={type} 
+                    type={item.type} 
                     discountRate={item.discountRate} 
                     originPrice={originPrice.toLocaleString()} 
                     price={price.toLocaleString()} 
@@ -110,41 +155,6 @@ const ExerciseList = (props) => {
 
     //카테고리 필터링 리스트 가져오기
 
-
-    //시간대 필터링 설정 팝업창
-    const [time,setTime] = useState(0)
-    const timePopup = () => {
-        return(
-            <div className="time-popup">
-
-            </div>
-        )
-    }
-
-    //가격대 필터링 팝업창
-    const [price,setPrice] = useState(0)
-    const pricePopup = () => {
-        return(
-            <div className="popup">
-                <header className="popup-title">
-                    <h3>가격</h3>
-                    <CloseOutlined />
-                </header>
-                <input type="range" min="100" max="234,000" value={price} onChange={()=>setPrice(price)}/>
-                <div></div>
-            </div>
-        )
-    }
-
-    //거리 필터링 팝업창
-    const [distance,setDistance] = useState(0)
-    const distancePopup = () => {
-        return(
-            <div className="popup">
-                <h3>거리</h3>
-            </div>
-        )
-    }
     
     //
     return(
@@ -176,9 +186,9 @@ const ExerciseList = (props) => {
                     </div>
                 </section>
                 <section className="filtering">
-                    <button id="time">시간</button>
-                    <button id="price">가격</button>
-                    <button id="location">거리</button>
+                    <button className="white-button" id="time">시간</button>
+                    <button className={isPrice ? "blue-button":"white-button"} id="price" onClick={()=>showPricePopup()}>가격</button>
+                    <button className="white-button" id="location">거리</button>
                 </section>
                 <section className="type">
                     <button id="all">전체</button>
@@ -188,10 +198,11 @@ const ExerciseList = (props) => {
                     <button id="month6">6개월</button>
                 </section>
                 <section className="sort">
-                    <select name="sort">
-                        <option value="new">신규순</option>
-                        <option value="new">거리순</option>
-                        <option value="new">가격순</option>
+                    <select id="sort" name="sort" onChange={handleSort}>
+                        <option value="time">신규순</option>
+                        <option value="dst">거리순</option>
+                        <option value="price/low">낮은가격순</option>
+                        <option value="price/high">높은가격순</option>
                     </select>
                 </section>
             </header>
@@ -199,6 +210,7 @@ const ExerciseList = (props) => {
                 {renderClass}
             </article>
         </main>
+        {isPrice && <PricePopup priceRange={priceRange} setPriceRange={setPriceRange} setIsPrice={setIsPrice}/>}
         <Navigator/>
         </>
     )

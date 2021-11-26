@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 import Timetable from '../../Components/home/Timetable'
 import '../../css/Pages/HomePage/HomePage.css'
+import logo from '../../Assets/image/logo/logo_blue.png'
 import PopExercise from '../../Components/home/PopExercise'
 import LargeButton from '../../Components/common/LargeButton'
 import SmallSetting from '../../Components/home/SmallSetting'
@@ -54,7 +55,7 @@ const HomePage = (props) => {
         <>
         <main className="homepage">
             <header className="home-header">
-                <h1 className="app-logo">OODI</h1>
+                <img className="app-logo" src={logo} alt="OODI"/>
                 <BellFilled style={{fontSize:'23px',color:'rgba(0,0,0,0.5)'}}/>
             </header>
             <div className="timetable-preview">

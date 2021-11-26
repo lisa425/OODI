@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
 
-const MultiRange = (props) => {
+const TimePopup = (props) => {
     return(
         <></>
     )
 }
 
-export default MultiRange
+export default TimePopup

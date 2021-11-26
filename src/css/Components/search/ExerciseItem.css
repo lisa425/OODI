@@ -54,6 +54,9 @@
     font-weight: 700;
     margin-top:5px;
     width:84%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .exercise-item .discount{
     font-size: 10px;

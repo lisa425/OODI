@@ -5,6 +5,9 @@
     justify-content: space-between;
     margin-bottom:20px;
 }
+.home-header .app-logo{
+    width:87px;
+}
 .popular-exercise{
     margin:30px 0;
 }
