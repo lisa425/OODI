@@ -1,36 +1,44 @@
-/* global kakao */
-
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios';
+import Map from '../../Components/common/Map'
+import Back from '../../Components/common/Back'
+import LargeButton from '../../Components/common/LargeButton'
 import '../../css/Components/Common/AddressSetting.css';
-import Back from './Back';
-import LargeButton from './LargeButton';
-import Map from './Map'
 import {SearchOutlined} from '@ant-design/icons';
 
-const AddressSetting = (props) => {
+const LocationSettingPage = (props) => {
     //input state
     const [inputText,setInputText] = useState('') 
     //실제 map으로 보낼 keyword
     const [searchKeyword,setSearchKeyword] = useState('제주특별자치도 제주시 첨단로 242'); 
-    
-    //키워드를 지도에 반영한다.
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearchKeyword(inputText)
     }
-   /* 주소 설정 팝업창을 끈다.(뒤로가기)*/ 
-   const setOpenThisMap = () => {
-       props.setOpenMap(false)
-   }
-   const setPropsAddress = () => {
-       setOpenThisMap();
-       props.setAddress(searchKeyword);
-   }
+
+    useEffect(()=>{
+        const token = window.localStorage.getItem('TOKEN_KEY')
+        const config = {
+            headers:{"Authorization": `Bearer ${token}`}
+        };
+
+        //get user name
+        axios.get('http://localhost:8080/user',config)
+        .then(response => {
+            if(response.data.message === 'SUCCESS'){
+                setInputText(response.data.address)
+                setSearchKeyword(response.data.address)
+            }
+        }).catch((error)=>{
+            console.log('error:',error)
+        })
+    },[])
 
     return(
         <div className="setAddress">
             <header>
-                <h2>{props.title}</h2>
+                <Back link='/home'/>
+                <h2>위치 설정</h2>
             </header>
             <section className="input-address">
                 <input 
@@ -49,9 +57,9 @@ const AddressSetting = (props) => {
                 <h3>이 주소가 맞나요?</h3>
                 <div>{searchKeyword}</div>
             </section>
-            <LargeButton onClick={()=>setPropsAddress()}>주소 설정</LargeButton>
+            <LargeButton>주소 설정</LargeButton>
         </div>
     )
 }
 
-export default AddressSetting;
+export default LocationSettingPage;
