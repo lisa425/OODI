@@ -24,7 +24,7 @@ export async function getClasses(req, res) {
     const userId = req.userId;
 
     //가격순 점검
-    if (!(order == "price" && direction)) {
+    if (order == "price" && !direction) {
         return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
     }
 
@@ -107,7 +107,8 @@ export async function getClassesWithFilter(req, res) {
     const userId = req.userId;
 
     //가격순 점검
-    if (!(order == "price" && direction)) {
+
+    if (order == "price" && !direction) {
         return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
     }
 
