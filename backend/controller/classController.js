@@ -24,8 +24,8 @@ export async function getClasses(req, res) {
 
     //서브 카테고리 분리
     let sub;
-    if (sub_.includes(' . ')) {
-        sub = sub_.split(' . ')
+    if (sub_.includes('.')) {
+        sub = sub_.split('.')
     } else {
         sub = [sub_]
     }
@@ -94,8 +94,8 @@ export async function getClassesWithFilter(req, res) {
 
     //서브 카테고리 분리
     let sub
-    if (sub.includes(' . ')) {
-        sub = sub_.split(' . ')
+    if (sub.includes('.')) {
+        sub = sub_.split('.')
     } else {
         sub = [sub_]
     }
