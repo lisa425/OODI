@@ -94,7 +94,7 @@ export async function findClassCards(category, sub, order = false) {
         return Lesson.findAll({
             ...LESSON,
             ...INCLUDE,
-            where: { category, subCategory: sub },
+            where: { category, subCategory: { [Op.in]: sub } },
             ...ORDER_BY_TIME
         })
     }
@@ -113,7 +113,7 @@ export async function findClassCards(category, sub, order = false) {
         return Lesson.findAll({
             ...LESSON,
             ...INCLUDE,
-            where: { category, subCategory: sub }
+            where: { category, subCategory: { [Op.in]: sub } }
         })
     }
 }
@@ -169,7 +169,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category, subCategory: sub },
+            where: { category, subCategory: { [Op.in]: sub } },
             ...ORDER_BY_TIME
         })
     }
@@ -222,7 +222,7 @@ export async function findClassCardsWithFilter(category, sub, price, order = fal
                 },
                 order: [['price', 'ASC']],
             }],
-            where: { category, subCategory: sub },
+            where: { category, subCategory: { [Op.in]: sub } },
         })
     }
 }

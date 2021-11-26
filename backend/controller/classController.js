@@ -18,9 +18,12 @@ export async function createClass(req, res) {
 //전체 클래스카드 받아오기
 export async function getClasses(req, res) {
     const category = req.params.category;
-    const sub = req.params.sub;
+    const sub_ = req.params.sub;
     const order = req.params.order;
     const userId = req.userId;
+
+    //서브 카테고리 분리
+    const sub = sub_.split(' . ')
 
     //사용자 위치 반환
     const user = await userRepository.findById(userId);
@@ -66,11 +69,14 @@ export async function getClasses(req, res) {
 
 //필터링된 클래스 카드 가져오기
 export async function getClassesWithFilter(req, res) {
-    const { category, sub, order } = req.params;
+    const { category, sub_, order } = req.params;
     let time = req.body.time;
     const certainDst = req.body.distance;
     const certainPrice = req.body.price;
     const userId = req.userId;
+
+    //서브 카테고리 분리
+    const sub = sub_.split(' . ')
 
     //각 필터가 비어있는 경우 디폴트 처리
     if (!time) {
