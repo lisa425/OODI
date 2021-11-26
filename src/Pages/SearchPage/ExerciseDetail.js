@@ -5,7 +5,7 @@ import '../../css/Pages/SearchPage/ExerciseDetail.css'
 import DoneRegister from './DoneRegister';
 import {useParams} from 'react-router-dom';
 import boxing from '../../Assets/image/boxing.jpeg';
-import {ClockCircleOutlined,StopOutlined,UserOutlined} from '@ant-design/icons'
+import {ClockCircleOutlined,CarOutlined,UserOutlined} from '@ant-design/icons'
 import Back from '../../Components/common/Back';
 import {ReactComponent as CreditCard} from '../../Assets/image/icons/creditcard.svg'
 import {ReactComponent as Message} from '../../Assets/image/icons/message.svg'
@@ -17,6 +17,8 @@ const ExerciseDetail = (props) => {
     const classId = useParams()["classId"];
     console.log(classId)
     const [classDetail,setClassDetail] = useState([])
+    const [type,setType] = useState('상담권장');
+    const [parking,setParking]=useState('');
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
@@ -25,14 +27,39 @@ const ExerciseDetail = (props) => {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
-        const data = {test:'hihi'}
+        const data = {}
 
         axios.post(`http://localhost:8080/class/${classId}`,data,{headers:{"Authorization":`Bearer ${token}`}})
         .then(response => {
-            console.log('hi')
             if(response.status === 200){
-                console.log(response)
                 setClassDetail(response.data)
+
+                //클래스 타입 설정
+                switch(response.data.type){
+                    case "oneday":
+                        setType('원데이');
+                        break;
+                    case "month1":
+                        setType('1개월');
+                        break;
+                    case "month3":
+                        setType('3개월');
+                        break;
+                    case "month6":
+                        setType('6개월');
+                        break;
+                }
+                
+                //주차 여부 설정
+                switch(response.data.parking){
+                    case "no":
+                        setParking('주차 불가');
+                        break;
+                    case "yes":
+                        setParking('주차 가능');
+                        break;
+                }
+
                 console.log(classDetail)
             }else{
                 console.log('request is success,but fail')
@@ -70,24 +97,25 @@ const ExerciseDetail = (props) => {
             <img className="exercise-image" src={boxing} alt="boxing"/>
             <section className="introduce">
                 <div className="keyword">
-                    <div>복싱</div>
-                    <div>원데이클래스</div>
+                    <div>{classDetail.subCategory}</div>
+                    <div>{type}</div>
                 </div>
-                <h3>원데이 맨몸 복싱</h3>
+                <h3>{classDetail.title}</h3>
                 <p>
-                    어렵다고만 느껴졌던 필라테스, 이제는 가벼운 복장과 함께
-                    몸의 유연성을 늘려보는 체험을 해보세요!
+                    {classDetail.description}
                 </p>
             </section>
             <section className="information">
                 <h5>운동 수업 정보</h5>
-                <div><ClockCircleOutlined style={{marginRight:'3px'}}/>총 40분</div>
-                <div><UserOutlined style={{marginRight:'3px'}}/>최대 15명</div>
+                <div><ClockCircleOutlined style={{marginRight:'3px'}}/>총 {classDetail.totalTime}분</div>
+                <div><UserOutlined style={{marginRight:'3px'}}/>최대 {classDetail.maxCapacity}명</div>
                 <div>
                     <Location style={{fill:'#222222',width:'18px',height:'18px'}}/>
-                    송파구 석촌동
+                    {classDetail.address}
                 </div>
-                <div><StopOutlined style={{marginRight:'3px'}}/>주차 불가</div>
+                <div><CarOutlined style={{marginRight:'3px'}}/>
+                    {parking}
+                </div>
             </section>
             <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleDonePopup()}>신청하기</LargeButton>
             {doneRegister && <DoneRegister exercise={'원데이 맨몸필라테스'} daytime={['수요일 18:00~19:00','금요일 13:00~14:00']} setDoneRegister={setDoneRegister}/>}
@@ -107,16 +135,7 @@ const ExerciseDetail = (props) => {
                     <div className="detail-information-review">후기</div>
                 </header>
                 <article>
-                    <p>안녕하세요, 4년차 현직 강사 이유진입니다!
-                        <br/>
-                        많은 분들이 거북목, 라운드숄더, 디스크와 같은 불편함을 느껴서 오십니다. 
-                        저도 한때 직장인 생활을 하다가, 아픈 어깨를 재활로 극복한 경험이 있기에 
-                        회원님들의 상태와 마음을 헤아려 효과적인 트레이닝을 진행할 수 있습니다!
-                        전문적이고 과학적인 지식을 갖춘 트레이너가 되기 위해, 공인자격증 취득과 
-                        휘트니스 자체 교육(주 2회)에 참가하고 있습니다.
-                        <br/>
-                        또한, 저 또한 보디빌더/재활트레이너 PT를 직접 받으며 몸을 관리하고 
-                        최신 노하우를 전수받고 있습니다.</p>
+                    <p>{classDetail.detail}</p>
                 </article>
             </section>
         </main>
