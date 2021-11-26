@@ -145,6 +145,8 @@ export async function calculateTime(time) {
 
 export async function processForOne(lesson, timetable) {
 
+    let max = 0;
+
     //lessonTimes 필터로 거르기
     let lessonTimes = [];
     for (let timeItem of lesson.dataValues.lessonTimes) {
@@ -173,6 +175,11 @@ export async function processForOne(lesson, timetable) {
         for (var one of timetable) {
             if (day == one.day && startTime >= one.start && endTime <= one.end) {
 
+                if (max < timeItem.capacity) {
+                    max = timeItem.capacity
+                    console.log(max)
+                }
+
                 timeItem = {
                     day,
                     startTime,
@@ -182,8 +189,10 @@ export async function processForOne(lesson, timetable) {
                 }
 
                 lessonTimes.push(timeItem)
+
             }
         }
+        console.log(max)
     }
 
     //image url 따로 가져오기
@@ -206,7 +215,7 @@ export async function processForOne(lesson, timetable) {
         detail: data.detail,
     }
 
-    const newClass = { ...list, lessonTimes, imageInfo }
+    const newClass = { ...list, lessonTimes, imageInfo, maxCapacity: max }
 
     return newClass
 }
