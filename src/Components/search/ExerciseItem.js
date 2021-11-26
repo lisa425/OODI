@@ -4,23 +4,25 @@ import boxing from '../../Assets/image/boxing.jpeg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 
 const ExerciseItem = (props) => {
-    /* props.id를 받아서 axios로 서버에서 데이터를 가져오고 컴포넌트를 리턴한다. 상위 컴포넌트에서 map으로 리스트를 출력 */
+    
     return(
         <div className="exercise-item">
             <section className="thumbnail">
                 <img className="thumbnail-img" src={boxing} alt="복싱"/>
                 <div className="location-info">
                     <Location style={{fill:'white'}}/>
-                    <span>상암동 500m</span>
+                    <span>{props.address}&nbsp;{props.distance}m</span>
                 </div>
             </section>
             <section className="keyword">
-                <div>복싱</div>
-                <div>원데이클래스</div>
+                <div>{props.subCategory}</div>
+                <div>{props.type}</div>
             </section>
-            <h4>하루체험 태영복싱</h4>
-            <p className="discount">50% <span className="before-discount">200,000원</span></p>
-            <p className="price">100,000원 <span>부터</span></p>
+            <h4>{props.title}</h4>
+            <p className="discount">{props.discountRate}%&nbsp;
+                <span className="before-discount">{props.originPrice}원</span>
+            </p>
+            <p className="price">{props.price}원 <span>부터</span></p>
         </div>
     )
 }

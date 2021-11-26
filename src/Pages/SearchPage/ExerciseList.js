@@ -32,17 +32,34 @@ const ExerciseList = (props) => {
 
         axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
         .then(response=>{
-            console.log(response.status)
             if(response.data.message === 'SUCCESS'){
-                console.log('success:',response)
+                console.log('success')
                 setClassList(response.data.classes)
             }else{
-                console.log(response.data)
+                console.log(response)
             }
         }).catch((error) => {
             console.log(error)
         })
     }, [])
+
+    const renderClass = classList.map((item,index) => {
+        return(
+            <Link to="/search/detail" key={index}>
+                <ExerciseItem 
+                    id={item.id} 
+                    title={item.title}
+                    address={item.address}
+                    distance={item.distance} 
+                    subCategory={item.subCategory} 
+                    type={item.type} 
+                    discountRate={item.discountRate} 
+                    originPrice={item.lessonTimes[0].originPrice} 
+                    price={item.lessonTimes[0].price} 
+                />
+            </Link>
+        )
+    })
 
     //시간대 필터링 설정 팝업창
     const [time,setTime] = useState(0)
@@ -98,6 +115,9 @@ const ExerciseList = (props) => {
                                 <li id="swim">수영</li>
                                 <li id="yoga">요가.필라테스</li>
                             </ul>
+                            <ul className="sub-category">
+
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -122,12 +142,7 @@ const ExerciseList = (props) => {
                 </section>
             </header>
             <article className="exercise-list">
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
-                <Link to="/search/detail"><ExerciseItem id="01"/></Link>
+                {renderClass}
             </article>
         </main>
         <Navigator/>
