@@ -23,7 +23,12 @@ export async function getClasses(req, res) {
     const userId = req.userId;
 
     //서브 카테고리 분리
-    const sub = sub_.split(' . ')
+    let sub;
+    if (sub_.includes(' . ')) {
+        sub = sub_.split(' . ')
+    } else {
+        sub = [sub_]
+    }
 
     //사용자 위치 반환
     const user = await userRepository.findById(userId);
@@ -39,12 +44,22 @@ export async function getClasses(req, res) {
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
     const table = await tableRepository.getTimetable(userId);
-    const timeList = table.dataValues.continuousTime.split(", ")
+    let timeList
+    if (table.dataValues.continuousTime.includes(", ")) {
+        timeList = table.dataValues.continuousTime.split(", ")
+    } else {
+        timeList = [table.dataValues.continuousTime]
+    }
 
     let timetable = []
     timeList.forEach(item => {
 
-        var itemArray = item.split("~")
+        let itemArray
+        if (item.includes("~")) {
+            itemArray = item.split("~")
+        } else {
+            itemArray = [item]
+        }
 
         var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
 
@@ -78,7 +93,12 @@ export async function getClassesWithFilter(req, res) {
     const userId = req.userId;
 
     //서브 카테고리 분리
-    const sub = sub_.split(' . ')
+    let sub
+    if (sub.includes(' . ')) {
+        sub = sub_.split(' . ')
+    } else {
+        sub = [sub_]
+    }
 
     //각 필터가 비어있는 경우 디폴트 처리
     if (!time) {
@@ -161,11 +181,20 @@ export async function getOneClass(req, res) {
     let timeList = []
     if (!time) {
         const table = await tableRepository.getTimetable(userId)
-        time = table.dataValues.continuousTime.split(", ")
+        if (table.dataValues.continuousTime.includes(", ")) {
+            time = table.dataValues.continuousTime.split(", ")
+        } else {
+            time = [table.dataValues.continuousTime]
+        }
 
         time.forEach(item => {
 
-            var itemArray = item.split("~")
+            let itemArray
+            if (item.includes("~")) {
+                itemArray = item.split("~")
+            } else {
+                itemArray = [item]
+            }
 
             var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
 

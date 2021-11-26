@@ -151,7 +151,12 @@ export async function processForOne(lesson, timetable) {
         var startTime = timeItem.startTime
         var endTime = timeItem.endTime
         var day = timeItem.day
-        var startDate = timeItem.startDate.split(", ")
+        let startDate;
+        if (timeItem.startDate.length == 10) {
+            startDate = [timeItem.startDate]
+        } else {
+            startDate = timeItem.startDate.split(", ")
+        }
 
         let newDate = []
         for (var date of startDate) {

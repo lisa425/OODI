@@ -20,12 +20,21 @@ export async function getTime(req, res) {
 
     if (!time) { return res.status(200).json({ totalTime: 0, message: "시간표가 없습니다." }) }
 
-    const timeList = time.continuousTime.split(", ")
+    let timeList
+    if (time.continuousTime.includes(", ")) {
+        timeList = time.continuousTime.split(", ")
+    } else {
+        timeList = [time.continuousTime]
+    }
 
     let total = 0;
     for (var item of timeList) {
-
-        var itemArray = item.split("~")
+        let itemArray
+        if (item.includes("~")) {
+            itemArray = item.split("~")
+        } else {
+            itemArray = [item]
+        }
 
         if (itemArray[1] == 0) {
             continue;
@@ -56,12 +65,22 @@ export async function getTable(req, res) {
 
     const time = await tableRepository.getTimetable(userId)
 
-    const timeList = time.time.split(", ")
+    let timeList
+    if (time.time.includes(", ")) {
+        timeList = time.time.split(", ")
+    } else {
+        timeList = [time.time]
+    }
 
     let timetable = []
     timeList.forEach(item => {
 
-        var itemArray = item.split("-")
+        let itemArray
+        if (item.includes("-")) {
+            itemArray = item.split("-")
+        } else {
+            itemArray = [item]
+        }
 
         let timeList = []
         for (var i = 1; i < itemArray.length; i++) {
