@@ -11,6 +11,10 @@
 .popular-exercise-list{
     display: flex;
 }
+.popular-exercise-list>a{
+    width:calc(100%/3.1);
+    margin:1%;
+}
 .pop-title{
     display: flex;
     justify-content: space-between;

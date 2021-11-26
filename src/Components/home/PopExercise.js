@@ -5,14 +5,13 @@ import golf from '../../Assets/image/pictogram/golf.png';
 import swim from '../../Assets/image/pictogram/swim.png';
 const PopExercise = (props) => {
     const PopExerciseBox = styled.div`
-        width:calc(100%/3.1);
+        width:100%;
         height:149px;
         display:flex;
         flex-direction:column;
         align-items:center;
         justify-content: center;
         border-radius:5px;
-        margin:1%;
         box-shadow: 0px 0px 15px 0px rgba(196, 196, 196, 0.2);
         background-color:white;
     `

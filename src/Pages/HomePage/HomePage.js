@@ -77,12 +77,12 @@ const HomePage = (props) => {
                     </SmallSetting>
                 </div>
                 <article className="popular-exercise-list">
-                    <PopExercise name="ball"/>
-                    <PopExercise name="golf"/>
-                    <PopExercise name="swim"/>
+                    <Link to="/search/구기종목"><PopExercise name="ball"/></Link>
+                    <Link to="/search/골프"><PopExercise name="golf"/></Link>
+                    <Link to="/search/수영"><PopExercise name="swim"/></Link>
                 </article>
             </section>
-            <LargeButton><Link to="/search">수업 예약하기</Link></LargeButton>
+            <LargeButton><Link to="/search/격투">수업 예약하기</Link></LargeButton>
         </main>
         <Navigator/>
         </>
