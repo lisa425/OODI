@@ -118,12 +118,31 @@ export async function getClassesWithFilter(req, res) {
     }
 
     //각 필터가 비어있는 경우 디폴트 처리
+    let timeList = []
     if (!time) {
-        time = []
-        const defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        for (var df of defaultTime) {
-            time.push({ timeList: [900, 2300], day: df })
+        const table = await tableRepository.getTimetable(userId)
+        if (table.dataValues.continuousTime.includes(", ")) {
+            time = table.dataValues.continuousTime.split(", ")
+        } else {
+            time = [table.dataValues.continuousTime]
         }
+
+        time.forEach(item => {
+
+            let itemArray
+            if (item.includes("~")) {
+                itemArray = item.split("~")
+            } else {
+                itemArray = [item]
+            }
+
+            var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
+
+            timeList.push(set)
+
+        })
+    } else {
+        timeList = await middleware.calculateTime(time);
     }
     if (!certainDst) {
         certainDst = 3000
@@ -153,12 +172,8 @@ export async function getClassesWithFilter(req, res) {
 
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
-    time = await middleware.calculateTime(time);
+    const filtered = await middleware.firstFilter(classes, timeList)
 
-    console.log(time)
-    const filtered = await middleware.firstFilter(classes, time)
-
-    console.log(filtered)
 
     //최저가, 최고가, 할인률, 거리 반환
     let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here, certainDst)
