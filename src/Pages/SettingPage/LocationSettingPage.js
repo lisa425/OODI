@@ -10,7 +10,7 @@ const LocationSettingPage = (props) => {
     //input state
     const [inputText,setInputText] = useState('') 
     //실제 map으로 보낼 keyword
-    const [searchKeyword,setSearchKeyword] = useState('제주특별자치도 제주시 첨단로 242'); 
+    const [searchKeyword,setSearchKeyword] = useState(''); 
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearchKeyword(inputText)
