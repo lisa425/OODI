@@ -33,6 +33,7 @@ const ExerciseDetail = (props) => {
         axios.post(`http://localhost:8080/class/${classId}`,data,{headers:{"Authorization":`Bearer ${token}`}})
         .then(response => {
             if(response.status === 200){
+                console.log(response.data)
                 setClassDetail(response.data)
 
                 //클래스 타입 설정
@@ -75,9 +76,6 @@ const ExerciseDetail = (props) => {
     
     //결제내용 확인 팝업
     const [showReservation,setShowReservation] = useState(false);
-    const handleReservationPopup = () => {
-        setShowReservation(true)
-    }
 
     //클래스 선택 팝업
     const [selectLesson,setSelectLesson] = useState(false);
