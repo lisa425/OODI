@@ -57,8 +57,6 @@ export async function getClasses(req, res) {
         timeList = [table.dataValues.continuousTime]
     }
 
-    console.log(timeList)
-
     let timetable = []
     timeList.forEach(item => {
 
@@ -146,7 +144,6 @@ export async function getClassesWithFilter(req, res) {
     } else {
         timeList = await middleware.calculateTime(time);
     }
-    console.log(timeList)
     if (!certainDst) {
         certainDst = 3000
     }
