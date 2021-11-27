@@ -185,9 +185,22 @@ export async function getImages(req, res) {
     const __dirname = path.resolve()
 
     let zip = []
+    let defaultPath = path.join(__dirname, "/resource", "default.jpg")
+    let order = 1;
+    let defaultNum = 1;
     for (var one of imageInfo) {
+
+        //이미지가 없으면
+        if (Object.keys(one).length == 0) {
+            var name = order + " - default" + defaultNum + ".jpg";
+            zip.push({ path: defaultPath, name })
+            defaultNum++
+            order++
+            continue;
+        }
         var file = one.name + "." + one.type
         var filePath = path.join(__dirname, "/resource", file)
+        file = order + " - " + file
 
         try {
             if (!fs.existsSync(filePath)) {
@@ -198,6 +211,7 @@ export async function getImages(req, res) {
         }
 
         zip.push({ path: filePath, name: file })
+        order++
     }
 
     res.zip(zip)

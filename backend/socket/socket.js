@@ -9,6 +9,7 @@ class Socket {
         });
 
         this.io.on('connection', (socket) => {
+            console.log(socket.id)
             console.log('Socket client connected');
         });
     }
