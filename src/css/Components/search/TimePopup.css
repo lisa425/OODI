@@ -4,7 +4,6 @@
     min-height:90vh;
     padding:5vh 5vw;
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
     position: fixed;
     top:0;
@@ -18,16 +17,40 @@
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
-    top:10px;
 }
 .time-popup .page-title .page-title-text{
     margin-left:15px;
     position: relative;
     top:-10px;
 }
+.time-popup .page-title .page-title-text h1{
+    font-size: 24px;
+    position: relative;
+    top:3px;
+}
 .time-popup .useable-time{
-    margin: 10px 0 20px 0;
+    margin-top: 10px;
     font-size:14px;
 }
+.time-popup .time-table{
+    position: relative;
+    height:100%;
+}
+
+.time-popup .time-table .MpkDn{
+    position: relative;
+    top:0;
+}
+
+.time-popup .time-table .jocFmX{
+    position: absolute;;
+    top:0;
+}
+
+.time-popup button{
+    position: absolute;
+    bottom:5px;
+}
+
 
 

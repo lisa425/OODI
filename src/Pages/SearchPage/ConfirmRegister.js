@@ -12,6 +12,7 @@ const ConfirmRegister = (props) => {
     const selectedDay = selectedDate.lesson;
 
     console.log("registerData:",selectedDate)
+    
     //예약 완료 팝업
     const [doneRegister,setDoneRegister] = useState(false);
     const handleDonePopup = () => {

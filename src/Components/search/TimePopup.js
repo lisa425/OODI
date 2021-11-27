@@ -7,27 +7,7 @@ import axios from 'axios'
 import Timetable from './Timetable'
 
 const TimePopup = (props) => {
-    //유저의 타임테이블을 가져온다.
-    useEffect(() => {
-        const token = window.localStorage.getItem('TOKEN_KEY')
-        console.log(token)
 
-        const config = {
-            headers:{"Authorization": `Bearer ${token}`}
-        };
-
-        axios.get('http://localhost:8080/timetable/getTable',config)
-        .then(response => {
-            if(response.data.message === 'SUCCESS'){
-                console.log('success')
-                console.log(response.data)
-            }
-        }).catch((error)=>{
-            console.log(error)
-        })
-    }, [])
-
-    
     //요일별 가능 시간을 담는 배열
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
@@ -135,9 +115,9 @@ const TimePopup = (props) => {
 
     const submitTimetable = () => {
         const ableTimeList = setAbleTimeList();
-        console.log(ableTimeList)
+        console.log("사용가능 시간:",ableTimeList)
         props.setSelectedTime(ableTimeList)
-        closePopup();
+        // closePopup();
     }
     
     const closePopup = () => {
@@ -155,18 +135,22 @@ const TimePopup = (props) => {
                     </p>
                 </div>
             </div>
-            <ScheduleSelector
-                selection={schedule}
-                numDays={7}
-                minTime={6}
-                maxTime={24}
-                timeFormat={"hh A"}
-                dateFormat={"ddd"}
-                startDate={"11-21-21"}
-                onChange={handleChange}
-                unselectedColor='#e4e4e4'
-                selectedColor='#223DFF'
-            />
+            <div className="time-table">
+                <Timetable id="userTable"/>
+                <ScheduleSelector
+                    selection={schedule}
+                    numDays={7}
+                    minTime={6}
+                    maxTime={24}
+                    timeFormat={"hh A"}
+                    dateFormat={"ddd"}
+                    startDate={"11-21-21"}
+                    onChange={handleChange}
+                    unselectedColor='rgba(240,240,240,0.2)'
+                    selectedColor='#223DFF'
+                    id="filterTable"
+                />
+            </div>
             <LargeButton onClick={()=>submitTimetable()}>저장하기</LargeButton>
         </div>
     )

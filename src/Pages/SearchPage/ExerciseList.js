@@ -115,14 +115,14 @@ const ExerciseList = (props) => {
                 setMonth6Type(false)
                 break;
             case "3개월":
-                setMonth3Type(!month1Type)
+                setMonth3Type(!month3Type)
                 setMonth1Type(false)
                 setOnedayType(false)
                 setAllType(false)
                 setMonth6Type(false)
                 break;
             case "6개월":
-                setMonth6Type(!month1Type)
+                setMonth6Type(!month6Type)
                 setMonth3Type(false)
                 setMonth1Type(false)
                 setOnedayType(false)
