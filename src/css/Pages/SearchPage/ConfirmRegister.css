@@ -36,7 +36,7 @@
     margin-bottom: 10px;
 }
 .ConfirmRegister>section>input{
-    border:1px solid #c4c4c4;
+    border:1px solid #dadada;
     background: white;
     border-radius: 5px;
     height:56px;
@@ -44,4 +44,57 @@
     padding:0 4%;
     width:91%;
     margin:4px 0;
+}
+.ConfirmRegister .selected-class{
+    width:100%;
+    border-radius: 5px;
+    border:1px solid #dadada;
+    background: white;
+    min-height: 80px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ConfirmRegister .selected-class h5{
+    color:black;
+    font-weight: 600;
+    font-size: 14px;
+}
+.ConfirmRegister .selected-class>div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    padding:15px 0;
+}
+.ConfirmRegister .selected-class .class{
+    border-bottom: 1px solid #dadada;
+}
+.ConfirmRegister .selected-class>div>h5{
+    width:40%;
+    padding-left:10%;
+}
+.ConfirmRegister .selected-class>div>div{
+    width:50%;
+    font-size: 12px;
+}
+.ConfirmRegister .payment .payment-type{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%
+}
+.ConfirmRegister .payment .payment-type div{
+    width:32%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    height:97px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #dadada;
+    box-shadow: 0px 0px 15px rgba(196, 196, 196, 0.2);
 }

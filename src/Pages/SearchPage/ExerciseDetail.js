@@ -4,7 +4,7 @@ import Navigator from '../../Components/common/Navigator';
 import '../../css/Pages/SearchPage/ExerciseDetail.css'
 import ConfirmRegister from './ConfirmRegister';
 import {useParams} from 'react-router-dom';
-import boxing from '../../Assets/image/boxing.jpeg';
+import test10 from '../../Assets/image/thumbnails/test10.jpg';
 import {ClockCircleOutlined,CarOutlined,UserOutlined} from '@ant-design/icons'
 import Back from '../../Components/common/Back';
 import {ReactComponent as CreditCard} from '../../Assets/image/icons/creditcard.svg'
@@ -13,13 +13,17 @@ import {ReactComponent as Heart} from '../../Assets/image/icons/heart.svg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 import axios from 'axios';
 import RegisterPopup from '../../Components/search/RegisterPopup';
+import ClassCalender from '../../Components/search/ClassCalender';
 
 const ExerciseDetail = (props) => {
+    //클래스 id
     const classId = useParams()["classId"];
-    console.log(classId)
+    //클래스 객체 
     const [classDetail,setClassDetail] = useState([])
-    const [type,setType] = useState('상담권장');
+    //주차 여부
     const [parking,setParking]=useState('');
+    //주소 지역구-법정동 출력
+    const [address,setAddress] = useState('')
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
@@ -30,28 +34,10 @@ const ExerciseDetail = (props) => {
 
         const data = {}
 
-        axios.post(`http://localhost:8080/class/${classId}`,data,{headers:{"Authorization":`Bearer ${token}`}})
+        axios.post(`http://localhost:8080/class/${classId}`,data,config)
         .then(response => {
             if(response.status === 200){
-                console.log(response.data)
                 setClassDetail(response.data)
-
-                //클래스 타입 설정
-                // switch(response.data.type){
-                //     case "oneday":
-                //         setType('원데이');
-                //         break;
-                //     case "month1":
-                //         setType('1개월');
-                //         break;
-                //     case "month3":
-                //         setType('3개월');
-                //         break;
-                //     case "month6":
-                //         setType('6개월');
-                //         break;
-                // }
-                
                 //주차 여부 설정
                 switch(response.data.parking){
                     case "no":
@@ -61,13 +47,13 @@ const ExerciseDetail = (props) => {
                         setParking('주차 가능');
                         break;
                 }
-
+                let userDong = response.data.address.split('동')
+                setAddress(userDong[0])
                 console.log(classDetail)
             }else{
                 console.log('request is success,but fail')
             }
         }).catch((error)=>{
-            console.log('errororor')
             console.log(error)
         })
     },[])
@@ -78,10 +64,16 @@ const ExerciseDetail = (props) => {
     const [showReservation,setShowReservation] = useState(false);
 
     //클래스 선택 팝업
-    const [selectLesson,setSelectLesson] = useState(false);
+    const [registerPopup,setRegisterPopup] = useState(false);
     const handleSelectLessonPopup = () => {
-        setSelectLesson(true)
+        setRegisterPopup(true)
     }
+    //선택 팝업에서 선택한 데이터
+    const [registerData,setRegisterData] = useState({})
+    useEffect(()=>{
+        console.log(registerData)
+    },[registerData])
+
     return(
         <>
         <main className="ExerciseDetailPage">
@@ -93,7 +85,7 @@ const ExerciseDetail = (props) => {
                     <Heart />
                 </div>
             </header>
-            <img className="exercise-image" src={boxing} alt="boxing"/>
+            <img className="exercise-image" src={test10} alt="boxing"/>
             <section className="introduce">
                 <div className="keyword">
                     <div>{classDetail.subCategory}</div>
@@ -110,27 +102,37 @@ const ExerciseDetail = (props) => {
                 <div><UserOutlined style={{marginRight:'3px'}}/>최대 {classDetail.maxCapacity}명</div>
                 <div>
                     <Location style={{fill:'#222222',width:'18px',height:'18px'}}/>
-                    {classDetail.address}
+                    {address}
                 </div>
                 <div><CarOutlined style={{marginRight:'3px'}}/>
                     {parking}
                 </div>
             </section>
             <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>예약하기</LargeButton>
-            {selectLesson && <RegisterPopup setShowReservation={setShowReservation} setSelectLesson={setSelectLesson}/>}
+            
+            {/* 예약하기 눌렀을 때 */}
+            {registerPopup && 
+                <RegisterPopup 
+                    setShowReservation={setShowReservation} 
+                    setRegisterPopup={setRegisterPopup} 
+                    lessonTimes={classDetail.lessonTimes}
+                    startDate={classDetail.startDate}
+                    setRegisterData={setRegisterData}
+                />}
             
             
-            {/*세부정보 입력하기 눌렀을 때*/}
-            {showReservation && <ConfirmRegister setShowReservation={setShowReservation} classId={classId}/>}
+            {/*신청하기 입력하기 눌렀을 때*/}
+            {showReservation && 
+                <ConfirmRegister 
+                    setShowReservation={setShowReservation} 
+                    classId={classId}
+                    registerData={registerData}
+                    classOwner={classDetail.title}
+                />}
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
-                <div className="calender">
-                    datepicker
-                </div>
-                <div className="datetime">
-                    timepicker
-                </div>
+                <ClassCalender lessonTimes={classDetail.lessonTimes} preventClick={true} />
             </section>
             <section className="detail-information">
                 <header className="detail-information-header">

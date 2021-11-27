@@ -6,11 +6,11 @@
     }
 }
 .register-popup{
-    height:380px;
+    min-height:380px;
     position: fixed;
     bottom:0;
     left:0;
-    width:100vw;
+    width:90vw;
     animation-name: popup-bottom;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
@@ -22,21 +22,55 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    padding:5% 0;
+    padding:5% 5vw;
 }
+
 .register-popup>header{
     display: flex;
     align-items: center;
     justify-content: center;
-    width:100vw;
     position: relative;
-
+    width:100%;
 }
-.register-popup>header>h1{
+.register-popup>header>h2{
     font-size:18px;
 }
 .register-popup>header>span{
     font-size: 20px;
     position: absolute;
-    right:5%;
+    right:0;
 }
+.register-popup section{
+    width:100%;
+    margin-top:22px;
+}
+.register-popup .hope-startDate select{
+    width:100%;
+    border:1px solid #dadada;
+    background:white;
+    padding:8px 2%;
+    font-size:12px;
+}
+.register-popup h3{
+    width:100%;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.register-popup .my-timelist .my-timelist-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:10px;
+}
+.register-popup .my-timelist .my-timelist-wrapper div{
+    border:1px solid #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:49%;
+    height:35px;
+    font-size:12px;
+}
+

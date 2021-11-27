@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
-import Timetable from '../../Components/home/Timetable'
+import Timetable from '../../Components/search/Timetable'
 import '../../css/Pages/HomePage/HomePage.css'
 import logo from '../../Assets/image/logo/logo_blue.png'
 import PopExercise from '../../Components/home/PopExercise'
@@ -28,7 +28,8 @@ const HomePage = (props) => {
         .then(response => {
             if(response.data.message === 'SUCCESS'){
                 setUsername(response.data.name)
-                setUserAddress(response.data.address)
+                let userDong = response.data.address.split('구')
+                setUserAddress(`${userDong[0]}구`)
             }
         }).catch((error)=>{
             console.log('error:',error)
@@ -72,7 +73,7 @@ const HomePage = (props) => {
             
             <section className="popular-exercise">
                 <div className="pop-title">
-                    <h2>{userAddress}<br/>인기있는 운동이에요</h2>
+                    <h2><span>{userAddress}</span>에서 <br/>인기있는 운동이에요</h2>
                     <SmallSetting style={{position:'relative',right:'9px'}}>
                         <Link to='/setting/address'>위치설정</Link>
                     </SmallSetting>
