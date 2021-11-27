@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import LargeButton from '../../Components/common/LargeButton';
 import Navigator from '../../Components/common/Navigator';
 import '../../css/Pages/SearchPage/ExerciseDetail.css'
-import DoneRegister from './DoneRegister';
+import ConfirmRegister from './ConfirmRegister';
 import {useParams} from 'react-router-dom';
 import boxing from '../../Assets/image/boxing.jpeg';
 import {ClockCircleOutlined,CarOutlined,UserOutlined} from '@ant-design/icons'
@@ -78,10 +78,10 @@ const ExerciseDetail = (props) => {
         setShowReservation(true)
     }
     //예약 완료 팝업
-    const [doneRegister,setDoneRegister] = useState(false);
-    const handleDonePopup = () => {
-        setDoneRegister(true)
-    }
+    // const [doneRegister,setDoneRegister] = useState(false);
+    // const handleDonePopup = () => {
+    //     setShowReservation(true)
+    // }
 
     return(
         <>
@@ -117,8 +117,8 @@ const ExerciseDetail = (props) => {
                     {parking}
                 </div>
             </section>
-            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleDonePopup()}>신청하기</LargeButton>
-            {doneRegister && <DoneRegister exercise={'원데이 맨몸필라테스'} daytime={['수요일 18:00~19:00','금요일 13:00~14:00']} setDoneRegister={setDoneRegister}/>}
+            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleReservationPopup()}>신청하기</LargeButton>
+            
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
