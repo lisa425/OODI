@@ -182,6 +182,8 @@ export async function getClassesWithFilter(req, res) {
 export async function getImages(req, res) {
     const { imageInfo } = req.body
 
+    console.log(imageInfo)
+
     const __dirname = path.resolve()
 
     let zip = []
