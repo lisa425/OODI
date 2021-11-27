@@ -202,6 +202,10 @@ export const Reservation = sequelize.define(
         lessonTimeId: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        startDate: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }
 )

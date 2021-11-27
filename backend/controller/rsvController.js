@@ -3,7 +3,7 @@ import * as rsvRepository from '../data/reservation.js';
 export async function createReview(req, res) {
     const lessonId = req.params.classId;
     const ids = req.body.classTimeId;
-    const listSD = req.body.startDate
+    const startDate = req.body.startDate
     const userId = req.userId;
 
     let lessonTimeId = ""
@@ -12,14 +12,7 @@ export async function createReview(req, res) {
         else lessonTimeId = lessonTimeId + ", " + id.toString()
     }
 
-    let startDate = ""
-    for (var date of listSD) {
-        if (startDate == "") startDate = date.toString();
-        else startDate = startDate + ", " + date.toString();
-
-    }
-
-    await rsvRepository.makeRsv({ userId, lessonId, lessonTimeId });
+    await rsvRepository.makeRsv({ userId, lessonId, lessonTimeId, startDate });
 
     res.sendStatus(201)
 }
