@@ -220,23 +220,38 @@ export async function getOneClass(req, res) {
             time = [table.dataValues.continuousTime]
         }
 
-        time.forEach(item => {
-
-            let itemArray
-            if (item.includes("~")) {
-                itemArray = item.split("~")
-            } else {
-                itemArray = [item]
-            }
-
-            var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
-
-            timeList.push(set)
-
-        })
+        timeList = await middleware.calculateTime(time)
     } else {
-        timeList = await middleware.calculateTime(time);
+        var timeSet = await middleware.setTimeSet(time);
+        timeList = await middleware.calculateTime(timeSet);
     }
+
+    // let timeList = []
+    // if (!time) {
+    //     const table = await tableRepository.getTimetable(userId)
+    //     if (table.dataValues.continuousTime.includes(", ")) {
+    //         time = table.dataValues.continuousTime.split(", ")
+    //     } else {
+    //         time = [table.dataValues.continuousTime]
+    //     }
+
+    //     time.forEach(item => {
+
+    //         let itemArray
+    //         if (item.includes("~")) {
+    //             itemArray = item.split("~")
+    //         } else {
+    //             itemArray = [item]
+    //         }
+
+    //         var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
+
+    //         timeList.push(set)
+
+    //     })
+    // } else {
+    //     timeList = await middleware.calculateTime(time);
+    // }
 
     //가격 필터 처리
     if (!price) {
