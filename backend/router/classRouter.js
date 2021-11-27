@@ -10,20 +10,20 @@ const router = express.Router();
 router.post('/', classController.createClass)
 
 //클래스 페이지 받기
-//GET /class/:category/:subCategory/:order
-router.get('/:category/:sub/:order', isAuth, classController.getClasses);
+//GET /class/:category/:subCategory/:type/:order
+router.get('/:category/:sub/:type/:order', isAuth, classController.getClasses);
 
 //클래스 페이지 + 가격순 방향
-//GET /class/:category/:subCategory/:order/:direction
-router.get('/:category/:sub/:order/:direction', isAuth, classController.getClasses);
+//GET /class/:category/:subCategory/:type/:order/:direction
+router.get('/:category/:sub/:type/:order/:direction', isAuth, classController.getClasses);
 
 //필터링 된 클래스 페이지 받기
-//POST /class/:category/:subCategory/:order
-router.post('/:category/:sub/:order', isAuth, classController.getClassesWithFilter);
+//POST /class/:category/:subCategor/:typey/:order
+router.post('/:category/:sub/:type/:order', isAuth, classController.getClassesWithFilter);
 
 //필터링 된 클래스 페이지 + 가격순 방향
-//POST /class/:category/:subCategory/:order/:direction
-router.post('/:category/:sub/:order/:direction', isAuth, classController.getClassesWithFilter);
+//POST /class/:category/:subCategory/:type/:order/:direction
+router.post('/:category/:sub/:type/:order/:direction', isAuth, classController.getClassesWithFilter);
 
 //클래스 이미지 받기
 //GET /class/image/:category/:subCategory/:order
