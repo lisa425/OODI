@@ -52,5 +52,5 @@ export async function getUser(req, res) {
 
     const user = await userRepository.findById(userId)
 
-    res.status(200).json({ name: user.name, address: user.address, message: "SUCCESS" });
+    res.status(200).json({ name: user.name, address: user.address, phoneNumber: user.phonenum, message: "SUCCESS" });
 }
