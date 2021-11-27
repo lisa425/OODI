@@ -5,13 +5,14 @@ import "../../css/Components/search/ClassCalender.css";
 const ClassCalendar = (props) => {
     //전체 개설 클래스 데이터
     const lessonTimes = props.lessonTimes;
-
+    console.log(lessonTimes)
     //요일 설정
     const dayRef = useRef(false);
 
     //특정 요일에 오픈되어있는 클래스 리스트
     const [lessonList,setLessonList] = useState([])
     const showDayLessons = (e) => {
+        e.target.style.backgroundColor="#F2F4FF"
         setLessonList(lessonTimes[e.target.id])
     }
 
@@ -20,7 +21,7 @@ const ClassCalendar = (props) => {
     const selectLessonTime = (e,lesson,preventClick) => {
         let les = JSON.stringify(lesson)
         if(!preventClick){
-
+            e.target.style.backgroundColor="#F2F4FF"
             setSelectLesson(selectLesson.concat(les))
             props.setSelectedLesson(selectLesson)
             
@@ -50,6 +51,10 @@ const ClassCalendar = (props) => {
             </div>
         )
     })
+
+    const renderMyLesson = () => {
+
+    }
 
     
     return(

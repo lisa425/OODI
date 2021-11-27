@@ -9,10 +9,10 @@ import {CloseOutlined} from '@ant-design/icons'
 const ConfirmRegister = (props) => {
     //예약 데이터 분리
     const selectedDate = props.registerData;
-    const selectedDay = selectedDate.lesson;
+    const selectedDay = Object.values(selectedDate.lesson);
 
     console.log("registerData:",selectedDate)
-    
+
     //예약 완료 팝업
     const [doneRegister,setDoneRegister] = useState(false);
     const handleDonePopup = () => {
@@ -41,11 +41,54 @@ const ConfirmRegister = (props) => {
             console.log('error:',error)
         })
     },[])
+    console.log('date:',selectedDate)
+    console.log('day:',selectedDay)
 
     const renderLessonTime = selectedDay.map((lessonTime,index)=>{
-        console.log(lessonTime)
+        lessonTime = JSON.parse(lessonTime)
+        let day = lessonTime.day
+        let startTime = lessonTime.startTime
+        let endTime = lessonTime.endTime
+
+        switch(day){
+            case "Mon":
+                day="월요일"
+                break;
+            case "Tue":
+                day="화요일"
+                break;
+            case "Wed":
+                day="수요일"
+                break;
+            case "Thu":
+                day="목요일"
+                break;
+            case "Fri":
+                day="금요일"
+                break;
+            case "Sat":
+                day="토요일"
+                break;
+            case "Sun":
+                day="일요일"
+                break;
+        }
+        if(startTime<1000){
+            startTime = "0"+startTime.toString()
+        }else{
+            startTime = startTime.toString()
+        }
+        let startTimeString = startTime.substr(0,2) + ':00'
+
+        if(endTime<1000){
+            endTime = "0"+endTime.toString()
+        }else{
+            endTime = endTime.toString()
+        }
+        let endTimeString = endTime.substr(0,2) + ':00' 
+
         return(
-            <p>{lessonTime["day"]} {lessonTime["startTime"]}~{lessonTime["endTime"]}</p>
+            <p>{day} {startTimeString}~{endTimeString}</p>
         )
     })
 
