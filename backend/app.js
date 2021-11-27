@@ -12,6 +12,8 @@ import classRouter from './router/classRouter.js';
 import imageRouter from './router/imageRouter.js';
 import classTimeRouter from './router/classTimeRouter.js';
 import rsvRouter from './router/rsvRouter.js';
+import suggestRouter from './router/suggestRouter.js';
+import { initSocket } from './socket/socket.js';
 //import reviewRouter from './router/reviewRouter';
 
 const app = express();
@@ -46,6 +48,9 @@ app.use('/classTime', classTimeRouter);
 //예약 관련 전반
 app.use('/reservation', rsvRouter);
 
+//제안 관련 전반
+app.use('/suggest', suggestRouter);
+
 //리뷰 전반
 //app.use('/review', reviewRouter);
 
@@ -64,5 +69,5 @@ app.use((error, req, res, next) => {
 sequelize.sync().then(() => {
     console.log(`connected! ..... ${new Date()}`);
     const server = app.listen(8080);
-
+    initSocket(server)
 })
