@@ -33,8 +33,7 @@ export async function processing(filtered, here, certainDst = 3000) {
     let imageInfo = [];
     for (let oneClass of filtered) {
 
-        var origin = oneClass.lessonTimes[0].originPrice;
-        var price = oneClass.lessonTimes[0].price;
+
 
         //거리계산
         var loc = [oneClass.latitude, oneClass.longitude]
@@ -50,12 +49,16 @@ export async function processing(filtered, here, certainDst = 3000) {
         }
 
         //할인률
-        var rate = 100 - ((price / origin) * 100);
+        let rate = 100 - ((oneClass.lessonTimes[0].price / oneClass.lessonTimes[0].originPrice) * 100);
 
-        //최저가, 최고가
-        if (lowest > price) lowest = price;
-        if (highest < price) highest = price;
+        for (var oneTime of oneClass.lessonTimes) {
+            var origin = oneTime.originPrice;
+            var price = oneTime.price;
 
+            //최저가, 최고가
+            if (lowest > price) lowest = price;
+            if (highest < price) highest = price;
+        }
 
         const list = {
             "id": oneClass.id,
@@ -183,7 +186,6 @@ export async function processForOne(lesson, timetable) {
 
                 if (max < timeItem.capacity) {
                     max = timeItem.capacity
-                    console.log(max)
                 }
 
                 timeItem = {
@@ -198,7 +200,6 @@ export async function processForOne(lesson, timetable) {
 
             }
         }
-        console.log(max)
     }
 
     //image url 따로 가져오기

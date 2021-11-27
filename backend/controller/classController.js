@@ -36,8 +36,6 @@ export async function getClasses(req, res) {
         sub = [sub_]
     }
 
-    //console.log(sub)
-
     //사용자 위치 반환
     const user = await userRepository.findById(userId);
     const here = [user.latitude, user.longitude]
@@ -107,7 +105,6 @@ export async function getClassesWithFilter(req, res) {
     const userId = req.userId;
 
     //가격순 점검
-
     if (order == "price" && !direction) {
         return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
     }
@@ -125,7 +122,7 @@ export async function getClassesWithFilter(req, res) {
         time = []
         const defaultTime = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         for (var df of defaultTime) {
-            time.push({ timeList: [0, 2300], day: df })
+            time.push({ timeList: [900, 2300], day: df })
         }
     }
     if (!certainDst) {
@@ -153,11 +150,15 @@ export async function getClassesWithFilter(req, res) {
         order == "time" ? true : false,
     )
 
+
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
     time = await middleware.calculateTime(time);
+
+    console.log(time)
     const filtered = await middleware.firstFilter(classes, time)
 
+    console.log(filtered)
 
     //최저가, 최고가, 할인률, 거리 반환
     let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here, certainDst)
