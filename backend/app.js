@@ -14,6 +14,7 @@ import classTimeRouter from './router/classTimeRouter.js';
 import rsvRouter from './router/rsvRouter.js';
 import suggestRouter from './router/suggestRouter.js';
 import { initSocket } from './socket/socket.js';
+import testData from './router/testData.js';
 //import reviewRouter from './router/reviewRouter';
 
 const app = express();
@@ -53,6 +54,9 @@ app.use('/suggest', suggestRouter);
 
 //리뷰 전반
 //app.use('/review', reviewRouter);
+
+//테스트데이터를 넣는 용도
+app.use('/testData', testData)
 
 
 
