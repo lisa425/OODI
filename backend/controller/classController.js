@@ -21,6 +21,7 @@ export async function getClasses(req, res) {
     const sub_ = decodeURIComponent(req.params.sub);
     const order = req.params.order;
     const direction = req.params.direction;
+    let type = decodeURIComponent(req.params.type);
     const userId = req.userId;
 
     //가격순 점검
@@ -40,11 +41,17 @@ export async function getClasses(req, res) {
     const user = await userRepository.findById(userId);
     const here = [user.latitude, user.longitude]
 
+    //타입 처리
+    if (type == "전체") { type = ["원데이클래스", "1개월", "3개월", "6개월"] }
+    else { type = [type] }
+
     //클래스 정보 받아오기
     const classes = await classRepository.findClassCards(
         category,
         sub,
+        type,
         order == "time" ? true : false,
+
     );
 
     //사용자 시간표에 맞춰 클래스 1차 필터링
@@ -98,16 +105,20 @@ export async function getClassesWithFilter(req, res) {
     const sub_ = decodeURIComponent(req.params.sub)
     const order = req.params.order;
     const direction = req.params.direction;
+    let type = decodeURIComponent(req.params.type);
     let time = req.body.time;
     let certainDst = req.body.distance;
     let certainPrice = req.body.price;
-    let type = req.body.type;
     const userId = req.userId;
 
     //가격순 점검
     if (order == "price" && !direction) {
         return res.status(400).json({ message: "price 필터링에는 url에 /low 혹은 /high를 붙여줘야 합니다" })
     }
+
+    //타입 처리
+    if (type == "전체") { type = ["원데이클래스", "1개월", "3개월", "6개월"] }
+    else { type = [type] }
 
     //서브 카테고리 분리
     let sub
@@ -137,12 +148,6 @@ export async function getClassesWithFilter(req, res) {
     }
     if (!certainPrice) {
         certainPrice = [0, 10000000]
-    }
-
-    if (!type) {
-        type = ["원데이", "1개월", "3개월", "6개월"]
-    } else {
-        type = [type]
     }
 
     //사용자 위치 반환
