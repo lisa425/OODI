@@ -4,6 +4,11 @@ import '../../css/Pages/SearchPage/DoneRegister.css'
 import {Link} from 'react-router-dom';
 
 const DoneRegister = (props) => {
+
+    const handleDoneRegister = () => {
+        props.setDoneRegister(false)
+        props.setShowReservation(false)
+    }
     return (
         <main className="DoneRegister">
             <div className="done-message">
@@ -16,7 +21,7 @@ const DoneRegister = (props) => {
                 <div className="daytime">{props.daytime[1]}</div>
             </section>
 
-            <LargeButton onClick={()=>props.setDoneRegister(false)}>수업 상세페이지로 돌아가기</LargeButton>
+            <LargeButton onClick={()=>handleDoneRegister()}>수업 상세페이지로 돌아가기</LargeButton>
         </main>
     )
 }

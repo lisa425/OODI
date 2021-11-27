@@ -87,7 +87,7 @@ const ExerciseDetail = (props) => {
         <>
         <main className="ExerciseDetailPage">
             <header className="detail-header">
-                <Back link="/search"/>
+                <Back link={`/search/${classDetail.category}`}/>
                 <div className="header-icons">
                     <CreditCard />
                     <Message />
@@ -118,7 +118,7 @@ const ExerciseDetail = (props) => {
                 </div>
             </section>
             <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleReservationPopup()}>신청하기</LargeButton>
-            {showReservation && <ConfirmRegister />}
+            {showReservation && <ConfirmRegister setShowReservation={setShowReservation} />}
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
