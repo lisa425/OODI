@@ -25,7 +25,7 @@ const DoneRegister = (props) => {
                 </div>
                 <div className="hope-date">
                     <h4>희망 시작 날짜</h4>
-                    <p className="content">2021-12-12{props.hopedate}</p>
+                    <p className="content">{props.hopedate}</p>
                 </div>
                 <div className="username">
                     <h4>이름</h4>

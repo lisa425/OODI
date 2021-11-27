@@ -25,14 +25,13 @@ const ExerciseDetail = (props) => {
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
-        console.log(token)
         const config = {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
         const data = {}
 
-        axios.post(`http://localhost:8080/class/${classId}`,data,{headers:{"Authorization":`Bearer ${token}`}})
+        axios.post(`http://localhost:8080/class/${classId}`,data,config)
         .then(response => {
             if(response.status === 200){
                 setClassDetail(response.data)
@@ -124,6 +123,7 @@ const ExerciseDetail = (props) => {
                     setShowReservation={setShowReservation} 
                     classId={classId}
                     registerData={registerData}
+                    classOwner={classDetail.title}
                 />}
             
             <section className="class-schedule">

@@ -7,20 +7,28 @@ const ClassCalendar = (props) => {
     const lessonTimes = props.lessonTimes;
 
     //요일 설정
-    const [day,setDay] = useState('Mon')
+    const dayRef = useRef(false);
 
     //특정 요일에 오픈되어있는 클래스 리스트
     const [lessonList,setLessonList] = useState([])
     const showDayLessons = (e) => {
-        setDay(e.target.id)
+        console.log(e.target.ref)
+        e.target.style.backgroundColor='#777777';
         setLessonList(lessonTimes[e.target.id])
     }
 
     //사용자가 선택한 클래스 리스트를 배열에 추합
     const [selectLesson,setSelectLesson] = useState([])
-    const selectLessonTime = (lesson,preventClick) => {
+    const selectLessonTime = (e,lesson,preventClick) => {
         let les = JSON.stringify(lesson)
         if(!preventClick){
+            console.log(dayRef.current)
+            if(dayRef.current){
+                e.target.style.backgroundColor="#999999"
+            }else{
+                e.target.style.backgroundColor="#fff"
+            }
+            
             setSelectLesson(selectLesson.concat(les))
             props.setSelectedLesson(selectLesson)
             
@@ -42,7 +50,7 @@ const ClassCalendar = (props) => {
             <div 
                 key={index} 
                 className="lesson-time-item" 
-                onClick={(e)=>selectLessonTime(lesson,props.preventClick)}
+                onClick={(e)=>selectLessonTime(e,lesson,props.preventClick)}
             >
                 <h6>모집중</h6>
                 <p className="time">{makeTimeString(lesson.startTime)}~{makeTimeString(lesson.endTime)}</p>
@@ -56,9 +64,9 @@ const ClassCalendar = (props) => {
         <div className="classCalendar">
             <h3 className="month-year">Month 2021</h3>
             <section className="day-list">
-                <button id="Sun" onClick={showDayLessons} style={{color:'red'}}>일</button>
-                <button id="Mon" onClick={showDayLessons}>월</button>
-                <button id="Tue" onClick={showDayLessons}>화</button>
+                <button ref={dayRef} id="Sun" onClick={showDayLessons} style={{color:'red'}}>일</button>
+                <button ref={dayRef} id="Mon" onClick={showDayLessons}>월</button>
+                <button ref={dayRef} id="Tue" onClick={showDayLessons}>화</button>
                 <button id="Wed" onClick={showDayLessons}>수</button>
                 <button id="Thu" onClick={showDayLessons}>목</button>
                 <button id="Fri" onClick={showDayLessons}>금</button>
