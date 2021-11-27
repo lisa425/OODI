@@ -6,8 +6,14 @@ import "../../css/Components/search/RegisterPopup.css";
 
 const RegisterPopup = (props) => {
     const [selectedLesson,setSelectedLesson] = useState([])
-    const [selectedHopeDate,setSelectedHopeDate] = useState('')
+    const [selectedHopeDate,setSelectedHopeDate] = useState(props.startDate[0])
 
+    //select data 가져오기
+    const handleHopeDate = (e) => {
+        let value = e.target.value
+        console.log(`hope date:${value}`)
+        setSelectedHopeDate(value)
+    } 
     //선택한 데이터 제출
     const submitSelectedData = () => {
         console.log(`hope date is:${selectedHopeDate}`)
@@ -32,12 +38,12 @@ const RegisterPopup = (props) => {
         closeThisPopup()
     }
 
+    //희망 시작 날짜 option 리스트
     const renderStartDate = props.startDate.map((date,index) => {
         return(
             <option 
                 key={index} 
                 value={date} 
-                onClick={(e)=>setSelectedHopeDate(e.target.value)}
             >
                 {date}
             </option>
@@ -58,7 +64,11 @@ const RegisterPopup = (props) => {
             />
             <section className="hope-startDate">
                 <h3>희망 시작 날짜 선택</h3>
-                <select id="startDate" name="startDate">
+                <select 
+                    id="startDate" 
+                    name="startDate" 
+                    onChange={handleHopeDate}
+                >
                     {renderStartDate}
                 </select>
             </section>
