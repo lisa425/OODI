@@ -1,4 +1,4 @@
-@keyframes popup{
+@keyframes popup-top{
     from{
         top:100vh
     }to{
@@ -10,12 +10,38 @@
     position: fixed;
     top:0;
     left:0;
-    animation-name: popup;
-    animation-duration: 0.3s;
+    animation-name: popup-top;
+    animation-duration: 0.2s;
     animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
+    animation-timing-function: ease-out;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+}
+.ConfirmRegister>header{
+    width:100%;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+.ConfirmRegister>section{
+    width:100%;
+    margin:10px 0;
+}
+
+.ConfirmRegister>section>h3{
+    font-weight: 600;
+    color:#333333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.ConfirmRegister>section>input{
+    border:1px solid #c4c4c4;
+    background: white;
+    border-radius: 5px;
+    height:56px;
+    font-size: 15px;
+    padding:0 4%;
+    width:91%;
+    margin:4px 0;
 }

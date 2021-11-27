@@ -57,10 +57,12 @@
     justify-content: space-between;
     align-items: center;
 }
+.ExerciseDetailPage h5{
+    font-size:14px;
+    color:#223DFF;
+}
 .ExerciseDetailPage .information h5{
     width:100%;
-    color:#223DFF;
-    font-size:14px;
     margin-bottom: 5px;
 }
 .ExerciseDetailPage .information div{
@@ -85,14 +87,15 @@
     align-items: center;
 }
 .ExerciseDetailPage .detail-information .detail-information-header div{
-    
     text-align: center;
     font-size:14px;
     font-weight: 700;
     width:70px;
-    border-bottom:3px solid #223DFF;
     margin:0 15%;
     padding:9px 0;
+}
+.ExerciseDetailPage .detail-information .detail-information-header .detail-information-content{
+    border-bottom:3px solid #223DFF;
 }
 
 .ExerciseDetailPage .detail-information article p{

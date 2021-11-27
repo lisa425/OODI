@@ -12,6 +12,7 @@ import {ReactComponent as Message} from '../../Assets/image/icons/message.svg'
 import {ReactComponent as Heart} from '../../Assets/image/icons/heart.svg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 import axios from 'axios';
+import RegisterPopup from '../../Components/search/RegisterPopup';
 
 const ExerciseDetail = (props) => {
     const classId = useParams()["classId"];
@@ -77,12 +78,12 @@ const ExerciseDetail = (props) => {
     const handleReservationPopup = () => {
         setShowReservation(true)
     }
-    //예약 완료 팝업
-    // const [doneRegister,setDoneRegister] = useState(false);
-    // const handleDonePopup = () => {
-    //     setShowReservation(true)
-    // }
 
+    //클래스 선택 팝업
+    const [selectLesson,setSelectLesson] = useState(false);
+    const handleSelectLessonPopup = () => {
+        setSelectLesson(true)
+    }
     return(
         <>
         <main className="ExerciseDetailPage">
@@ -117,8 +118,12 @@ const ExerciseDetail = (props) => {
                     {parking}
                 </div>
             </section>
-            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleReservationPopup()}>신청하기</LargeButton>
-            {showReservation && <ConfirmRegister setShowReservation={setShowReservation} />}
+            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>클래스 선택</LargeButton>
+            {selectLesson && <RegisterPopup setShowReservation={setShowReservation} setSelectLesson={setSelectLesson}/>}
+            
+            
+            {/*세부정보 입력하기 눌렀을 때*/}
+            {showReservation && <ConfirmRegister setShowReservation={setShowReservation} classId={classId}/>}
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
