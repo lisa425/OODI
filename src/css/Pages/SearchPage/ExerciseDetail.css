@@ -1,4 +1,6 @@
-
+.ExerciseDetailPage{
+    overflow-y: scroll;
+}
 .ExerciseDetailPage .exercise-image{
     width:100vw;
     height:35vh;

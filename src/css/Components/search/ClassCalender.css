@@ -1,0 +1,18 @@
+.classCalendar{
+    width:90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.classCalendar .month-year{
+    width:100%;
+    font-size: 14px;
+    font-weight: 600;
+}
+.classCalendar .day-list{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}

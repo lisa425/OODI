@@ -118,7 +118,7 @@ const ExerciseDetail = (props) => {
                     {parking}
                 </div>
             </section>
-            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>클래스 선택</LargeButton>
+            <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>예약하기</LargeButton>
             {selectLesson && <RegisterPopup setShowReservation={setShowReservation} setSelectLesson={setSelectLesson}/>}
             
             
