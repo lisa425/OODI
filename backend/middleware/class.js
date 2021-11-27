@@ -118,8 +118,11 @@ export async function orderByPrice(order, direction, newClasses) {
     return newClasses
 }
 
-export async function calculateTime(time) {
-    let timetable = []
+//time 포맷변경 (0000 -> day~0000~0000)
+export async function setTimeSet(time) {
+    //time: [{timeList: [0000, 0000, 0000], day}]
+
+    let continuous = []
 
     for (var timeSet of time) {
         var start = 0
@@ -127,6 +130,7 @@ export async function calculateTime(time) {
         var day = timeSet.day;
         var timeList = timeSet.timeList;
 
+        var oneCtn = ""
         for (var one of timeList) {
 
             if (start == 0) { start = end = one }
@@ -135,8 +139,12 @@ export async function calculateTime(time) {
                 if (end == 0) { end = start }
                 end += 100
 
-                var set = { day, start, end }
-                timetable.push(set)
+                if (start < 1000) { start = "0" + start; }
+                if (end < 1000) { end = "0" + end }
+
+                var tmp = day + "~" + start + "~" + end
+                if (oneCtn == "") { oneCtn = tmp }
+                else { oneCtn = oneCtn + ", " + tmp }
 
                 start = end = one
             }
@@ -145,9 +153,43 @@ export async function calculateTime(time) {
         if (end == 0) { end = start }
         end += 100
 
-        var set = { day, start, end }
-        timetable.push(set)
+        if (start < 1000) { start = "0" + start }
+        if (end < 1000) { end = "0" + end }
+
+        var tmp = day + "~" + start + "~" + end
+        if (oneCtn == "") { oneCtn = tmp }
+        else { oneCtn = oneCtn + ", " + tmp }
+
+        continuous.push(oneCtn)
+
     }
+
+
+    return continuous
+}
+
+//포맷변경 ("day~0000~0000" -> {day, start, end})
+export async function calculateTime(time) {
+
+    //time_ : ["day~0000~0000", "day~0000~0000"]
+    let timetable = []
+    time.forEach(item => {
+
+        let itemArray
+        if (item.includes("~")) {
+            itemArray = item.split("~")
+        } else {
+            itemArray = [item]
+        }
+
+        var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
+
+        timetable.push(set)
+
+    })
+
+    //time : [{day, start, end}]
+
 
     return timetable;
 }
