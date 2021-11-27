@@ -1,0 +1,33 @@
+
+.time-popup{
+    width:90vw;
+    min-height:90vh;
+    padding:5vh 5vw;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    position: fixed;
+    top:0;
+    left:0;
+    background:white;
+    overflow-y:scroll;
+    z-index: 5;
+}
+.time-popup .page-title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    top:10px;
+}
+.time-popup .page-title .page-title-text{
+    margin-left:15px;
+    position: relative;
+    top:-10px;
+}
+.time-popup .useable-time{
+    margin: 10px 0 20px 0;
+    font-size:14px;
+}
+
+

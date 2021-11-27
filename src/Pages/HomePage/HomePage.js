@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
-import Timetable from '../../Components/home/Timetable'
+import Timetable from '../../Components/search/Timetable'
 import '../../css/Pages/HomePage/HomePage.css'
 import logo from '../../Assets/image/logo/logo_blue.png'
 import PopExercise from '../../Components/home/PopExercise'

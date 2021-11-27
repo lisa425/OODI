@@ -5,11 +5,11 @@ const Timetable = (props) => {
     const [schedule,setSchedule] = useState([])
 
     const handleChange = (newSchedule) => {
+        console.log(newSchedule)
         setSchedule(newSchedule)
-        // console.log(schedule);
-        //props.setSelectedTime(schedule)
     }
     
+
     return(
         <ScheduleSelector
             selection={schedule}

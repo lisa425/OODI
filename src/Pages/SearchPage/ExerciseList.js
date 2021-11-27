@@ -1,10 +1,11 @@
 import React,{useState,useEffect,useRef} from 'react';
-import Timetable from '../../Components/home/Timetable'
-import LargeButton from '../../Components/common/LargeButton'
+// import Timetable from '../../Components/search/Timetable'
+// import LargeButton from '../../Components/common/LargeButton'
 import Navigator from '../../Components/common/Navigator'
 import ExerciseItem from '../../Components/search/ExerciseItem'
 import PricePopup from '../../Components/search/PricePopup'
 import DistancePopup from '../../Components/search/DistancePopup'
+import TimePopup from '../../Components/search/TimePopup'
 import '../../css/Pages/SearchPage/ExerciseList.css'
 import {Link,useParams} from 'react-router-dom';
 import Back from '../../Components/common/Back';
@@ -25,8 +26,6 @@ const ExerciseList = (props) => {
     const config = {
         headers:{"Authorization": `Bearer ${token}`}
     };
-    
-
 
     //========카테고리 필터링=========
     //초기 클래스 필터링 세팅
@@ -68,6 +67,70 @@ const ExerciseList = (props) => {
         })
     }
 
+    //========클래스 타입 필터링 설정========
+    const [classType,setClassType] = useState('전체');
+    //선택 타입 스타일
+    const [allType,setAllType] = useState(false);
+    const [onedayType,setOnedayType] = useState(false);
+    const [month1Type,setMonth1Type]= useState(false);
+    const [month3Type,setMonth3Type] = useState(false);
+    const [month6Type,setMonth6Type] = useState(false);
+
+    const showClassTypeList = (e) => {
+        setClassType(e.target.id)
+    }
+
+    useEffect(()=>{
+        axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${classType}/${sort}`,{},config)
+        .then(response => {
+            console.log(`hi ${classType}`)
+            if(response.data.message === 'SUCCESS'){
+                console.log('success원데이:',response.data)
+                setClassList(response.data.classes)
+            }
+        }).catch((error)=>{
+            console.log(error)
+        })
+
+        switch(classType){
+            case "전체":
+                setAllType(!allType)
+                setOnedayType(false)
+                setMonth1Type(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "원데이클래스":
+                setOnedayType(!onedayType)
+                setAllType(false)
+                setMonth1Type(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "1개월":
+                setMonth1Type(!month1Type)
+                setOnedayType(false)
+                setAllType(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "3개월":
+                setMonth3Type(!month1Type)
+                setMonth1Type(false)
+                setOnedayType(false)
+                setAllType(false)
+                setMonth6Type(false)
+                break;
+            case "6개월":
+                setMonth6Type(!month1Type)
+                setMonth3Type(false)
+                setMonth1Type(false)
+                setOnedayType(false)
+                setAllType(false)
+                break;
+        }
+    },[classType])
+
     
 
 
@@ -77,6 +140,21 @@ const ExerciseList = (props) => {
         setSort(e.target.value);
         console.log(sort)
     }
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${classType}/${sort}`,config)
+        .then(response=>{
+            if(response.data.message === 'SUCCESS'){
+                console.log('success:',response.data)
+                setImageInfo(response.data.imageInfo)
+                setClassList(response.data.classes)
+                setPriceRange([response.data.lowest,response.data.highest])
+            }else{
+                console.log(response)
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
+    },[sort])
 
 
     //========가격 범위 설정========
@@ -117,13 +195,13 @@ const ExerciseList = (props) => {
         console.log(newDistance)
         if(newDistance > 0){
             let data = {
-                dst:newDistance
+                distance:newDistance
             }
-            axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
+            axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${classType}/${sort}`,data,config)
             .then(response => {
-                console.log('hi')
+                console.log('hi distance')
                 if(response.data.message === 'SUCCESS'){
-                    console.log('success:',response.data)
+                    console.log('success dst:',response.data)
                     setClassList(response.data.classes)
                 }
             }).catch((error)=>{
@@ -132,70 +210,30 @@ const ExerciseList = (props) => {
         }
     },[newDistance])
 
-    //========클래스 타입 필터링 설정========
-    const [classType,setClassType] = useState('전체');
+    //========시간 범위 설정========
+    const [isTime,setIsTime] = useState(false)
+    const [selectedTime,setSelectedTime] = useState([])
+    //시간 범위 팝업 설정
+    const showTimePopup = () => {
+        setIsTime(true)
+    }
 
-    //선택 타입 스타일
-    const [allType,setAllType] = useState(true);
-    const [onedayType,setOnedayType] = useState(false);
-    const [month1Type,setMonth1Type]= useState(false);
-    const [month3Type,setMonth3Type] = useState(false);
-    const [month6Type,setMonth6Type] = useState(false);
-
-    const showClassTypeList = (e) => {
-        setClassType(e.target.id)
-        switch(e.target.id){
-            case "전체":
-                setAllType(!allType)
-                setOnedayType(false)
-                setMonth1Type(false)
-                setMonth3Type(false)
-                setMonth6Type(false)
-                break;
-            case "원데이클래스":
-                setOnedayType(!onedayType)
-                setAllType(false)
-                setMonth1Type(false)
-                setMonth3Type(false)
-                setMonth6Type(false)
-                break;
-            case "1개월":
-                setMonth1Type(!month1Type)
-                setOnedayType(false)
-                setAllType(false)
-                setMonth3Type(false)
-                setMonth6Type(false)
-                break;
-            case "3개월":
-                setMonth3Type(!month1Type)
-                setMonth1Type(false)
-                setOnedayType(false)
-                setAllType(false)
-                setMonth6Type(false)
-                break;
-            case "6개월":
-                setMonth6Type(!month1Type)
-                setMonth3Type(false)
-                setMonth1Type(false)
-                setOnedayType(false)
-                setAllType(false)
-                break;
+    useEffect(()=>{
+        let data = {
+            time:selectedTime
         }
-
-        let data = {type:classType}
-
-        axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
+        axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${classType}/${sort}`,data,config)
         .then(response => {
-            console.log(`hi ${e.target.id} and ${data.type}`)
             if(response.data.message === 'SUCCESS'){
-                console.log('success원데이:',response.data)
+                console.log('success time filter:',response.data)
                 setClassList(response.data.classes)
+            }else{
+                console.log('request is success,but fail')
             }
         }).catch((error)=>{
             console.log(error)
         })
-    }
-
+    },[selectedTime])
 
 
     const [categoryData,setCategoryData] = useState({})
@@ -206,12 +244,13 @@ const ExerciseList = (props) => {
 
     useEffect(() => {
         console.log(token)
-        axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
+        axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${classType}/${sort}`,config)
         .then(response=>{
             if(response.data.message === 'SUCCESS'){
                 console.log('success:',response.data)
                 setImageInfo(response.data.imageInfo)
                 setClassList(response.data.classes)
+                setAllType(true)
                 setPriceRange([response.data.lowest,response.data.highest])
                 
             }else{
@@ -292,7 +331,7 @@ const ExerciseList = (props) => {
                     </div>
                 </section>
                 <section className="filtering">
-                    <button className="white-button" id="time">시간</button>
+                    <button className={isTime ? "blue-button":"white-button"} id="time" onClick={()=>showTimePopup()}>시간</button>
                     <button className={isPrice ? "blue-button":"white-button"} id="price" onClick={()=>showPricePopup()}>가격</button>
                     <button className={isDistance ? "blue-button":"white-button"}  id="location" onClick={()=>showDistancePopup()}>거리</button>
                 </section>
@@ -316,8 +355,22 @@ const ExerciseList = (props) => {
                 {renderClass}
             </article>
         </main>
-        {isPrice && <PricePopup priceRange={priceRange} setNewPrice={setNewPrice} setIsPrice={setIsPrice}/>}
-        {isDistance && <DistancePopup setNewDistance={setNewDistance} setIsDistance={setIsDistance}/>}
+        {isPrice && 
+            <PricePopup 
+                priceRange={priceRange} 
+                setNewPrice={setNewPrice} 
+                setIsPrice={setIsPrice}
+            />}
+        {isDistance && 
+            <DistancePopup 
+                setNewDistance={setNewDistance} 
+                setIsDistance={setIsDistance}
+            />}
+        {isTime && 
+            <TimePopup 
+                setSelectedTime={setSelectedTime}
+                setIsTime={setIsTime}
+            />}
         <Navigator/>
         </>
     )
