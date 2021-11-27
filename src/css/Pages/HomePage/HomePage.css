@@ -13,6 +13,7 @@
 }
 .popular-exercise-list{
     display: flex;
+    font-size: 14px;
 }
 .popular-exercise-list>a{
     width:calc(100%/3.1);
@@ -23,6 +24,13 @@
     justify-content: space-between;
     align-items: flex-end;
     margin:17px 0;
+}
+.pop-title h2{
+    font-size: 18px;
+    font-weight: 500;
+}
+.pop-title h2 span{
+    font-weight: 700;
 }
 .timetable-preview{
     border-radius:5px;

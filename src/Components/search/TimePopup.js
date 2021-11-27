@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import ScheduleSelector from 'react-schedule-selector'
 import "../../css/Components/search/TimePopup.css";
 import {CloseOutlined} from '@ant-design/icons'
@@ -7,6 +7,27 @@ import axios from 'axios'
 import Timetable from './Timetable'
 
 const TimePopup = (props) => {
+    //유저의 타임테이블을 가져온다.
+    useEffect(() => {
+        const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
+
+        const config = {
+            headers:{"Authorization": `Bearer ${token}`}
+        };
+
+        axios.get('http://localhost:8080/timetable/getTable',config)
+        .then(response => {
+            if(response.data.message === 'SUCCESS'){
+                console.log('success')
+                console.log(response.data)
+            }
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }, [])
+
+    
     //요일별 가능 시간을 담는 배열
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
@@ -72,7 +93,6 @@ const TimePopup = (props) => {
             }  
         }
     }
-
     const handleChange = (newSchedule) => {
         setSchedule(newSchedule)
         devideDayTimeList();
@@ -115,7 +135,6 @@ const TimePopup = (props) => {
 
     const submitTimetable = () => {
         const ableTimeList = setAbleTimeList();
-
         console.log(ableTimeList)
         props.setSelectedTime(ableTimeList)
         closePopup();

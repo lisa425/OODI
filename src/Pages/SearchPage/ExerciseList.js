@@ -264,13 +264,14 @@ const ExerciseList = (props) => {
     const renderClass = classList.map((item,index) => {
         let originPrice = item.lessonTimes[0].originPrice
         let price = item.lessonTimes[0].price
+        let userGu = item.address.split('동')
         console.log(`아이템:${index}`,ImageInfo)
         return(
             <Link to={`/search/detail/${item.id}`} key={index}>
                 <ExerciseItem 
                     id={item.id} 
                     title={item.title}
-                    address={item.address}
+                    address={`${userGu[0]}동`}
                     distance={item.distance} 
                     subCategory={item.subCategory} 
                     type={item.type} 
