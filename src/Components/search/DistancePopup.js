@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import LargeButton from '../common/LargeButton'
+import {CloseOutlined} from '@ant-design/icons';
 
 const DistancePopup = (props) => {
     const [distance,setDistance] = useState(0)
+
     const submitDistance = () => {
-        props.distance(distance);
+        props.setNewDistance(distance);
     }
     return(
         <div className="popup">
@@ -12,7 +14,8 @@ const DistancePopup = (props) => {
                 <h3>거리</h3>
                 <CloseOutlined className="close" onClick={()=>props.setIsDistance(false)}/>
             </header>
-            <div>반경 {distance}km 이내</div>
+            <input type="range" min={100} max={5000} step={100} value={distance} onChange={(e)=>setDistance(e.target.value)}/>
+            <div>반경 {distance}m 이내</div>
             <LargeButton onClick={submitDistance}>설정하기</LargeButton>
         </div>
     )

@@ -12,8 +12,6 @@ const ClassCalendar = (props) => {
     //특정 요일에 오픈되어있는 클래스 리스트
     const [lessonList,setLessonList] = useState([])
     const showDayLessons = (e) => {
-        console.log(e.target.ref)
-        e.target.style.backgroundColor='#777777';
         setLessonList(lessonTimes[e.target.id])
     }
 
@@ -22,13 +20,7 @@ const ClassCalendar = (props) => {
     const selectLessonTime = (e,lesson,preventClick) => {
         let les = JSON.stringify(lesson)
         if(!preventClick){
-            console.log(dayRef.current)
-            if(dayRef.current){
-                e.target.style.backgroundColor="#999999"
-            }else{
-                e.target.style.backgroundColor="#fff"
-            }
-            
+
             setSelectLesson(selectLesson.concat(les))
             props.setSelectedLesson(selectLesson)
             

@@ -4,6 +4,7 @@ import LargeButton from '../../Components/common/LargeButton'
 import Navigator from '../../Components/common/Navigator'
 import ExerciseItem from '../../Components/search/ExerciseItem'
 import PricePopup from '../../Components/search/PricePopup'
+import DistancePopup from '../../Components/search/DistancePopup'
 import '../../css/Pages/SearchPage/ExerciseList.css'
 import {Link,useParams} from 'react-router-dom';
 import Back from '../../Components/common/Back';
@@ -16,6 +17,8 @@ import fitness from '../../Assets/image/pictogram/fitness.png'
 import golf from '../../Assets/image/pictogram/golf.png'
 import swim from '../../Assets/image/pictogram/swim.png'
 import yoga from '../../Assets/image/pictogram/yoga.png'
+
+
 const ExerciseList = (props) => {
     //axios header setting
     const token = window.localStorage.getItem('TOKEN_KEY')
@@ -103,10 +106,39 @@ const ExerciseList = (props) => {
         }
     },[newPrice])
 
+    //========거리 범위 설정========
+    const [isDistance,setIsDistance] = useState(false)
+    const [newDistance,setNewDistance] = useState(0)
+    //거리 범위 팝업 설정
+    const showDistancePopup = () => {
+        setIsDistance(true)
+    }
+    useEffect(()=>{
+        console.log(newDistance)
+        if(newDistance > 0){
+            let data = {
+                dst:newDistance
+            }
+            axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
+            .then(response => {
+                console.log('hi')
+                if(response.data.message === 'SUCCESS'){
+                    console.log('success:',response.data)
+                    setClassList(response.data.classes)
+                }
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
+    },[newDistance])
+
+
+
 
     const [categoryData,setCategoryData] = useState({})
     //클래스 리스트 세팅
     const [classList,setClassList] = useState([])
+    const [imgurl,setImgurl] = useState([])
     useEffect(() => {
         console.log(token)
         axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
@@ -171,8 +203,8 @@ const ExerciseList = (props) => {
                                     <p>골프</p>
                                 </li>
                                 <li id="수영" onClick={showSubCategory}>
-                                    <img src={swim} alt="수영"/>
-                                    <p>수영</p>
+                                    <img src={swim} alt="수상스포츠"/>
+                                    <p>수상스포츠</p>
                                 </li>
                                 <li id="심신수련" onClick={showSubCategory}>
                                     <img src={yoga} alt="심신수련"/>
@@ -194,7 +226,7 @@ const ExerciseList = (props) => {
                 <section className="filtering">
                     <button className="white-button" id="time">시간</button>
                     <button className={isPrice ? "blue-button":"white-button"} id="price" onClick={()=>showPricePopup()}>가격</button>
-                    <button className="white-button" id="location">거리</button>
+                    <button className={isDistance ? "blue-button":"white-button"}  id="location" onClick={()=>showDistancePopup()}>거리</button>
                 </section>
                 <section className="type">
                     <button id="all">전체</button>
@@ -217,6 +249,7 @@ const ExerciseList = (props) => {
             </article>
         </main>
         {isPrice && <PricePopup priceRange={priceRange} setNewPrice={setNewPrice} setIsPrice={setIsPrice}/>}
+        {isDistance && <DistancePopup setNewDistance={setNewDistance} setIsDistance={setIsDistance}/>}
         <Navigator/>
         </>
     )

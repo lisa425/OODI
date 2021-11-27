@@ -25,6 +25,7 @@ const ExerciseDetail = (props) => {
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
         const config = {
             headers:{"Authorization": `Bearer ${token}`}
         };
