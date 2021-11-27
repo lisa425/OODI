@@ -31,27 +31,54 @@
     background:rgba(0,0,0,0.7);
     position: fixed;
     left:0;
+    top:9vh;
     touch-action: none;
     overflow: hidden;
 }
 .ExerciseListPage .open-menu .dropdown-menu{
     display:flex;
-    padding-top:5vh;
-    background:#f4f4f4;
+    padding-top:3vh;
+    background:#f8f8f8;
     z-index:5;
 }
+.ExerciseListPage .open-menu .dropdown-menu div{
+    min-height:348px;
+}
 .ExerciseListPage .open-menu .first-category{
-    width: 40vw;
-    height: 348px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
+    border-right:1px solid #dadada;
+    border-top:1px solid #dadada;
+}
+.ExerciseListPage li{
+    list-style: none;
+}
+.ExerciseListPage .open-menu .first-category li{
+    font-size:11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom:1px solid #dadada;
+    padding:10px 0;
+}
+
+.ExerciseListPage .open-menu .first-category li img{
+    width:30px;
+    height:30px;
+    margin-bottom: 3px;
 }
 .ExerciseListPage .open-menu .sub-category{
     width:60vw;
-    height:348px;
+    padding:5vw; 
     background:#f4f4f4;
     display: flex;
     flex-direction: column;
+    border-top:1px solid #dadada;
+}
+.ExerciseListPage .open-menu .sub-category li{
+    margin:6px 0;
+    font-size: 15px;
 }
 
 .ExerciseListPage .hide-menu{
@@ -122,6 +149,7 @@
     height:25px;
     border-radius: 100px;
     border:1px solid #dadada;
+    background: white;
     font-size: 10px;
     padding:5px 10px;
     text-align:center;

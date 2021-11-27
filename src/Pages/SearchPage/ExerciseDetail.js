@@ -16,10 +16,11 @@ import RegisterPopup from '../../Components/search/RegisterPopup';
 import ClassCalender from '../../Components/search/ClassCalender';
 
 const ExerciseDetail = (props) => {
+    //클래스 id
     const classId = useParams()["classId"];
-    console.log(classId)
+    //클래스 객체 
     const [classDetail,setClassDetail] = useState([])
-    const [type,setType] = useState('상담권장');
+    //주차 여부
     const [parking,setParking]=useState('');
 
     useEffect(()=>{
@@ -34,25 +35,7 @@ const ExerciseDetail = (props) => {
         axios.post(`http://localhost:8080/class/${classId}`,data,{headers:{"Authorization":`Bearer ${token}`}})
         .then(response => {
             if(response.status === 200){
-                console.log(response.data)
                 setClassDetail(response.data)
-
-                //클래스 타입 설정
-                // switch(response.data.type){
-                //     case "oneday":
-                //         setType('원데이');
-                //         break;
-                //     case "month1":
-                //         setType('1개월');
-                //         break;
-                //     case "month3":
-                //         setType('3개월');
-                //         break;
-                //     case "month6":
-                //         setType('6개월');
-                //         break;
-                // }
-                
                 //주차 여부 설정
                 switch(response.data.parking){
                     case "no":
@@ -68,7 +51,6 @@ const ExerciseDetail = (props) => {
                 console.log('request is success,but fail')
             }
         }).catch((error)=>{
-            console.log('errororor')
             console.log(error)
         })
     },[])
@@ -79,10 +61,16 @@ const ExerciseDetail = (props) => {
     const [showReservation,setShowReservation] = useState(false);
 
     //클래스 선택 팝업
-    const [selectLesson,setSelectLesson] = useState(false);
+    const [registerPopup,setRegisterPopup] = useState(false);
     const handleSelectLessonPopup = () => {
-        setSelectLesson(true)
+        setRegisterPopup(true)
     }
+    //선택 팝업에서 선택한 데이터
+    const [registerData,setRegisterData] = useState({})
+    useEffect(()=>{
+        console.log(registerData)
+    },[registerData])
+
     return(
         <>
         <main className="ExerciseDetailPage">
@@ -118,25 +106,29 @@ const ExerciseDetail = (props) => {
                 </div>
             </section>
             <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>예약하기</LargeButton>
-            {selectLesson && 
+            
+            {/* 예약하기 눌렀을 때 */}
+            {registerPopup && 
                 <RegisterPopup 
                     setShowReservation={setShowReservation} 
-                    setSelectLesson={setSelectLesson} 
+                    setRegisterPopup={setRegisterPopup} 
                     lessonTimes={classDetail.lessonTimes}
                     startDate={classDetail.startDate}
+                    setRegisterData={setRegisterData}
                 />}
             
             
-            {/*세부정보 입력하기 눌렀을 때*/}
+            {/*신청하기 입력하기 눌렀을 때*/}
             {showReservation && 
                 <ConfirmRegister 
                     setShowReservation={setShowReservation} 
                     classId={classId}
+                    registerData={registerData}
                 />}
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
-                <ClassCalender lessonTimes={classDetail.lessonTimes}/>
+                <ClassCalender lessonTimes={classDetail.lessonTimes} preventClick={true} />
             </section>
             <section className="detail-information">
                 <header className="detail-information-header">

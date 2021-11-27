@@ -10,7 +10,12 @@ import Back from '../../Components/common/Back';
 // import MultiRange from '../../Components/search/MultiRangeSlider'
 import {DownOutlined,CloseOutlined} from '@ant-design/icons';
 import axios from 'axios';
-
+import ball from '../../Assets/image/pictogram/ball.png'
+import fight from '../../Assets/image/pictogram/fight.png'
+import fitness from '../../Assets/image/pictogram/fitness.png'
+import golf from '../../Assets/image/pictogram/golf.png'
+import swim from '../../Assets/image/pictogram/swim.png'
+import yoga from '../../Assets/image/pictogram/yoga.png'
 const ExerciseList = (props) => {
     //axios header setting
     const token = window.localStorage.getItem('TOKEN_KEY')
@@ -59,6 +64,8 @@ const ExerciseList = (props) => {
             subCategory:subCategory
         })
     }
+
+    
 
 
     //======정렬 필터링 세팅=======
@@ -119,24 +126,6 @@ const ExerciseList = (props) => {
     const renderClass = classList.map((item,index) => {
         let originPrice = item.lessonTimes[0].originPrice
         let price = item.lessonTimes[0].price
-        // let type;
-        // switch(item.type){
-        //     case "oneday":
-        //         type = "원데이";
-        //         break;
-        //     case "month1":
-        //         type = "1개월";
-        //         break;
-        //     case "month3":
-        //         type = "3개월";
-        //         break;
-        //     case "month6":
-        //         type = "6개월";
-        //         break;
-        //     default:
-        //         type="상담 후 지정"
-        //         break;
-        // }
 
         return(
             <Link to={`/search/detail/${item.id}`} key={index}>
@@ -155,10 +144,7 @@ const ExerciseList = (props) => {
         )
     })
 
-    //카테고리 필터링 리스트 가져오기
 
-    
-    //
     return(
         <>
         <main className="ExerciseListPage">
@@ -172,12 +158,30 @@ const ExerciseList = (props) => {
                     <div className={isOpenMenu ? "open-menu" : "hide-menu"}>
                         <div className="dropdown-menu">
                             <div className="first-category">
-                                <li id="구기종목" onClick={showSubCategory}>구기종목</li>
-                                <li id="격투" onClick={showSubCategory}>격투</li>
-                                <li id="골프" onClick={showSubCategory}>골프</li>
-                                <li id="수영" onClick={showSubCategory}>수영</li>
-                                <li id="심신수련" onClick={showSubCategory}>심신수련</li>
-                                <li id="헬스" onClick={showSubCategory}>헬스</li>
+                                <li id="구기종목" onClick={showSubCategory}>
+                                    <img src={ball} alt="구기종목"/>
+                                    <p>구기종목</p>
+                                </li>
+                                <li id="격투" onClick={showSubCategory}>
+                                    <img src={fight} alt="격투"/>
+                                    <p>격투</p>
+                                </li>
+                                <li id="골프" onClick={showSubCategory}>
+                                    <img src={golf} alt="골프"/>
+                                    <p>골프</p>
+                                </li>
+                                <li id="수영" onClick={showSubCategory}>
+                                    <img src={swim} alt="수영"/>
+                                    <p>수영</p>
+                                </li>
+                                <li id="심신수련" onClick={showSubCategory}>
+                                    <img src={yoga} alt="심신수련"/>
+                                    <p>심신수련</p>
+                                </li>
+                                <li id="헬스" onClick={showSubCategory}>
+                                    <img src={fitness} alt="헬스"/>
+                                    <p>헬스</p>
+                                </li>
                             </div>
                             <div className="sub-category">
                                 {renderCategory.map((item,index) => (

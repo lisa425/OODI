@@ -7,6 +7,9 @@ import DoneRegister from './DoneRegister'
 import axios from 'axios'
 import {CloseOutlined} from '@ant-design/icons'
 const ConfirmRegister = (props) => {
+    //예약 데이터 분리
+    const selectedDate = props.registerData;
+    console.log(selectedDate)
     //예약 완료 팝업
     const [doneRegister,setDoneRegister] = useState(false);
     const handleDonePopup = () => {
@@ -25,8 +28,6 @@ const ConfirmRegister = (props) => {
         axios.get('http://localhost:8080/user',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
-                console.log('success:',response.data)
-                console.log(props.classId)
                 setUsername(response.data.name)
                 setPhoneNumber(response.data.phoneNumber)
             }
@@ -76,7 +77,16 @@ const ConfirmRegister = (props) => {
                 </div>
             </section>
             <LargeButton onClick={()=>handleDonePopup()}>결제하기</LargeButton>
-            {doneRegister && <DoneRegister exercise={'원데이 맨몸필라테스'} daytime={['수요일 18:00~19:00','금요일 13:00~14:00']} setDoneRegister={setDoneRegister} setShowReservation={props.setShowReservation}/>}
+            {doneRegister && 
+                <DoneRegister 
+                    exercise={'원데이 맨몸필라테스'} 
+                    daytime={['수요일 18:00~19:00','금요일 13:00~14:00']} 
+                    username={username}
+                    phoneNumber={phoneNumber}
+                    setDoneRegister={setDoneRegister} 
+                    setShowReservation={props.setShowReservation}
+                />
+            }
         </main>
     )
 }
