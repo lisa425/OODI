@@ -144,6 +144,7 @@ export async function getClassesWithFilter(req, res) {
     } else {
         timeList = await middleware.calculateTime(time);
     }
+    console.log(timeList)
     if (!certainDst) {
         certainDst = 3000
     }
@@ -169,11 +170,11 @@ export async function getClassesWithFilter(req, res) {
         order == "time" ? true : false,
     )
 
-
+    console.log(classes)
     //사용자 시간표에 맞춰 클래스 1차 필터링
     //클래스 내에 사용자 시간표에 들어가는 lessonTime이 있으면 일단 통과
     const filtered = await middleware.firstFilter(classes, timeList)
-
+    console.log(filtered)
 
     //최저가, 최고가, 할인률, 거리 반환
     let { newClasses, lowest, highest, imageInfo } = await middleware.processing(filtered, here, certainDst)
