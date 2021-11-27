@@ -197,6 +197,7 @@ export async function calculateTime(time) {
 export async function processForOne(lesson, timetable) {
 
     let max = 0;
+    let listSD = []
 
     //lessonTimes 필터로 거르기
     let lessonTimes = [];
@@ -211,7 +212,6 @@ export async function processForOne(lesson, timetable) {
             startDate = timeItem.startDate.split(", ")
         }
 
-        let newDate = []
         for (var date of startDate) {
 
             var now = new Date();
@@ -219,7 +219,7 @@ export async function processForOne(lesson, timetable) {
             var parseDate = new Date(new Date(date).toISOString());
 
             if (now.getTime() <= parseDate.getTime() && parseDate.getTime() <= (now.getTime() + limit)) {
-                newDate.push(date)
+                listSD.push(date)
             }
         }
 
@@ -234,7 +234,6 @@ export async function processForOne(lesson, timetable) {
                     day,
                     startTime,
                     endTime,
-                    startDate: newDate,
                     price: timeItem.price,
                 }
 
@@ -264,7 +263,7 @@ export async function processForOne(lesson, timetable) {
         detail: data.detail,
     }
 
-    const newClass = { ...list, lessonTimes, imageInfo, maxCapacity: max }
+    const newClass = { ...list, lessonTimes, imageInfo, maxCapacity: max, startDates: listSD }
 
     return newClass
 }
