@@ -134,6 +134,7 @@ export async function getClassesWithFilter(req, res) {
     if (!certainPrice) {
         certainPrice = [0, 10000000]
     }
+    
     if (!type) {
         type = ["원데이", "1개월", "3개월", "6개월"]
     } else {

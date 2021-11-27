@@ -71,16 +71,17 @@ const ExerciseList = (props) => {
 
     //========가격 범위 설정========
     const [isPrice,setIsPrice] = useState(false)
-    const [priceRange,setPriceRange] = useState([0,1000000])
+    const [priceRange,setPriceRange] = useState([])
+    const [newPrice,setNewPrice] = useState([])
     //가격 범위 팝업 설정
     const showPricePopup = () => {
         setIsPrice(true)
     }
     useEffect(()=>{
-        console.log(priceRange)
-        if(priceRange.length > 0){
+        console.log(newPrice)
+        if(newPrice.length > 0){
             let data = {
-                price:priceRange
+                price:newPrice
             }
             axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
             .then(response => {
@@ -93,19 +94,20 @@ const ExerciseList = (props) => {
                 console.log(error)
             })
         }
-    },[priceRange])
+    },[newPrice])
 
 
     const [categoryData,setCategoryData] = useState({})
     //클래스 리스트 세팅
     const [classList,setClassList] = useState([])
     useEffect(() => {
+        console.log(token)
         axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
         .then(response=>{
             if(response.data.message === 'SUCCESS'){
                 console.log('success:',response.data)
                 setClassList(response.data.classes)
-                // setPriceRange([response.data.lowest,response.data.highest])
+                setPriceRange([response.data.lowest,response.data.highest])
             }else{
                 console.log(response)
             }
@@ -117,24 +119,24 @@ const ExerciseList = (props) => {
     const renderClass = classList.map((item,index) => {
         let originPrice = item.lessonTimes[0].originPrice
         let price = item.lessonTimes[0].price
-        let type;
-        switch(item.type){
-            case "oneday":
-                type = "원데이";
-                break;
-            case "month1":
-                type = "1개월";
-                break;
-            case "month3":
-                type = "3개월";
-                break;
-            case "month6":
-                type = "6개월";
-                break;
-            default:
-                type="상담 후 지정"
-                break;
-        }
+        // let type;
+        // switch(item.type){
+        //     case "oneday":
+        //         type = "원데이";
+        //         break;
+        //     case "month1":
+        //         type = "1개월";
+        //         break;
+        //     case "month3":
+        //         type = "3개월";
+        //         break;
+        //     case "month6":
+        //         type = "6개월";
+        //         break;
+        //     default:
+        //         type="상담 후 지정"
+        //         break;
+        // }
 
         return(
             <Link to={`/search/detail/${item.id}`} key={index}>
@@ -210,7 +212,7 @@ const ExerciseList = (props) => {
                 {renderClass}
             </article>
         </main>
-        {isPrice && <PricePopup priceRange={priceRange} setPriceRange={setPriceRange} setIsPrice={setIsPrice}/>}
+        {isPrice && <PricePopup priceRange={priceRange} setNewPrice={setNewPrice} setIsPrice={setIsPrice}/>}
         <Navigator/>
         </>
     )

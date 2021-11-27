@@ -13,7 +13,7 @@ const PricePopup = (props) => {
         if(isSubmit){
             console.log('low:',lowPrice,'high:',highPrice)
             console.log('submit')
-            props.setPriceRange([lowPrice,highPrice])
+            props.setNewPrice([lowPrice,highPrice])
             props.setIsPrice(false)
         }
     }, [isSubmit])

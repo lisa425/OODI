@@ -90,12 +90,12 @@ const MultiRangeSlider = (props) => {
       <div className="slider">
         <div className="slider__track" />
         <div ref={range} className="slider__range" />
-        <div className="slider__left-value">최저 {minVal.toLocaleString()}원</div>
-        <div className="slider__right-value">최고 {maxVal.toLocaleString()}원</div>
+        <div className="slider__left-value">최저 {minVal}원</div>
+        <div className="slider__right-value">최고 {maxVal}원</div>
       </div>
     </div>
     <div className="price-range">
-      {minVal.toLocaleString()}원 ~ {maxVal.toLocaleString()}원
+      {minVal}원 ~ {maxVal}원
     </div>
     <LargeButton onClick={()=>settingPrice()}>설정하기</LargeButton>
     </>

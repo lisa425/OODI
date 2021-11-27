@@ -35,20 +35,20 @@ const ExerciseDetail = (props) => {
                 setClassDetail(response.data)
 
                 //클래스 타입 설정
-                switch(response.data.type){
-                    case "oneday":
-                        setType('원데이');
-                        break;
-                    case "month1":
-                        setType('1개월');
-                        break;
-                    case "month3":
-                        setType('3개월');
-                        break;
-                    case "month6":
-                        setType('6개월');
-                        break;
-                }
+                // switch(response.data.type){
+                //     case "oneday":
+                //         setType('원데이');
+                //         break;
+                //     case "month1":
+                //         setType('1개월');
+                //         break;
+                //     case "month3":
+                //         setType('3개월');
+                //         break;
+                //     case "month6":
+                //         setType('6개월');
+                //         break;
+                // }
                 
                 //주차 여부 설정
                 switch(response.data.parking){
@@ -98,7 +98,7 @@ const ExerciseDetail = (props) => {
             <section className="introduce">
                 <div className="keyword">
                     <div>{classDetail.subCategory}</div>
-                    <div>{type}</div>
+                    <div>{classDetail.type}</div>
                 </div>
                 <h3>{classDetail.title}</h3>
                 <p>
