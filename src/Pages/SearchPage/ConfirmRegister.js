@@ -21,7 +21,6 @@ const ConfirmRegister = (props) => {
         const config = {
             headers:{"Authorization": `Bearer ${token}`}
         };
-
         //get user name
         axios.get('http://localhost:8080/user',config)
         .then(response => {
@@ -35,6 +34,7 @@ const ConfirmRegister = (props) => {
             console.log('error:',error)
         })
     },[])
+
     return (
         <main className="ConfirmRegister">
             <header>
@@ -50,17 +50,21 @@ const ConfirmRegister = (props) => {
                 <input type="text" value={phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)}/>
             </section>
 
-            <section className="selected-class">
-                <div className="class">
-                    <h5>{props.classOwner}</h5>
-                    <div>
-                        {props.lessonTime}
+            <section>
+                <h3>신청 내용</h3>
+                <article className="selected-class">
+                    <div className="class">
+                        <h5>원데이 맨몸필라테스{props.classOwner}</h5>
+                        <div>
+                            <p>월요일 16:00~18:00{props.lessonTime}</p>
+                            <p>수요일 16:00~18:00{props.lessonTime}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="date">
-                    <h5>희망 시작 날짜</h5>
-                    <p>{props.selecedStartDate}</p>
-                </div>
+                    <div className="date">
+                        <h5>희망 시작 날짜</h5>
+                        <div>2021-10-03{props.selecedStartDate}</div>
+                    </div>
+                </article>
             </section>
 
             <section className="payment">

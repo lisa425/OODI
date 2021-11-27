@@ -13,6 +13,7 @@ import {ReactComponent as Heart} from '../../Assets/image/icons/heart.svg'
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 import axios from 'axios';
 import RegisterPopup from '../../Components/search/RegisterPopup';
+import ClassCalender from '../../Components/search/ClassCalender';
 
 const ExerciseDetail = (props) => {
     const classId = useParams()["classId"];
@@ -117,20 +118,25 @@ const ExerciseDetail = (props) => {
                 </div>
             </section>
             <LargeButton style={{position:'fixed',bottom:'82px',zIndex:2}} onClick={()=>handleSelectLessonPopup()}>예약하기</LargeButton>
-            {selectLesson && <RegisterPopup setShowReservation={setShowReservation} setSelectLesson={setSelectLesson}/>}
+            {selectLesson && 
+                <RegisterPopup 
+                    setShowReservation={setShowReservation} 
+                    setSelectLesson={setSelectLesson} 
+                    lessonTimes={classDetail.lessonTimes}
+                    startDate={classDetail.startDate}
+                />}
             
             
             {/*세부정보 입력하기 눌렀을 때*/}
-            {showReservation && <ConfirmRegister setShowReservation={setShowReservation} classId={classId}/>}
+            {showReservation && 
+                <ConfirmRegister 
+                    setShowReservation={setShowReservation} 
+                    classId={classId}
+                />}
             
             <section className="class-schedule">
                 <h5>수업 시작 일정</h5>
-                <div className="calender">
-                    datepicker
-                </div>
-                <div className="datetime">
-                    timepicker
-                </div>
+                <ClassCalender lessonTimes={classDetail.lessonTimes}/>
             </section>
             <section className="detail-information">
                 <header className="detail-information-header">
