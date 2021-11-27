@@ -225,12 +225,11 @@ export async function getOneClass(req, res) {
         var timeSet = await middleware.setTimeSet(time);
         timeList = await middleware.calculateTime(timeSet);
     }
-    console.log("test")
+
     //가격 필터 처리
     if (!price) {
         price = [0, 10000000]
     }
-    console.log("test")
 
     //수업 하나 가져오기
     const lesson = await classRepository.findOneClass(classId, price);
@@ -238,11 +237,9 @@ export async function getOneClass(req, res) {
     if (!lesson) {
         return res.status(404).json({ "message": "class not found" })
     }
-    console.log("test")
 
     //레슨타임 필터링, 적절한 값들만 가져오기
     const newClass = await middleware.processForOne(lesson, timeList);
-    console.log("test")
 
     res.status(200).json(newClass)
 }

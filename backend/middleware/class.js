@@ -200,7 +200,7 @@ export async function processForOne(lesson, timetable) {
     let listSD = []
 
     //lessonTimes 필터로 거르기
-    let lessonTimes = [];
+    let Mon = [], Tue = [], Wed = [], Thu = [], Fri = [], Sat = [], Sun = [];
     for (let timeItem of lesson.dataValues.lessonTimes) {
         var startTime = timeItem.startTime
         var endTime = timeItem.endTime
@@ -224,6 +224,10 @@ export async function processForOne(lesson, timetable) {
         }
 
         for (var one of timetable) {
+            console.log(timeItem)
+            console.log(day == one.day)
+            console.log(startTime >= one.start)
+            console.log(endTime <= one.end)
             if (day == one.day && startTime >= one.start && endTime <= one.end) {
 
                 if (max < timeItem.capacity) {
@@ -237,11 +241,45 @@ export async function processForOne(lesson, timetable) {
                     price: timeItem.price,
                 }
 
-                lessonTimes.push(timeItem)
+                console.log(day)
+
+                //요일별로 묶기
+                switch (day) {
+                    case "Mon":
+                        Mon.push(timeItem)
+                        break;
+                    case "Tue":
+                        Tue.push(timeItem)
+                        break;
+
+                    case "Wed":
+                        Wed.push(timeItem)
+                        break;
+
+                    case "Thu":
+                        Thu.push(timeItem)
+                        break;
+
+                    case "Fri":
+                        Fri.push(timeItem)
+                        break;
+
+                    case "Sat":
+                        Sat.push(timeItem)
+                        break;
+
+                    case "Sun":
+                        Sun.push(timeItem)
+                        break;
+
+                }
 
             }
         }
     }
+
+    const lessonTimes = { Mon, Tue, Wed, Thu, Fri, Sat, Sun }
+
 
     //image url 따로 가져오기
     let imageInfo = []
