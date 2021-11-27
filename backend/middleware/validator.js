@@ -14,11 +14,8 @@ export const validator = (req, res, next) => {
 
 export const checkPhonenum = (value) => {
     let number
-    if (value.include("-")) {
-        number = value.split("-")
-    } else {
-        number = [value]
-    }
+    number = value.split("-")
+
 
     if (number.length == 3) return true
     else return false;
