@@ -127,22 +127,10 @@ export async function getClassesWithFilter(req, res) {
             time = [table.dataValues.continuousTime]
         }
 
-        time.forEach(item => {
-
-            let itemArray
-            if (item.includes("~")) {
-                itemArray = item.split("~")
-            } else {
-                itemArray = [item]
-            }
-
-            var set = { day: itemArray[0], start: parseInt(itemArray[1]), end: parseInt(itemArray[2]) }
-
-            timeList.push(set)
-
-        })
+        timeList = await middleware.calculateTime(time)
     } else {
-        timeList = await middleware.calculateTime(time);
+        var timeSet = await middleware.setTimeSet(time);
+        timeList = await middleware.calculateTime(timeSet);
     }
     if (!certainDst) {
         certainDst = 3000
