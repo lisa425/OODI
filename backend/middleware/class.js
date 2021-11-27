@@ -263,7 +263,7 @@ export async function processForOne(lesson, timetable) {
         detail: data.detail,
     }
 
-    const newClass = { ...list, lessonTimes, imageInfo, maxCapacity: max, startDates: listSD }
+    const newClass = { ...list, lessonTimes, imageInfo, maxCapacity: max, startDate: listSD }
 
     return newClass
 }
