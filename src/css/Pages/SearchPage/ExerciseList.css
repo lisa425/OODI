@@ -128,13 +128,13 @@
     text-align: center;
     background: transparent;
     border:none;
+    padding:3% 0;
 }
 
-.ExerciseListPage .type #all{
-    padding:4% 0;
+.ExerciseListPage .type .selected-type{
     color:#223DFF;
-    font-weight: 700; 
     border-bottom:2px solid #223DFF;
+    font-weight: 700; 
 }
 
 .ExerciseListPage .sort{

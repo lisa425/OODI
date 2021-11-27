@@ -16,7 +16,7 @@ const ExerciseItem = (props) => {
             headers:{"Authorization": `Bearer ${token}`}
         };
 
-        const data = props.imageInfo
+        const data = {imageInfo:props.imageInfo}
         console.log("여기는 아이템 데이터:",data,typeof(data))
 
         axios.post(`http://localhost:8080/class/image`,data,config)

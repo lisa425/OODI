@@ -132,10 +132,74 @@ const ExerciseList = (props) => {
         }
     },[newDistance])
 
+    //========클래스 타입 필터링 설정========
+    const [classType,setClassType] = useState('전체');
+
+    //선택 타입 스타일
+    const [allType,setAllType] = useState(true);
+    const [onedayType,setOnedayType] = useState(false);
+    const [month1Type,setMonth1Type]= useState(false);
+    const [month3Type,setMonth3Type] = useState(false);
+    const [month6Type,setMonth6Type] = useState(false);
+
+    const showClassTypeList = (e) => {
+        setClassType(e.target.id)
+        switch(e.target.id){
+            case "전체":
+                setAllType(!allType)
+                setOnedayType(false)
+                setMonth1Type(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "원데이클래스":
+                setOnedayType(!onedayType)
+                setAllType(false)
+                setMonth1Type(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "1개월":
+                setMonth1Type(!month1Type)
+                setOnedayType(false)
+                setAllType(false)
+                setMonth3Type(false)
+                setMonth6Type(false)
+                break;
+            case "3개월":
+                setMonth3Type(!month1Type)
+                setMonth1Type(false)
+                setOnedayType(false)
+                setAllType(false)
+                setMonth6Type(false)
+                break;
+            case "6개월":
+                setMonth6Type(!month1Type)
+                setMonth3Type(false)
+                setMonth1Type(false)
+                setOnedayType(false)
+                setAllType(false)
+                break;
+        }
+
+        let data = {type:classType}
+
+        axios.post(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,data,config)
+        .then(response => {
+            console.log(`hi ${e.target.id} and ${data.type}`)
+            if(response.data.message === 'SUCCESS'){
+                console.log('success원데이:',response.data)
+                setClassList(response.data.classes)
+            }
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
 
 
 
     const [categoryData,setCategoryData] = useState({})
+
     //클래스 리스트 세팅
     const [classList,setClassList] = useState([])
     const [ImageInfo,setImageInfo] = useState([]) 
@@ -146,14 +210,9 @@ const ExerciseList = (props) => {
         .then(response=>{
             if(response.data.message === 'SUCCESS'){
                 console.log('success:',response.data)
-                setImageInfo(prevImageInfo => [...prevImageInfo,response.data.imageInfo])
+                setImageInfo(response.data.imageInfo)
                 setClassList(response.data.classes)
                 setPriceRange([response.data.lowest,response.data.highest])
-
-                let urlArray = Object.values(response.data.imageInfo)
-                
-                
-                console.log('ImageInfo:',ImageInfo,typeof(ImageInfo))
                 
             }else{
                 console.log(response)
@@ -238,11 +297,11 @@ const ExerciseList = (props) => {
                     <button className={isDistance ? "blue-button":"white-button"}  id="location" onClick={()=>showDistancePopup()}>거리</button>
                 </section>
                 <section className="type">
-                    <button id="all">전체</button>
-                    <button id="oneday">원데이</button>
-                    <button id="month1">1개월</button>
-                    <button id="month3">3개월</button>
-                    <button id="month6">6개월</button>
+                    <button id="전체" onClick={(e)=>showClassTypeList(e)} className={allType ? "selected-type":null}>전체</button>
+                    <button id="원데이클래스" onClick={(e)=>showClassTypeList(e)} className={onedayType ? "selected-type":null}>원데이</button>
+                    <button id="1개월" onClick={(e)=>showClassTypeList(e)} className={month1Type ? "selected-type":null}>1개월</button>
+                    <button id="3개월" onClick={(e)=>showClassTypeList(e)} className={month3Type ? "selected-type":null}>3개월</button>
+                    <button id="6개월" onClick={(e)=>showClassTypeList(e)} className={month6Type ? "selected-type":null}>6개월</button>
                 </section>
                 <section className="sort">
                     <select id="sort" name="sort" onChange={handleSort}>
