@@ -19,10 +19,9 @@ const ClassCalendar = (props) => {
     //사용자가 선택한 클래스 리스트를 배열에 추합
     const [selectLesson,setSelectLesson] = useState([])
     const selectLessonTime = (lesson,preventClick) => {
+        let les = JSON.stringify(lesson)
         if(!preventClick){
-            console.log(`lesson:${lesson}`)
-            setSelectLesson(lesson)
-            console.log(`selectedLesson:${selectLesson}`)
+            setSelectLesson(selectLesson.concat(les))
             props.setSelectedLesson(selectLesson)
             
         }else{
@@ -39,12 +38,11 @@ const ClassCalendar = (props) => {
     } 
 
     const renderLessons = lessonList.map((lesson,index)=>{
-        console.log(lesson)
         return(
             <div 
                 key={index} 
                 className="lesson-time-item" 
-                onClick={(e)=>selectLessonTime(lesson[index],props.preventClick)}
+                onClick={(e)=>selectLessonTime(lesson,props.preventClick)}
             >
                 <h6>모집중</h6>
                 <p className="time">{makeTimeString(lesson.startTime)}~{makeTimeString(lesson.endTime)}</p>
