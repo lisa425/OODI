@@ -138,15 +138,23 @@ const ExerciseList = (props) => {
     const [categoryData,setCategoryData] = useState({})
     //클래스 리스트 세팅
     const [classList,setClassList] = useState([])
-    const [imgurl,setImgurl] = useState([])
+    const [ImageInfo,setImageInfo] = useState([]) 
+
     useEffect(() => {
         console.log(token)
         axios.get(`http://localhost:8080/class/${encodeURIComponent(category)}/${encodeURIComponent(subCategory)}/${sort}`,config)
         .then(response=>{
             if(response.data.message === 'SUCCESS'){
                 console.log('success:',response.data)
+                setImageInfo(prevImageInfo => [...prevImageInfo,response.data.imageInfo])
                 setClassList(response.data.classes)
                 setPriceRange([response.data.lowest,response.data.highest])
+
+                let urlArray = Object.values(response.data.imageInfo)
+                
+                
+                console.log('ImageInfo:',ImageInfo,typeof(ImageInfo))
+                
             }else{
                 console.log(response)
             }
@@ -158,7 +166,7 @@ const ExerciseList = (props) => {
     const renderClass = classList.map((item,index) => {
         let originPrice = item.lessonTimes[0].originPrice
         let price = item.lessonTimes[0].price
-
+        console.log(`아이템:${index}`,ImageInfo)
         return(
             <Link to={`/search/detail/${item.id}`} key={index}>
                 <ExerciseItem 
@@ -171,6 +179,7 @@ const ExerciseList = (props) => {
                     discountRate={item.discountRate} 
                     originPrice={originPrice.toLocaleString()} 
                     price={price.toLocaleString()} 
+                    imageInfo={ImageInfo}
                 />
             </Link>
         )

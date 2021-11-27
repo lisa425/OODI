@@ -5,35 +5,35 @@ import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
 import axios from 'axios';
 
 const ExerciseItem = (props) => {
-    const [imgurl,setImageurl] = useState('')
 
-    // useEffect(() => {
-    //     let randomNum = Math.floor(Math.random() * 8) + 1;
-    //     console.log(randomNum)
+    useEffect(() => {
+        let randomNum = Math.floor(Math.random() * 8) + 1;
+        console.log(randomNum)
 
-    //     const token = window.localStorage.getItem('TOKEN_KEY')
-    //     console.log(token)
-    //     const config = {
-    //         headers:{"Authorization": `Bearer ${token}`}
-    //     };
+        const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
+        const config = {
+            headers:{"Authorization": `Bearer ${token}`}
+        };
 
-    //     const data = [`test${randomNum}`,'jpg',props.id]
+        const data = props.imageInfo
+        console.log("여기는 아이템 데이터:",data,typeof(data))
 
-    //     axios.post(`http://localhost:8080/class/image`,data,config)
-    //     .then(response => {
-    //         if(response.status === 200){
-    //             console.log(response.data)
-    //         }else{
-    //             console.log('request is success,but fail')
-    //         }
-    //     }).catch((error)=>{
-    //         console.log(error)
-    //     })
-    // }, [])
+        axios.post(`http://localhost:8080/class/image`,data,config)
+        .then(response => {
+            if(response.status === 200){
+                console.log("이미지 성공:",response.data)
+            }else{
+                console.log('request is success,but fail')
+            }
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }, [])
     return(
         <div className="exercise-item">
             <section className="thumbnail">
-                <img className="thumbnail-img" src={imgurl} alt="thumbnail"/>
+                <img className="thumbnail-img" src={boxing} alt="thumbnail"/>
                 <div className="location-info">
                     <Location style={{fill:'white'}}/>
                     <span>{props.address}&nbsp;{props.distance}m</span>
