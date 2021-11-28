@@ -4,8 +4,10 @@ import Back from '../../Components/common/Back'
 import '../../css/Pages/SettingPage/TimeTablePage.css'
 import ScheduleSelector from 'react-schedule-selector'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom';
 
 const TimeTablePage = (props) => {
+    const navigate = useNavigate();
     //요일별 가능 시간을 담는 배열
     const [monTimeList,setMonTimeList] = useState([])
     const [tueTimeList,setTueTimeList] = useState([])
@@ -121,7 +123,7 @@ const TimeTablePage = (props) => {
         axios.post('http://localhost:8080/timetable/setTable',{time:ableTimeList},{headers:{"Authorization": `Bearer ${token}`}})
         .then(response => {
             if(response.data.message === 'SUCCESS'){
-                alert('success timetable')
+                navigate('/home')
             }else{
                 console.log('request is success,but fail')
             }

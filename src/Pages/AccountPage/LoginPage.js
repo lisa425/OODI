@@ -46,7 +46,7 @@ const LoginPage = (props) => {
                 type="text" 
                 value={phoneNumber} 
                 onChange={handleChange}
-                placeholder="전화번호를 입력해주세요.(형식:010-****-****)"
+                placeholder="전화번호를 입력해주세요.(형식:010-0000-0000)"
             />
             <p style={{color:'red',marginTop:'5px'}}>{message}</p>
             <LargeButton onClick={()=>submitLogin()}>로그인</LargeButton>

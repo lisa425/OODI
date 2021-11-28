@@ -117,7 +117,7 @@ const TimePopup = (props) => {
         const ableTimeList = setAbleTimeList();
         console.log("사용가능 시간:",ableTimeList)
         props.setSelectedTime(ableTimeList)
-        // closePopup();
+        closePopup();
     }
     
     const closePopup = () => {

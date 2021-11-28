@@ -43,7 +43,6 @@ const SignupPage = (props) => {
 
     //회원가입 폼 제출
     const submitSignup = () => {
-        console.log(certification)
         certify(certification,randomNumber)
 
         if (isCertify) {
@@ -55,7 +54,6 @@ const SignupPage = (props) => {
             axios.post('http://localhost:8080/user/signup',signupInfo)
             .then(response => {
                 if(response.data.message === 'SUCCESS'){
-                    alert('success signup')
                     navigate('/login')
                 }else{
                     console.log('request is success,but fail')
@@ -121,7 +119,7 @@ const SignupPage = (props) => {
                     placeholder="상세 주소를 입력해주세요."
                 />
             </section>
-            <LargeButton onClick={submitSignup}>회원가입</LargeButton>
+            <LargeButton onClick={()=>submitSignup()}>회원가입</LargeButton>
         </main>
     )
 }

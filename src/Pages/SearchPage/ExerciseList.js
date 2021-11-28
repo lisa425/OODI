@@ -10,7 +10,7 @@ import '../../css/Pages/SearchPage/ExerciseList.css'
 import {Link,useParams} from 'react-router-dom';
 import Back from '../../Components/common/Back';
 // import MultiRange from '../../Components/search/MultiRangeSlider'
-import {DownOutlined,CloseOutlined} from '@ant-design/icons';
+import {DownOutlined} from '@ant-design/icons';
 import axios from 'axios';
 import ball from '../../Assets/image/pictogram/ball.png'
 import fight from '../../Assets/image/pictogram/fight.png'
@@ -265,7 +265,7 @@ const ExerciseList = (props) => {
         let originPrice = item.lessonTimes[0].originPrice
         let price = item.lessonTimes[0].price
         let userGu = item.address.split('동')
-        console.log(`아이템:${index}`,ImageInfo)
+        console.log(`아이템:${index}`,item)
         return(
             <Link to={`/search/detail/${item.id}`} key={index}>
                 <ExerciseItem 

@@ -3,11 +3,11 @@ import LargeButton from '../common/LargeButton'
 import {CloseOutlined} from '@ant-design/icons';
 import "../../css/Components/search/DistancePopup.css";
 const DistancePopup = (props) => {
-    const [distance,setDistance] = useState(0)
+    const [distance,setDistance] = useState(3000)
 
     const submitDistance = () => {
-        console.log(distance)
         props.setNewDistance(distance);
+        closeDistance();
     }
 
     const closeDistance = () => {

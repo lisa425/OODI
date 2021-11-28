@@ -4,7 +4,7 @@ import Navigator from '../../Components/common/Navigator';
 import '../../css/Pages/SearchPage/ExerciseDetail.css'
 import ConfirmRegister from './ConfirmRegister';
 import {useParams} from 'react-router-dom';
-import test10 from '../../Assets/image/thumbnails/test10.jpg';
+import fight from '../../Assets/image/thumbnails/fight.jpeg';
 import {ClockCircleOutlined,CarOutlined,UserOutlined} from '@ant-design/icons'
 import Back from '../../Components/common/Back';
 import {ReactComponent as CreditCard} from '../../Assets/image/icons/creditcard.svg'
@@ -85,7 +85,7 @@ const ExerciseDetail = (props) => {
                     <Heart />
                 </div>
             </header>
-            <img className="exercise-image" src={test10} alt="boxing"/>
+            <img className="exercise-image" src={fight} alt="boxing"/>
             <section className="introduce">
                 <div className="keyword">
                     <div>{classDetail.subCategory}</div>

@@ -19,6 +19,7 @@ const HomePage = (props) => {
 
     useEffect(()=>{
         const token = window.localStorage.getItem('TOKEN_KEY')
+        console.log(token)
         const config = {
             headers:{"Authorization": `Bearer ${token}`}
         };
@@ -39,9 +40,6 @@ const HomePage = (props) => {
         axios.get('http://localhost:8080/timetable/getTime',config)
         .then(response => {
             if(response.data.message === 'SUCCESS'){
-                console.log('success')
-                console.log(response.status)
-                console.log(response.data.totalTime)
                 setTotalTime(response.data.totalTime)
             }else if(response.data.message === '시간표가 없습니다.'){
                 setTotalTime(response.data.totalTime)

@@ -1,22 +1,25 @@
 import React,{useEffect,useState} from 'react';
 import '../../css/Components/search/ExerciseItem.css'
-import test1 from '../../Assets/image/thumbnails/test1.jpg'
-import test2 from '../../Assets/image/thumbnails/test2.jpg'
-import test3 from '../../Assets/image/thumbnails/test3.jpg'
-import test4 from '../../Assets/image/thumbnails/test4.jpg'
-import test5 from '../../Assets/image/thumbnails/test5.jpg'
-import test6 from '../../Assets/image/thumbnails/test6.jpg'
-import test7 from '../../Assets/image/thumbnails/test7.jpg'
-import test8 from '../../Assets/image/thumbnails/test8.jpg'
-import test9 from '../../Assets/image/thumbnails/test9.jpeg'
-import test10 from '../../Assets/image/thumbnails/test10.jpg'
+import ball from '../../Assets/image/thumbnails/ball.jpg'
+import yoga from '../../Assets/image/thumbnails/yoga.jpg'
+import fight from '../../Assets/image/thumbnails/fight.jpeg'
+import golf from '../../Assets/image/thumbnails/golf.jpg'
+import health from '../../Assets/image/thumbnails/health.jpg'
+import swim from '../../Assets/image/thumbnails/swim.jpg'
 
 import {ReactComponent as Location} from '../../Assets/image/icons/location.svg'
-import axios from 'axios';
+// import axios from 'axios';
 
 const ExerciseItem = (props) => {
     let randomNum = Math.floor(Math.random() * 9) + 1;
-    const testImg = [test1,test2,test3,test4,test5,test6,test7,test8,test9,test10]
+    const testImg = {
+        ball:ball,
+        yoga:yoga,
+        fight:fight,
+        golf:golf,
+        health:health,
+        swim:swim
+    }
     // useEffect(() => {
     //     let randomNum = Math.floor(Math.random() * 8) + 1;
     //     console.log(randomNum)
@@ -45,7 +48,7 @@ const ExerciseItem = (props) => {
     return(
         <div className="exercise-item">
             <section className="thumbnail">
-                <img className="thumbnail-img" src={testImg[randomNum]} alt="thumbnail"/>
+                <img className="thumbnail-img" src={testImg.fight} alt="thumbnail"/>
                 <div className="location-info">
                     <Location style={{fill:'white'}}/>
                     <span>{props.address}&nbsp;{props.distance}m</span>

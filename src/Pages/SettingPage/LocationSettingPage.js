@@ -5,8 +5,10 @@ import Back from '../../Components/common/Back'
 import LargeButton from '../../Components/common/LargeButton'
 import '../../css/Components/Common/AddressSetting.css';
 import {SearchOutlined} from '@ant-design/icons';
+import {useNavigate} from 'react-router-dom';
 
 const LocationSettingPage = (props) => {
+    const navigate = useNavigate()
     //input state
     const [inputText,setInputText] = useState('') 
     //실제 map으로 보낼 keyword
@@ -57,7 +59,7 @@ const LocationSettingPage = (props) => {
                 <h3>이 주소가 맞나요?</h3>
                 <div>{searchKeyword}</div>
             </section>
-            <LargeButton>주소 설정</LargeButton>
+            <LargeButton onClick={()=>navigate('/home')}>주소 설정</LargeButton>
         </div>
     )
 }
