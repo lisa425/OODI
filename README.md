@@ -1,8 +1,7 @@
 # OODI:우디
-<!-- <img src="https://user-images.githubusercontent.com/65384154/144169812-5be01c47-d854-4642-8d4c-ce395c6cd0f6.png" style="width:500px"/>
- -->
-원티드 주관 해커톤 <해,커리어>출품작<br>
-약 380개 팀 중 상위 50팀 안에 들어 예선 진출
+<img src="https://user-images.githubusercontent.com/65384154/144346708-9eb19b12-8e9d-4e22-948b-553c73044654.jpg" style="width:800px"/>
+- 원티드 주관 해커톤 <해,커리어>출품작<br>
+- 약 380개 팀 중 상위 50팀 안에 들어 예선 진출
  
 ## 🏃🏻‍♂️ 소개
 <b>우디는 비수기 시간대인 '해피타임'을 활용하여 자신의 공강 시간에 딱 맞는 운동 클래스 예약 서비스를 제공하는 어플리케이션입니다.</b><br><br>
