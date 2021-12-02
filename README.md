@@ -16,8 +16,8 @@
 
 ## 01. 사용 기술
 <div><img src="https://img.shields.io/badge/REACT-61DAFB?style=flat-square&logo=REACT&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white">&nbsp;</div>
-<b>FrontEnd</b> : React.js, React Native<br>
-<b>BackEnd</b> : Node.js, MariaDB<br>
+<b>FrontEnd</b> : React.js, React Native | 담당:임채원 <br>
+<b>BackEnd</b> : Node.js, MariaDB | 담당:이지수 <br>
 <br>
 
 >React.js로 구현한 뒤 React Native Webview를 활용해 웹뷰로 감싸는 형식으로 구현했습니다.<br>
