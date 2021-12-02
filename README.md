@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# OODI:우디
+<!-- <img src="https://user-images.githubusercontent.com/65384154/144169812-5be01c47-d854-4642-8d4c-ce395c6cd0f6.png" style="width:500px"/>
+ -->
+원티드 주관 해커톤 <해,커리어>출품작<br>
+약 380개 팀 중 상위 50팀 안에 들어 예선 진출
+ 
+## 🏃🏻‍♂️ 소개
+<b>우디는 비수기 시간대인 '해피타임'을 활용하여 자신의 공강 시간에 딱 맞는 운동 클래스 예약 서비스를 제공하는 어플리케이션입니다.</b><br><br>
+코로나 시대 도래 후, 비대면 강의 도입 이후의 대학생들은 통학 시간의 감소로 기존 대비 더 많은 공강시간을 얻게 되며 <br>
+시간 활용의 자유도가 높아졌고, 운동과 같은 자기 계발에 투자하고자 하는 니즈도 커졌습니다.<br>
+그러나 비용의 문제 혹은 무엇을 해야할 지 모른다는 문제로 인해 자기계발 욕구와 활용 가능한 시간 대비 실제 자기계발에 <br>
+공강시간을 활용하는 비율은 높지 않았습니다. 이에 더해 코로나로 인해 실내 체육 활동을 꺼리게 되면서 피트니스계 시장은 <br>
+주춤한 상황입니다. 우디는 이러한 대학생들의 니즈와 피트니스계 시장의 페인 포인트를 해결하기 위해 일반적으로 비수기 시간대라고<br>
+꼽히는 오전 11시~오후 4시 사이에 개설되는 운동 클래스들을 보다 저렴한 가격으로 학생들에게 연결해줌으로써<br>
+새로운 Value Chain을 구성하고자 합니다.<br>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 01. 사용 기술
+<div><img src="https://img.shields.io/badge/REACT-61DAFB?style=flat-square&logo=REACT&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white">&nbsp;</div>
+<b>FrontEnd</b> : React.js, React Native<br>
+<b>BackEnd</b> : Node.js, MariaDB<br>
+<br>
 
-## Available Scripts
+>React.js로 구현한 뒤 React Native Webview를 활용해 웹뷰로 감싸는 형식으로 구현했습니다.<br>
+>프론트엔드 담당이 웹 개발을 주력으로 하고 있고, 네이티브 기능을 활용하는 기능이 없는 관계로 이와 같이 구현하는 방향으로 설정하였습니다.
+<br>
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 02.구현 내용
