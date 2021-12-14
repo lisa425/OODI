@@ -25,3 +25,33 @@
 <br>
 
 ## 02.구현 내용
+
+![깃헙용](https://user-images.githubusercontent.com/67117391/145705435-97e407b9-f1a8-4e4b-821b-1796dec30e4a.gif)
+
+
+
+APK
+--------------
+React, React native을 사용하여 웹뷰 어플리케이션으로 개발되었습니다.
+
+Server
+---------------
+1. NodeJS로 개발된 API 서버입니다.
+2. 데이터베이스는 MariaDB 및 Sequelize를 사용합니다.
+3. URL 주소는 ./router에 정리되어 있습니다.
+4. ./controller에서 비즈니스 로직을 처리합니다.
+5. ./data에서 데이터베이스 CRUD를 처리합니다.
+6. ./db/scema 안에 모든 스키마가 정의되어 있습니다.
+
+사용 라이브러리 목록
+> - express : node JS 개발 프레임워크
+> - express-validator : body validation
+> - JsonWebToken : 토큰 생성
+> - cors
+> - helmet
+> - mariadb
+> - sequelize : MySQL ORM
+> - geolib : 위,경도 기반 거리 계산
+> - node-geocoder : 주소를 위, 경도로 변환
+> - socket.io : 알림 
+
