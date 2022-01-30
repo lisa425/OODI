@@ -55,3 +55,17 @@ Server
 > - node-geocoder : 주소를 위, 경도로 변환
 > - socket.io : 알림 
 
+Client
+---------------
+1. React로 웹앱 화면을 개발 후 React Native의 웹뷰를 이용하여 앱 형태로 구현했습니다.
+2. 컴포넌트는 Components에 정리되어 있습니다.
+3. ant-design 오픈소스의 아이콘을 사용합니다.
+4. 이미지 리소스는 Assets/image에 정리되어 있습니다.
+5. 화면 페이지는 Pages에 정리되어 있습니다.
+6. App.js에서 Route를 선언합니다.
+
+사용 라이브러리 목록
+> - axios : 서버와의 통신
+> - react-router-dom : 라우팅 처리
+> - ant-design : 오픈 소스 아이콘 사용
+> - react-schedule-selector : 시간표 타임테이블 생성
