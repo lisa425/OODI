@@ -57,7 +57,7 @@ Server
 
 Client
 ---------------
-1. React로 웹앱 화면을 개발 후 React Native의 웹뷰를 이용하여 앱 형태로 구현했습니다.
+1. React로 개발된 웹앱입니다.
 2. 컴포넌트는 Components에 정리되어 있습니다.
 3. ant-design 오픈소스의 아이콘을 사용합니다.
 4. 이미지 리소스는 Assets/image에 정리되어 있습니다.
